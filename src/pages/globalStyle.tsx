@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  * {
+    box-sizing: border-box; 
+  }
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -29,6 +32,8 @@ export default createGlobalStyle`
   body {
     line-height: 1;
     font-family: 'Montserrat', sans-serif;
+    background: #FDE8DD;
+    color: #0D4137;
   }
   ol, ul {
     list-style: none;
@@ -47,5 +52,10 @@ export default createGlobalStyle`
   }
   a {
     text-decoration: none;
+  }
+  p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
   }
 `;

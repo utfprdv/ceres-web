@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import { Main } from './Main.style';
 
 type Props = {
   children: React.ReactNode;
@@ -7,10 +8,10 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
   return (
-    <div>
+    <>
       <Header />
-      <main>{children}</main>
-    </div>
+      <Main>{children}</Main>
+    </>
   );
 };
 
