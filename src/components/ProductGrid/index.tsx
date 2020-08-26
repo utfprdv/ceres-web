@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from './ProductGrid.style';
+import { Grid, Product } from './ProductGrid.style';
 
 type Props = {
   products: { title: string; image: string }[];
@@ -10,16 +10,20 @@ const ProductGrid: React.FC<Props> = ({ products }: Props) => {
     <Grid>
       {products.map(product => {
         return (
-          <article>
+          <Product>
             <picture>
-              {/* <img src={product.image} alt="" /> */}
+              <img src={product.image} alt="" />
             </picture>
             <h3>{product.title}</h3>
-          </article>
+            <h4>
+              4 produtores
+              {/* {product.producer.quantity} */}
+            </h4>
+          </Product>
         );
-      })} 
+      })}
     </Grid>
-  )
+  );
 };
 
 export default ProductGrid;
