@@ -34,8 +34,8 @@ export const Product = styled.article`
 
     h5 {
         position: absolute;
-        margin-left: 67%;
-        margin-top: 15px;
+        margin-left: 70%;
+        margin-top: 20px;
         padding: 20px 50px 2px 5px;
         background: url('https://api.iconify.design/icomoon-free:pencil.svg') no-repeat center center / contain;
     }
@@ -47,7 +47,7 @@ export const Product = styled.article`
     font-size: 10px;
     border-radius: 5px;
     margin-left: 80%;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 20px 50px 2px 5px;
     background: url('https://api.iconify.design/icomoon-free:bin.svg') no-repeat center center / contain;
     vertical-align: -0.125em;

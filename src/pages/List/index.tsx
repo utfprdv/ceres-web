@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductGrid from 'components/ListGrid';
-import { H3 } from './List.style';
+import { H3, BOT } from './List.style';
 
 const products = [
   {
@@ -17,7 +17,107 @@ const products = [
     image: 'http://lorempixel.com/170/160/food/',
     title: 'Pêssego',
     amount: '12',
-  },
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
+  {
+    image: 'http://lorempixel.com/170/160/food/',
+    title: 'Pêssego',
+    amount: '12',
+  }, 
 ];
 
 
@@ -26,6 +126,7 @@ const List: React.FC = () => {
     <>    
       <H3>Lista</H3>
       <ProductGrid products={products} />
+      <BOT>Reservar Produtos</BOT>
     </>
     )
 };
