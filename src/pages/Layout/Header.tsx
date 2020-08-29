@@ -11,7 +11,7 @@ const Header: React.FC = () => {
       <Link to="/lista">
         <ListaLink>
           lista
-          <ListaCount>3</ListaCount>
+          <ListaCount>12</ListaCount>
         </ListaLink>
       </Link>
     </HeaderUI>
