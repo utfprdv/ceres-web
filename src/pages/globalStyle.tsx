@@ -58,4 +58,7 @@ export default createGlobalStyle`
     font-size: 14px;
     line-height: 1.4;
   }
+  strong {
+    font-weight: 600;
+  }
 `;

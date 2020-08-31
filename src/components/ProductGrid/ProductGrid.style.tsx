@@ -13,20 +13,21 @@ export const Product = styled.article`
   margin: 0 0 8px;
 
   img {
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     width: 100%;
   }
+`;
 
-  h3 {
-    padding: 15px 15px 5px 15px;
-  }
+export const ProductCount = styled.span`
+  display: inline-block;
+  background-color: #f69651;
+  font-size: 10px;
+  border-radius: 5px;
+  padding: 4px 12px 4px 12px;
+  color: #ffffff;
+  margin-top: 16px;
+`;
 
-  h4 {
-    display: inline-block;
-    background-color: #f69651;
-    font-size: 10px;
-    border-radius: 5px;
-    margin: 0 15px 25px 15px;
-    padding: 2px 5px 2px 5px;
-  }
+export const ProductDetails = styled.div`
+  margin: 16px;
 `;
