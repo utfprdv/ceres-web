@@ -23,11 +23,11 @@ const ProductGrid: React.FC<Props> = ({ products, picker }: Props) => {
     <Grid>
       {products.map(product => {
         return (
-          <Link
-            key={product.id}
-            style={{ color: 'inherit', textDecoration: 'inherit' }}
-            to={`/produto/${product.slug}`}
-          >
+          // <Link
+          //   key={product.id}
+          //   style={{ color: 'inherit', textDecoration: 'inherit' }}
+          //   to={`/produto/${product.slug}`}
+          // >
             <Product>
               <picture>
                 <img src={product.image} alt={product.title} />
@@ -42,7 +42,7 @@ const ProductGrid: React.FC<Props> = ({ products, picker }: Props) => {
                       alignItems: 'center',
                     }}
                   >
-                    <InputCheckbox checked />
+                    <InputCheckbox checked={false} />
                     <span
                       style={{
                         fontSize: 12,
@@ -58,7 +58,7 @@ const ProductGrid: React.FC<Props> = ({ products, picker }: Props) => {
                 )}
               </ProductDetails>
             </Product>
-          </Link>
+          // </Link>
         );
       })}
     </Grid>
