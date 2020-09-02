@@ -13,18 +13,26 @@ export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   position: absolute;
   white-space: nowrap;
   width: 1px;
+  background: #fff;
 `;
 
 export const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${(props: { checked: boolean }) => (props.checked ? 'salmon' : 'papayawhip')};
+  background: ${(props: { checked: boolean }) => (props.checked ? 'salmon' : 'white')};
   border-radius: 3px;
+  border: 1px solid;
   transition: all 150ms;
 `;
 
 export const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+`;
+
+export const Icon = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-width: 2px
 `;
