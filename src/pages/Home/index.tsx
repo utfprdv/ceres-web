@@ -61,7 +61,7 @@ const Home: React.FC = () => {
         onChange={onFilterChange}
       />
       <MarketSummary />
-      <ProductGrid products={products} />
+      <ProductGrid products={products} picker={false}/>
     </>
   );
 };

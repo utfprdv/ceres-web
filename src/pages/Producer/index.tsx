@@ -51,7 +51,7 @@ const Producer: React.FC = () => {
         <strong> Dois Vizinhos</strong>
       </p>
       <br />
-      <ProductGrid products={products} picker />
+      <ProductGrid products={products} picker={true} />
     </>
   );
 };
