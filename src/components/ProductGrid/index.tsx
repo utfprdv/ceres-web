@@ -22,44 +22,57 @@ const ProductGrid: React.FC<Props> = ({ products, picker }: Props) => {
   return (
     <Grid>
       {products.map(product => {
-        return (
-          // <Link
-          //   key={product.id}
-          //   style={{ color: 'inherit', textDecoration: 'inherit' }}
-          //   to={`/produto/${product.slug}`}
-          // >
-            <Product>
+        if (picker) {
+          return (
+            <Product key={product.id}>
               <picture>
                 <img src={product.image} alt={product.title} />
               </picture>
               <ProductDetails>
                 <h3>{product.title}</h3>
-                {picker ? (
-                  <div
+                <div
+                  style={{
+                    marginTop: 8,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <InputCheckbox checked={false} />
+                  <span
                     style={{
-                      marginTop: 8,
-                      display: 'flex',
-                      alignItems: 'center',
+                      fontSize: 12,
+                      display: 'inline-block',
+                      marginLeft: 8,
                     }}
                   >
-                    <InputCheckbox checked={false} />
-                    <span
-                      style={{
-                        fontSize: 12,
-                        display: 'inline-block',
-                        marginLeft: 8,
-                      }}
-                    >
-                      Adicionar à lista
-                    </span>
-                  </div>
-                ) : (
-                  <ProductCount>4 produtores</ProductCount>
-                )}
+                    Adicionar à lista
+                      </span>
+                </div>
               </ProductDetails>
             </Product>
-          // </Link>
-        );
+          );
+
+        } else {
+          return (
+            <Link
+              key={product.id}
+              style={{ color: 'inherit', textDecoration: 'inherit' }}
+              to={`/produto/${product.slug}`}
+            >
+              <Product>
+                <picture>
+                  <img src={product.image} alt={product.title} />
+                </picture>
+                <ProductDetails>
+                  <h3>{product.title}</h3>
+
+                  <ProductCount>4 produtores</ProductCount>
+                </ProductDetails>
+              </Product>
+            </Link>
+          );
+        }
+
       })}
     </Grid>
   );
