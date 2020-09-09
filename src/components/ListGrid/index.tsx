@@ -14,8 +14,10 @@ const ListGrid: React.FC<Props> = ({ products }: Props) => {
           <Product key={product.title}>
             <picture>
               <img src={product.image} alt="" />
-            </picture>zz
-            <h3>{product.title}</h3>
+            </picture>
+            <div className='nameProduct'>
+              <h3>{product.title}</h3>
+            </div>
             <div>
               <RemoveListItem>
                 <IconBin />

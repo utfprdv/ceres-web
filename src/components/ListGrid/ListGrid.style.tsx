@@ -30,7 +30,11 @@ export const Product = styled.article`
     display: block;
   }
 
+  .nameProduct {
+    width: 100vw;
+  }
+
   h3 {
-    margin-left: 16px;
+    margin-left: 10px;
   }
 `;

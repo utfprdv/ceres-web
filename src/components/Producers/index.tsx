@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as IconPoint } from 'images/point.svg';
 import {
   Grid,
   Producer,
   ProducerPhone,
   ProducerDetails,
+  ProducerIcon,
 } from './Producer.style';
 
 type Props = {
@@ -24,11 +26,14 @@ const Producers: React.FC<Props> = (props: Props) => {
       {data.map(producer => {
         return (
           <Link
-            key={producer.id}
-            style={{ color: 'inherit', textDecoration: 'inherit' }}
-            to={`/produtor/${producer.slug}`}
+          key={producer.id}
+          style={{ color: 'inherit', textDecoration: 'inherit' }}
+          to={`/produtor/${producer.slug}`}
           >
             <Producer>
+                <svg>
+                  <IconPoint />
+                </svg>
               <ProducerDetails>
                 <h3>{producer.title}</h3>
                 <ProducerPhone>{producer.phone}</ProducerPhone>
