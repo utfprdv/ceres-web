@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { InputSearch, MarketSummary, ProductGrid } from "components";
-import { H2 } from "./Home.styles";
+import React, { useState } from 'react';
+import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components';
+import { H2 } from './Home.styles';
 
 let products = [
   {
@@ -40,6 +40,7 @@ let products = [
   },
 ];
 
+let data = true;
 let copyProducts = products;
 
 const Home: React.FC = () => {
@@ -57,8 +58,9 @@ const Home: React.FC = () => {
     setFilterValue(e.target.value);
   };
 
-  return (
-    <>
+  if(!data){
+    return (
+      <>
       <H2>feira online</H2>
       <p>
         Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
@@ -67,11 +69,29 @@ const Home: React.FC = () => {
       <InputSearch
         placeholder="Buscar por produtos"
         onChange={onFilterChange}
-      />
+        />
+      <MarketSummary />
+      <LoadingGrid products={products}/>
+      <ProductGrid products={products} />
+    </>
+  );
+} else {
+    return (
+      <>
+      <H2>feira online</H2>
+      <p>
+        Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
+      </p>
+      <br />
+      <InputSearch
+        placeholder="Buscar por produtos"
+        onChange={onFilterChange}
+        />
       <MarketSummary />
       <ProductGrid products={products} picker={false}/>
     </>
   );
+}
 };
 
 export default Home;
