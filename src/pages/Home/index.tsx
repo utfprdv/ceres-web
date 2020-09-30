@@ -40,6 +40,22 @@ let products = [
   },
 ];
 
+let info = [
+  {
+    date:{
+      day: 14,
+      month: "setembro",
+      year: 2020,
+    },
+   amount: 122,
+   city: {
+     name: "Dois Vizinhos",
+     address: "Rua Lua, 123",
+    },
+    id:0
+  },
+]
+
 let data = true;
 let copyProducts = products;
 
@@ -70,14 +86,14 @@ const Home: React.FC = () => {
         placeholder="Buscar por produtos"
         onChange={onFilterChange}
         />
-      <MarketSummary />
-      <LoadingGrid products={products}/>
+      <MarketSummary info={ info }/>
+      <LoadingGrid products={products} />
       <ProductGrid products={products} />
     </>
   );
 } else {
-    return (
-      <>
+  return (
+    <>
       <H2>feira online</H2>
       <p>
         Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
@@ -87,7 +103,7 @@ const Home: React.FC = () => {
         placeholder="Buscar por produtos"
         onChange={onFilterChange}
         />
-      <MarketSummary />
+    <MarketSummary info={info} />
       <ProductGrid products={products} picker={false}/>
     </>
   );
