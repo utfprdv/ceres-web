@@ -1,113 +1,68 @@
-import React, { useState } from 'react';
-import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components';
-import { H2 } from './Home.styles';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components'
+import { H2 } from './Home.styles'
+import { SELECT_MARKET } from 'store/contants'
 
-let products = [
-  {
-    image: "https://lorempixel.com/170/130/food/",
-    title: "Pão caseiro",
-    slug: "pao-caseiro",
-    id: 1,
-    produtores: [{}, {}],
-  },
-  {
-    image: "https://lorempixel.com/170/150/food/",
-    title: "Acelga",
-    slug: "acelga",
-    id: 2,
-    produtores: [{}, {}],
-  },
-  {
-    image: "https://lorempixel.com/170/190/food/",
-    title: "Mamão",
-    slug: "mamao",
-    id: 3,
-    produtores: [{}, {}],
-  },
-  {
-    image: "https://lorempixel.com/170/120/food/",
-    title: "Abacate",
-    slug: "abacate",
-    id: 4,
-    produtores: [{}, {}],
-  },
-  {
-    image: "https://lorempixel.com/170/160/food/",
-    title: "Cenoura",
-    slug: "cenoura",
-    id: 5,
-    produtores: [{}, {}],
-  },
-];
+interface RootState {
+  app: any,
+  markets: any,
+  selectedMarket: number,
+}
 
-let info = [
-  {
-    date:{
-      day: 14,
-      month: "setembro",
-      year: 2020,
-    },
-   amount: 122,
-   city: {
-     name: "Dois Vizinhos",
-     address: "Rua Lua, 123",
-    },
-    id:0
-  },
-]
+type Props = {
+  producers: any[],
+  markets: any[],
+  selectedMarket: number,
+  changeMarket: (payload: number) => void,
+}
 
-let data = true;
-let copyProducts = products;
-
-const Home: React.FC = () => {
-  const [filterValue, setFilterValue] = useState("");
+const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarket }: Props) => {
+  const [filterValue, setFilterValue] = useState("")
 
   const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value != "")
-      products = copyProducts.filter((value) => {
-        if (value.title === e.target.value) {
-          return value;
-        }
-      });
-    else products = copyProducts;
-    console.log(products);
-    setFilterValue(e.target.value);
-  };
+    setFilterValue(e.target.value)
+  }
 
-  if(!data){
-    return (
-      <>
-      <H2>feira online</H2>
-      <p>
-        Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
-      </p>
-      <br />
-      <InputSearch
-        placeholder="Buscar por produtos"
-        onChange={onFilterChange}
-        />
-      <MarketSummary info={ info }/>
-      <LoadingGrid products={products} />
-      <ProductGrid products={products} />
-    </>
-  );
-} else {
+  const products = React.useMemo(() => producers.reduce((acc, curr) => {
+    return acc.concat(...curr.lista_produtos)
+  }, []), [producers])
+
+  const info = React.useMemo(() => {
+    const market = markets.find(m => m.id === selectedMarket)
+    return {
+      amount: products.length,
+      date: market?.data_fim,
+      address: `${market?.endereco_logradouro}`,
+      id: market?.id,
+      markets,
+    }
+  }, [products.length, markets, selectedMarket])
+
+  const filteredPRoducts = products.filter((p: any) => p.nome.match(new RegExp(filterValue, 'gi')))
+
   return (
     <>
       <H2>feira online</H2>
       <p>
         Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
-      </p>
+    </p>
       <br />
       <InputSearch
         placeholder="Buscar por produtos"
         onChange={onFilterChange}
-        />
-    <MarketSummary info={info} />
-      <ProductGrid products={products} picker={false}/>
+      />
+      <MarketSummary info={info} onChange={changeMarket} />
+      {!products.length && <LoadingGrid products={Array(4).fill([1, 2, 3, 4]).map((i, index) => ({ id: index, slug: `prod-${index}` }))} />}
+      {products.length && <ProductGrid products={filteredPRoducts} />}
     </>
-  );
+  )
 }
-};
 
-export default Home;
+export default connect((state: RootState) => ({
+  producers: state.app.producers,
+  markets: state.app.markets,
+  selectedMarket: state.app.selectedMarket,
+}), (dispatch) => ({
+  changeMarket: (payload: number) => dispatch({ type: SELECT_MARKET, payload })
+}))(Home)

@@ -1,49 +1,22 @@
-import React from 'react';
-import { ProductGrid } from 'components';
-import { H2 } from './Producer.style';
+import React from 'react'
+import { ProductGrid } from 'components'
+import { H2 } from './Producer.style'
+import { useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const products = [
-  {
-    image: 'https://lorempixel.com/170/130/food/',
-    title: 'Pão caseiro',
-    slug: 'pao-caseiro',
-    id: 1,
-    produtores: [{}, {}],
-  },
-  {
-    image: 'https://lorempixel.com/170/150/food/',
-    title: 'Acelga',
-    slug: 'acelga',
-    id: 2,
-    produtores: [{}, {}],
-  },
-  {
-    image: 'https://lorempixel.com/170/190/food/',
-    title: 'Mamão',
-    slug: 'mamao',
-    id: 3,
-    produtores: [{}, {}],
-  },
-  {
-    image: 'https://lorempixel.com/170/120/food/',
-    title: 'Abacate',
-    slug: 'abacate',
-    id: 4,
-    produtores: [{}, {}],
-  },
-  {
-    image: 'https://lorempixel.com/170/160/food/',
-    title: 'Cenoura',
-    slug: 'cenoura',
-    id: 5,
-    produtores: [{}, {}],
-  },
-];
+type Props = {
+  producers: any[],
+}
 
-const Producer: React.FC = () => {
+const Producer: React.FC<Props> = ({ producers }: Props) => {
+  const { producerID } = useParams<any>()
+  const producer = producers.find(p => p.id === +producerID)
+
+  if (!producer) return null
+
   return (
     <>
-      <H2>Pães Caseiros Dois Vizinhos</H2>
+      <H2>{producer.username}</H2>
       <p>
         Produtos disponíveis para retirada dia
         <strong> 14 de setembro </strong>
@@ -51,9 +24,15 @@ const Producer: React.FC = () => {
         <strong> Dois Vizinhos</strong>
       </p>
       <br />
-      <ProductGrid products={products} picker={true} />
+      <ProductGrid products={producer.lista_produtos} picker={true} />
     </>
-  );
-};
+  )
+}
 
-export default Producer;
+type RootState = {
+  app: any,
+}
+
+export default connect((state: RootState) => ({
+  producers: state.app.producers,
+}))(Producer)

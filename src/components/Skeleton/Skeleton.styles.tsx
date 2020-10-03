@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Skeleton from "react-loading-skeleton";
+// import Skeleton from "react-loading-skeleton";
 
 export const GridLoading = styled.section`
 margin-top: 15px;

@@ -29,3 +29,13 @@ export const ListaCount = styled.span`
   padding: 2px 5.5px;
   margin-left: 8px;
 `;
+
+export const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  margin-left: -10px;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #fff;
+`

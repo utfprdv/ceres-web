@@ -28,7 +28,7 @@ export const Producer = styled.article`
   }
 `;
 
-export const ProducerPhone = styled.a`
+export const ProducerPhone = styled.span`
   margin-top: 8px;
   opacity: 0.6;
   display: inline-block;
