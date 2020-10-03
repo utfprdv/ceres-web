@@ -1,44 +1,43 @@
-import React from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { ReactComponent as IconBack } from 'images/back.svg';
-import { HeaderUI, Logo, ListaLink, ListaCount } from './Header.style';
-
-const Header: React.FC = () => {
-  const history = useHistory();
-  const location = useLocation();
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link, useHistory, useLocation } from 'react-router-dom'
+import { ReactComponent as IconBack } from 'images/back.svg'
+import { HeaderUI, Logo, ListaLink, ListaCount, BackButton } from './Header.style'
+type Props = {
+  listCount: number,
+}
+const Header: React.FC<Props> = ({ listCount }: Props) => {
+  const history = useHistory()
+  const location = useLocation()
 
   return (
     <HeaderUI>
       {history.length >= 2 && location.pathname !== '/' ? (
-        <button
-          type="button"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginLeft: -10,
-            appearance: 'none',
-            background: 'transparent',
-            border: 0,
-            color: '#fff',
-          }}
-          onClick={() => history.goBack()}
+        <BackButton
+          onClick={history.goBack}
         >
           <IconBack />
           Voltar
-        </button>
+        </BackButton>
       ) : (
-        <Link to="/">
-          <Logo>ceres</Logo>
-        </Link>
-      )}
+          <Link to="/">
+            <Logo>ceres</Logo>
+          </Link>
+        )}
       <Link to="/lista">
         <ListaLink>
           lista
-          <ListaCount>3</ListaCount>
+          {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
         </ListaLink>
       </Link>
     </HeaderUI>
-  );
-};
+  )
+}
 
-export default Header;
+type RootState = {
+  shop: any,
+}
+
+export default connect((state: RootState) => ({
+  listCount: state.shop.products.length
+}))(Header)

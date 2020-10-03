@@ -12,15 +12,10 @@ export const MarketDetails = styled.div`
   
   .select{
     font-family: 'Montserrat';
-    padding: 10px;
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 1.5px;
-    border-color: #666666;
     background: 0;
     margin: 0 15px 0 0;
     font-weight: 600;
-    width: 185px;
+    border: 0;
   }
   
   .options{
@@ -28,15 +23,16 @@ export const MarketDetails = styled.div`
     font-size: 16px;
   }
   `;
-  
-  export const MarketTitle = styled.p`
+
+export const MarketTitle = styled.p`
   margin: 0;
   font-weight: 600;
   
   `;
-  
-  export const MarketSubtitle = styled.p`
+
+export const MarketSubtitle = styled.p`
   font-size: 80%;
   opacity: 0.8;
-  margin-left: 10px;
+  margin-left: 4px;
+  margin-top: 2px;
 `;

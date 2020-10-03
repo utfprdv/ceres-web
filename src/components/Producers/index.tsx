@@ -6,15 +6,14 @@ import {
   Producer,
   ProducerPhone,
   ProducerDetails,
-  ProducerIcon,
 } from './Producer.style';
 
 type Props = {
   data: {
     id: number;
-    title: string;
+    username: string;
     slug: string;
-    phone: string;
+    whatsapp: string;
   }[];
 };
 
@@ -26,17 +25,17 @@ const Producers: React.FC<Props> = (props: Props) => {
       {data.map(producer => {
         return (
           <Link
-          key={producer.id}
-          style={{ color: 'inherit', textDecoration: 'inherit' }}
-          to={`/produtor/${producer.slug}`}
+            key={producer.id}
+            style={{ color: 'inherit', textDecoration: 'inherit' }}
+            to={`/produtor/${producer.id}`}
           >
             <Producer>
-                <svg>
-                  <IconPoint />
-                </svg>
+              <svg>
+                <IconPoint />
+              </svg>
               <ProducerDetails>
-                <h3>{producer.title}</h3>
-                <ProducerPhone>{producer.phone}</ProducerPhone>
+                <h3>{producer.username}</h3>
+                <ProducerPhone>{producer.whatsapp}</ProducerPhone>
               </ProducerDetails>
             </Producer>
           </Link>

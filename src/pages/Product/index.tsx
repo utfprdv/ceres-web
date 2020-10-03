@@ -1,124 +1,49 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Producers } from 'components';
-import { ProductFigure, ProductTitle } from './Product.style';
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import { Producers } from 'components'
+import { ProductFigure, ProductTitle } from './Product.style'
+import { connect } from 'react-redux'
 
-const products = [
-  {
-    image: 'https://lorempixel.com/170/130/food/',
-    title: 'Pão caseiro',
-    slug: 'pao-caseiro',
-    id: 1,
-    producers: [
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-    ],
-  },
-  {
-    image: 'https://lorempixel.com/170/150/food/',
-    title: 'Acelga',
-    slug: 'acelga',
-    id: 2,
-    producers: [
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-    ],
-  },
-  {
-    image: 'https://lorempixel.com/170/190/food/',
-    title: 'Mamão',
-    slug: 'mamao',
-    id: 3,
-    producers: [
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-    ],
-  },
-  {
-    image: 'https://lorempixel.com/170/120/food/',
-    title: 'Abacate',
-    slug: 'abacate',
-    id: 4,
-    producers: [
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-    ],
-  },
-  {
-    image: 'https://lorempixel.com/170/160/food/',
-    title: 'Cenoura',
-    slug: 'cenoura',
-    id: 5,
-    producers: [
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-      {
-        id: 1,
-        title: 'Horta da Alice',
-        slug: 'horta-da-alice',
-        phone: '(46) 98773-1344',
-      },
-    ],
-  },
-];
+type Props = {
+  producers: any[],
+}
 
-const Product: React.FC = () => {
-  const { productID } = useParams();
-  const [product] = products.filter(p => p.slug === productID);
+const Product: React.FC<Props> = ({ producers }: Props) => {
+  const { productID } = useParams<any>()
+  const products = React.useMemo(() => producers.reduce((acc, curr) => {
+    return {
+      ...acc,
+      ...curr.lista_produtos.reduce((acc: any, curr: any) => {
+        return {
+          ...acc,
+          [curr.id]: {
+            ...curr,
+          },
+        }
+      }, {}),
+    }
+  }, {}), [producers])
+
+  const product = products[productID]
+  if (!product) return null
 
   return (
     <>
       <ProductFigure>
-        <img src={product.image} alt={product.title} />
+        <img src={`https://ceres.app.br/media/${product.imagem_principal}`} alt={product.nome} />
       </ProductFigure>
       <ProductTitle>{product.title}</ProductTitle>
-      <Producers data={product.producers} />
+      <Producers data={producers.filter(p => {
+        return p.lista_produtos.find((pr: any) => pr.id === +productID)
+      })} />
     </>
-  );
-};
+  )
+}
 
-export default Product;
+type RootState = {
+  app: any,
+}
+
+export default connect((state: RootState) => ({
+  producers: state.app.producers,
+}))(Product)
