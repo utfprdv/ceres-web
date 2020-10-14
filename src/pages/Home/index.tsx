@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components'
 import { H2 } from './Home.styles'
 import { SELECT_MARKET } from 'store/contants'
+import Utils from '../../services/utils';
 
 interface RootState {
   app: any,
@@ -39,7 +40,7 @@ const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarke
     }
   }, [products.length, markets, selectedMarket])
 
-  const filteredPRoducts = products.filter((p: any) => p.nome.match(new RegExp(filterValue, 'gi')))
+  const filteredProducts = products.filter((p: any) => Utils.filter(p.nome, filterValue))
 
   return (
     <>
@@ -54,7 +55,7 @@ const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarke
       />
       <MarketSummary info={info} onChange={changeMarket} />
       {!products.length && <LoadingGrid products={Array(4).fill([1, 2, 3, 4]).map((i, index) => ({ id: index, slug: `prod-${index}` }))} />}
-      {products.length && <ProductGrid products={filteredPRoducts} />}
+      {products.length && <ProductGrid products={filteredProducts} />}
     </>
   )
 }
