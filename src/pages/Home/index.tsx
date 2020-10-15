@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components'
-import { H2 } from './Home.styles'
+import { H2, OnNotFound } from './Home.styles'
 import { SELECT_MARKET } from 'store/contants'
 import Utils from '../../services/utils';
 
@@ -55,7 +55,12 @@ const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarke
       />
       <MarketSummary info={info} onChange={changeMarket} />
       {!products.length && <LoadingGrid products={Array(4).fill([1, 2, 3, 4]).map((i, index) => ({ id: index, slug: `prod-${index}` }))} />}
-      {products.length && <ProductGrid products={filteredProducts} />}
+      {filteredProducts.length > 0 
+        ? <ProductGrid products={filteredProducts}/>
+        : <OnNotFound>
+            <p>Nenhum resultado encontrado.</p>
+          </OnNotFound>
+      }
     </>
   )
 }
