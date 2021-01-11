@@ -4,7 +4,7 @@ export const HeaderUI = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0D4137;
+  background: #0d4137;
   color: #fff;
   padding: 10px 16px;
 `;
@@ -20,8 +20,8 @@ export const ListaLink = styled.span`
 `;
 
 export const ListaCount = styled.span`
-  background: #FDE8DD;
-  color: #0D4137;
+  background: #fde8dd;
+  color: #0d4137;
   font-size: 12px;
   border-radius: 100%;
   width: 30px;
@@ -38,4 +38,4 @@ export const BackButton = styled.button`
   background: transparent;
   border: 0;
   color: #fff;
-`
+`;
