@@ -1,6 +1,8 @@
 import React, { useCallback, createRef, useRef } from 'react';
 
-import axios, { AxiosError } from 'axios';
+import { useAuth } from '../../hooks/auth';
+
+import Api from '../../services/api';
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
 
 import { ReactComponent as Usuario } from '../../images/usuario.svg';
@@ -9,23 +11,15 @@ import { ReactComponent as Senha } from '../../images/senha.svg';
 const Login: React.FC = () => {
   const formElement = createRef<HTMLFormElement>();
 
+  const { signIn } = useAuth();
+
   const handleOnSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (formElement.current) {
       const body = new FormData(formElement.current);
-      axios({
-        method: 'post',
-        url: `https://ceres.app.br/api/login`,
-        data: body,
-        headers: { 'Content-Type': 'multipart/form-data' },
-        validateStatus(status) {
-          return status === 200;
-        },
-      })
-        .then(res => console.log(res.data))
-        .catch(err => {
-          console.log(err);
-        });
+      // Api.ṕost('/login', body).then(res => console.log(res));
+      signIn({ body });
     }
   }, []);
 

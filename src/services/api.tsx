@@ -1,21 +1,22 @@
 class Api {
-    baseUrl: string;
-    constructor(baseUrl = 'https://ceres.app.br/api') {
-        this.baseUrl = baseUrl
-    }
+  baseUrl: string;
 
-    get = (path: string) => {
-        return fetch(`${this.baseUrl}${path}`, {
-            method: 'get',
-        }).then(data => data.json())
-    }
+  constructor(baseUrl = 'https://ceres.app.br/api') {
+    this.baseUrl = baseUrl;
+  }
 
-    ṕost = (path: string, body: any) => {
-        return fetch(`${this.baseUrl}${path}`, {
-            method: 'post',
-            body,
-        }).then(data => data.json())
-    }
+  get = (path: string) => {
+    return fetch(`${this.baseUrl}${path}`, {
+      method: 'get',
+    }).then(data => data.json());
+  };
+
+  ṕost = (path: string, body: FormData) => {
+    return fetch(`${this.baseUrl}${path}`, {
+      method: 'post',
+      body,
+    }).then(data => data.json());
+  };
 }
 
-export default new Api()
+export default new Api();
