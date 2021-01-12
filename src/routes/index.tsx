@@ -1,6 +1,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Home, List, Producer, Product, Login } from 'pages';
+import {
+  Home,
+  List,
+  Producer,
+  Product,
+  Login,
+  MarketRegistration,
+} from 'pages';
 import Layout from 'pages/Layout';
 import { connect } from 'react-redux';
 import { LOAD_MARKET } from 'store/contants';
@@ -13,6 +20,7 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
   return (
     <Layout>
       <Switch>
+        <Route path="/register/market" exact component={MarketRegistration} />
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Home} />
         <Route path="/lista" component={List} />
