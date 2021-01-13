@@ -13,6 +13,7 @@ export const H1 = styled.label`
 
 export const FORM = styled.form`
   display: block;
+  margin-top: 30px;
 `;
 
 interface LABELProps {
@@ -23,9 +24,9 @@ export const LABEL = styled.label<LABELProps>`
   > div {
     box-sizing: border-box;
     border-radius: 5px;
-    padding-top: 7px;
+    padding-top: 3px;
     padding-right: 12px;
-    padding-bottom: 12px;
+    padding-bottom: 5px;
     padding-left: 12px;
     border: 2px solid #80808000;
 
