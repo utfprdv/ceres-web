@@ -35,10 +35,6 @@ export const FORM = styled.form`
     padding-left: -16px;
     margin-left: -16px;
   }
-
-  :last-of-type {
-    margin-bottom: 65px;
-  }
 `;
 
 interface LABELProps {
@@ -86,12 +82,34 @@ interface LABELHEADERProps {
 
 export const LABELHEADER = styled.div<LABELHEADERProps>`
   padding-top: 7px;
+  display: flex;
+
   p {
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
     text-transform: lowercase;
   }
+
+  svg {
+    max-width: 24px;
+    padding-bottom: 15px;
+  }
+
+  ${props =>
+    props.isInputFilled
+      ? css`
+          svg {
+            height: auto;
+            width: 16px;
+          }
+        `
+      : css`
+          svg {
+            height: auto;
+            width: 24px;
+          }
+        `};
 
   svg + p {
     padding-left: 10px;
@@ -117,11 +135,11 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     margin-left: auto;
     margin-right: 0;
   }
+`;
 
-  display: flex;
-
-  svg {
-    height: 20px;
-    width: 20px;
+export const DIV = styled.div`
+  .next {
+    display: none;
   }
+  margin-bottom: 60px;
 `;
