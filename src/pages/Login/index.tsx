@@ -1,8 +1,7 @@
-import React, { useCallback, createRef, useRef } from 'react';
+import React, { useCallback, createRef } from 'react';
 
 import { useAuth } from '../../hooks/auth';
 
-import Api from '../../services/api';
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
 
 import { ReactComponent as Usuario } from '../../images/usuario.svg';
@@ -13,15 +12,17 @@ const Login: React.FC = () => {
 
   const { signIn } = useAuth();
 
-  const handleOnSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleOnSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-    if (formElement.current) {
-      const body = new FormData(formElement.current);
-      // Api.ṕost('/login', body).then(res => console.log(res));
-      signIn({ body });
-    }
-  }, []);
+      if (formElement.current) {
+        const body = new FormData(formElement.current);
+        signIn({ body });
+      }
+    },
+    [formElement, signIn],
+  );
 
   return (
     <>
@@ -64,7 +65,7 @@ const Login: React.FC = () => {
             </section>
 
             <div className="forgotPassword">
-              <a href="#">Esqueceu sua senha?</a>
+              <a href="/esqueci">Esqueceu sua senha?</a>
             </div>
           </Requisicao>
         </form>

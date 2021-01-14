@@ -34,7 +34,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async body => {
+  const signIn = useCallback(async ({ body }) => {
     const response = await api.ṕost('/login', body);
 
     const { token, produtor_id } = response.data;
