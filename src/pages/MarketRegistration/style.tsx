@@ -17,7 +17,9 @@ export const FORM = styled.form`
 
   button[type='submit'] {
     position: fixed;
-    top: 92%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 
     border: none;
     background-color: #f69651;
@@ -32,8 +34,6 @@ export const FORM = styled.form`
     text-transform: lowercase;
 
     color: #ffffff;
-    padding-left: -16px;
-    margin-left: -16px;
   }
 `;
 
@@ -53,8 +53,8 @@ export const LABEL = styled.label<LABELProps>`
     border: 2px solid #80808000;
 
     ${props =>
-      props.isVisible &&
-      css`
+    props.isVisible &&
+    css`
         border: 2px solid #808080;
       `};
 
@@ -115,13 +115,13 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     padding-left: 10px;
 
     ${props =>
-      props.isInputFilled
-        ? css`
+    props.isInputFilled
+      ? css`
             font-size: 12px;
             line-height: 15px;
             color: #808080;
           `
-        : css`
+      : css`
             font-size: 14px;
             line-height: 17px;
             color: #000000;

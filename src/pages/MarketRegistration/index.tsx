@@ -81,13 +81,9 @@ const Login: React.FC = () => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (formElement.current) {
-        // const body = new FormData(formElement.current);
-        // Api.ṕost('/login', body).then(res => console.log(res));
-        if (formDateElement.current) {
-          formElement.current.classList.add('next');
-          formDateElement.current.classList.remove('next');
-        }
+      if (formDateElement.current && formElement.current) {
+        formElement.current.classList.add('next');
+        formDateElement.current.classList.remove('next');
       }
     },
     [formElement],
@@ -97,8 +93,9 @@ const Login: React.FC = () => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (formDateElement.current) {
-        // const body = new FormData(formElement.current);
+      if (formElement.current && formDateElement.current) {
+        const bodyOthers = new FormData(formElement.current);
+        const bodyDate = new FormData(formDateElement.current);
         // Api.ṕost('/login', body).then(res => console.log(res));
       }
     },
