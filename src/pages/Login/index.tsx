@@ -1,11 +1,16 @@
 import React, { useCallback, createRef } from 'react';
 
+import LABELFORM from '../../components/LabelForm';
+
 import { useAuth } from '../../hooks/auth';
 
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
 
-import { ReactComponent as Usuario } from '../../images/usuario.svg';
+import { ReactComponent as Usuario } from '../../images/email.svg';
 import { ReactComponent as Senha } from '../../images/senha.svg';
+import { ReactComponent as Logo } from '../../images/logo.svg';
+import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
+import { ReactComponent as Google } from '../../images/logo_google.svg';
 
 const Login: React.FC = () => {
   const formElement = createRef<HTMLFormElement>();
@@ -27,26 +32,24 @@ const Login: React.FC = () => {
   return (
     <>
       <BuildMain>
+        <header>
+          <div>
+            <Logo />
+          </div>
+
+          <div>
+            <Ceres />
+          </div>
+        </header>
+
         <form onSubmit={handleOnSubmit} ref={formElement}>
           <Credenciais>
-            <section className="section-email">
-              <Usuario />
-              <input
-                placeholder="E-mail"
-                type="text"
-                name="email"
-                className="email"
-              />
+            <section>
+              <LABELFORM Icon={Usuario} Title="Email" required />
             </section>
 
-            <section className="section-senha">
-              <Senha />
-              <input
-                placeholder="Senha"
-                type="password"
-                name="password"
-                className="senha"
-              />
+            <section>
+              <LABELFORM Icon={Senha} Title="Senha" required />
             </section>
           </Credenciais>
 
@@ -54,18 +57,19 @@ const Login: React.FC = () => {
             <section className="button">
               <div>
                 <button type="button" className="first">
-                  Cadastrar
+                  login
                 </button>
               </div>
               <div>
                 <button type="submit" className="second">
-                  Entrar
+                  <Google />
+                  <div>or sign-in with Google</div>
                 </button>
               </div>
             </section>
 
-            <div className="forgotPassword">
-              <a href="/esqueci">Esqueceu sua senha?</a>
+            <div className="signUp">
+              <a href="/cadastrar">cadastre-se</a>
             </div>
           </Requisicao>
         </form>

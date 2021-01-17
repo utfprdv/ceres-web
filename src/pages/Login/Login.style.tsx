@@ -1,11 +1,31 @@
 import styled from 'styled-components';
 
 export const BuildMain = styled.main`
-  height: 40vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
+
+  header {
+    height: 25vh;
+    width: 60vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      margin-left: 0.5em;
+
+      svg {
+        width: 6.5em;
+
+        path {
+          fill: #0d4137;
+        }
+      }
+    }
+  }
 
   * {
     font-family: 'Montserrat', sans-serif;
@@ -13,51 +33,19 @@ export const BuildMain = styled.main`
 `;
 
 export const Credenciais = styled.section`
-  height: 17vh;
+  height: 36vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 95vw;
 
-  .section-email {
-    width: 85vw;
-    display: flex;
-    align-items: center;
-    padding-left: 0.5em;
-    margin-bottom: 0.7em;
-    box-shadow: 0.3em 0.3em 0.5em rgba(102, 99, 96, 0.267);
-    border-radius: 0.3em;
-    background-color: white;
-  }
+  section {
+    width: 100%;
 
-  .email {
-    font-family: 'Montserrat', sans-serif;
-    width: 75vw;
-    height: 6.5vh;
-    padding-left: 1.3em;
-    outline: none;
-    border: none;
-  }
-
-  .section-senha {
-    /* svg path {
-      stroke: blue;
-    }  */
-    width: 85vw;
-    display: flex;
-    align-items: center;
-    padding-left: 0.5em;
-    box-shadow: 0.3em 0.3em 0.5em rgba(102, 99, 96, 0.267);
-    border-radius: 0.3em;
-    background-color: white;
-  }
-
-  .senha {
-    width: 75vw;
-    height: 6.5vh;
-    padding-left: 1.3em;
-    outline: none;
-    border: none;
+    svg {
+      width: 1.3em;
+    }
   }
 `;
 
@@ -67,40 +55,58 @@ export const Requisicao = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1em;
+  margin-top: 1.3em;
 
   .button {
-    width: 85%;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
-    margin: 1em auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1.3em auto;
 
     button {
       border: none;
-      border-radius: 2em;
-      color: white;
-      height: 2.3em;
-      width: 11em;
+      border-radius: 0.5em;
+      height: 3.5em;
+      width: 91.5vw;
+      margin-top: 1em;
       outline: none;
+      text-transform: capitalize;
 
       :hover {
-        opacity: 0.8;
         text-decoration-line: underline;
         cursor: pointer;
       }
     }
 
     .first {
-      background-color: #e55d45;
+      color: white;
+      background-color: #0d4137;
+      font-weight: bold;
+
+      :hover {
+        background-color: #e55d45;
+      }
     }
 
     .second {
-      background-color: #0d4137;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      background-color: #ffffff;
+      font-weight: bold;
+
+      div {
+        margin-left: 1em;
+      }
     }
   }
 
-  .forgotPassword a {
+  .signUp a {
     color: #333;
+    font-size: 14px;
     :hover {
       text-decoration-line: underline;
       color: #e55d45;
