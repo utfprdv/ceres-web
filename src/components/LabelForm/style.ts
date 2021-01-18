@@ -16,8 +16,8 @@ export const LABEL = styled.label<LABELProps>`
     border: 2px solid #80808000;
 
     ${props =>
-    props.isVisible &&
-    css`
+      props.isVisible &&
+      css`
         border: 2px solid #808080;
       `};
 
@@ -52,11 +52,12 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     font-style: normal;
     font-weight: normal;
     text-transform: lowercase;
+    margin: auto 0px;
   }
 
   svg {
     max-width: 24px;
-    padding-bottom: 15px;
+    margin: auto 0px;
   }
 
   ${props =>
@@ -78,13 +79,13 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     padding-left: 10px;
 
     ${props =>
-    props.isInputFilled
-      ? css`
+      props.isInputFilled
+        ? css`
             font-size: 12px;
             line-height: 15px;
             color: #808080;
           `
-      : css`
+        : css`
             font-size: 14px;
             line-height: 17px;
             color: #000000;
@@ -95,6 +96,7 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     color: #808080;
     font-size: 12px;
     line-height: 15px;
+    margin: auto 0px;
     margin-left: auto;
     margin-right: 0;
   }
