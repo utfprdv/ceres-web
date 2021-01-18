@@ -45,11 +45,11 @@ const Login: React.FC = () => {
         <form onSubmit={handleOnSubmit} ref={formElement}>
           <Credenciais>
             <section>
-              <LABELFORM Icon={Usuario} Title="Email" required />
+              <LABELFORM Icon={Usuario} Title="Email" required name="user" />
             </section>
 
             <section>
-              <LABELFORM Icon={Senha} Title="Senha" required />
+              <LABELFORM Icon={Senha} Title="Senha" required name="password" />
             </section>
           </Credenciais>
 

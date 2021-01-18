@@ -11,9 +11,16 @@ interface Props {
   Title: string;
   required?: boolean;
   type?: string;
+  name: string;
 }
 
-const LABELFORM: React.FC<Props> = ({ Icon, Title, required, type }: Props) => {
+const LABELFORM: React.FC<Props> = ({
+  Icon,
+  Title,
+  required,
+  type,
+  name,
+}: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInputFilled, setIsInputFilled] = useState(false);
   const inputRef = createRef<HTMLInputElement>();
@@ -33,6 +40,7 @@ const LABELFORM: React.FC<Props> = ({ Icon, Title, required, type }: Props) => {
           {required ? <p>Obrigatório</p> : <></>}
         </LABELHEADER>
         <input
+          name={name}
           type={type}
           required={required}
           ref={inputRef}

@@ -47,13 +47,18 @@ const Login: React.FC = () => {
     <DIV>
       <H1>Cadastro de feira</H1>
       <FORM onSubmit={handleOnSubmitOthers} ref={formElement}>
-        <LABELFORM Icon={Name} Title="Nome" />
-        <LABELFORM Icon={Cep} Title="Cep" />
-        <LABELFORM Icon={City} Title="Cidade" />
-        <LABELFORM Icon={Neighborhood} Title="Bairro" required />
-        <LABELFORM Icon={Adress} Title="Endereço" required />
-        <LABELFORM Icon={Complement} Title="Complemento" />
-        <LABELFORM Icon={Email} Title="Email" />
+        <LABELFORM Icon={Name} Title="Nome" name="name" />
+        <LABELFORM Icon={Cep} Title="Cep" name="cep" />
+        <LABELFORM Icon={City} Title="Cidade" name="city" />
+        <LABELFORM
+          Icon={Neighborhood}
+          Title="Bairro"
+          required
+          name="neighborhood"
+        />
+        <LABELFORM Icon={Adress} Title="Endereço" required name="adress" />
+        <LABELFORM Icon={Complement} Title="Complemento" name="complement" />
+        <LABELFORM Icon={Email} Title="Email" name="email" />
         <button type="submit">Enviar</button>
       </FORM>
       <FORM
@@ -66,8 +71,15 @@ const Login: React.FC = () => {
           Title="Data de início"
           required
           type="date"
+          name="start_date"
         />
-        <LABELFORM Icon={EndDate} Title="Data de fim" required type="date" />
+        <LABELFORM
+          Icon={EndDate}
+          Title="Data de fim"
+          required
+          type="date"
+          name="end_date"
+        />
         <button type="submit">Enviar</button>
       </FORM>
     </DIV>
