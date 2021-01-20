@@ -35,9 +35,18 @@ const Login: React.FC = () => {
       e.preventDefault();
 
       if (formElement.current && formDateElement.current) {
-        const bodyOthers = new FormData(formElement.current);
-        const bodyDate = new FormData(formDateElement.current);
-        // Api.ṕost('/login', body).then(res => console.log(res));
+        const formData = new FormData(formElement.current);
+        const formDataDate = new FormData(formDateElement.current);
+        const entries = formDataDate.entries();
+        let continueDo = true;
+        do {
+          const formEntrie = entries.next();
+          const [name, value] = formEntrie.value || [];
+          continueDo = value !== undefined;
+          formData.append(name, value);
+        } while (continueDo);
+
+        Api.ṕost('/api/feira/', formData).then(res => console.log(res));
       }
     },
     [formDateElement],
