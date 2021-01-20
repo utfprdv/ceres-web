@@ -37,12 +37,14 @@ const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ body }) => {
     const response = await api.ṕost('/login', body);
 
-    const { token, produtor_id } = response.data;
+    if (response.data?.token) {
+      const { token, produtor_id } = response.data;
 
-    localStorage.setItem('@ceresWeb:token', token);
-    localStorage.setItem('@ceresWeb:produtor_id', produtor_id);
+      localStorage.setItem('@ceresWeb:token', token);
+      localStorage.setItem('@ceresWeb:produtor_id', produtor_id);
 
-    setData({ token, produtor_id });
+      setData({ token, produtor_id });
+    }
   }, []);
 
   const signOut = useCallback(() => {

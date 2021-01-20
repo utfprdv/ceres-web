@@ -29,12 +29,16 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
           <Logo>ceres</Logo>
         </Link>
       )}
-      <Link to="/lista">
-        <ListaLink>
-          lista
-          {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
-        </ListaLink>
-      </Link>
+      {location.pathname === '/login' ? (
+        <></>
+      ) : (
+        <Link to="/lista">
+          <ListaLink>
+            lista
+            {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
+          </ListaLink>
+        </Link>
+      )}
     </HeaderUI>
   );
 };

@@ -49,28 +49,34 @@ const Login: React.FC = () => {
             </section>
 
             <section>
-              <LABELFORM Icon={Senha} Title="Senha" required name="password" />
+              <LABELFORM
+                Icon={Senha}
+                Title="Senha"
+                required
+                name="password"
+                type="password"
+              />
             </section>
           </Credenciais>
 
           <Requisicao>
             <section className="button">
               <div>
-                <button type="button" className="first">
+                <button type="submit" className="first">
                   login
                 </button>
               </div>
-              <div>
-                <button type="submit" className="second">
+              {/* <div>
+                <button type="button" className="second">
                   <Google />
                   <div>or sign-in with Google</div>
                 </button>
-              </div>
+              </div> */}
             </section>
 
-            <div className="signUp">
+            {/* <div className="signUp">
               <a href="/cadastrar">cadastre-se</a>
-            </div>
+            </div> */}
           </Requisicao>
         </form>
       </BuildMain>

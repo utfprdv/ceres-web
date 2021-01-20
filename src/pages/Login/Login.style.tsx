@@ -86,7 +86,10 @@ export const Requisicao = styled.section`
       font-weight: bold;
 
       :hover {
-        background-color: #e55d45;
+        background-color: #063129;
+      }
+      :active {
+        background-color: #083f35;
       }
     }
 
