@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import {
   Home,
   List,
@@ -11,6 +11,7 @@ import {
 import Layout from 'pages/Layout';
 import { connect } from 'react-redux';
 import { LOAD_MARKET } from 'store/contants';
+import Route from './Route';
 
 const Routes: React.FC = ({ loadMakerts }: any) => {
   React.useEffect(() => {
@@ -20,7 +21,12 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
   return (
     <Layout>
       <Switch>
-        <Route path="/registro/feira" exact component={MarketRegistration} />
+        <Route
+          path="/registro/feira"
+          exact
+          component={MarketRegistration}
+          isPrivate
+        />
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Home} />
         <Route path="/lista" component={List} />
