@@ -24,23 +24,27 @@ interface ItemBoxProps {
   >;
   notificationNumber?: number;
   children: React.ReactNode;
+  href: string;
 }
 
 const ItemBox: React.FC<ItemBoxProps> = ({
   Icon,
   notificationNumber = 0,
   children,
+  href,
 }: ItemBoxProps) => {
   return (
-    <ItemDiv>
-      {notificationNumber > 0 && (
-        <Notification>
-          <h5>{notificationNumber}</h5>
-        </Notification>
-      )}
-      <Icon />
-      <p>{children}</p>
-    </ItemDiv>
+    <a href={href}>
+      <ItemDiv>
+        {notificationNumber > 0 && (
+          <Notification>
+            <h5>{notificationNumber}</h5>
+          </Notification>
+        )}
+        <Icon />
+        <p>{children}</p>
+      </ItemDiv>
+    </a>
   );
 };
 
@@ -57,9 +61,15 @@ const Profile: React.FC = () => {
         </div>
         <NameAndStatusBar>
           <h1>Jonh Doe(Admin)</h1>
-          <StatusBar>
-            <div>statusBAR</div>
-            <p>73/100</p>
+          <StatusBar progress={20} max={100}>
+            <div>
+              <div />
+            </div>
+            <span className="progressStatus">
+              <p className="progress" />
+              <p>/</p>
+              <p className="max" />
+            </span>
           </StatusBar>
         </NameAndStatusBar>
       </Header>
@@ -70,12 +80,18 @@ const Profile: React.FC = () => {
         </HeaderBody>
         <MainContent>
           <div>
-            <ItemBox Icon={Wallet} notificationNumber={1}>
+            <ItemBox Icon={Wallet} notificationNumber={1} href="/pagar">
               a pagar
             </ItemBox>
-            <ItemBox Icon={Box}>a enviar</ItemBox>
-            <ItemBox Icon={DeliveryMan}>a receber</ItemBox>
-            <ItemBox Icon={Review}>a avaliar</ItemBox>
+            <ItemBox Icon={Box} href="/enviar">
+              a enviar
+            </ItemBox>
+            <ItemBox Icon={DeliveryMan} href="/receber">
+              a receber
+            </ItemBox>
+            <ItemBox Icon={Review} href="/avaliar">
+              a avaliar
+            </ItemBox>
           </div>
         </MainContent>
       </Body>
