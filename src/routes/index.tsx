@@ -22,8 +22,13 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
   return (
     <Layout>
       <Switch>
-        <Route path="/registro/feira" exact component={MarketRegistration} />
-        <Route path="/perfil" exact component={Profile} />
+        <Route
+          path="/registro/feira"
+          exact
+          component={MarketRegistration}
+          isPrivate
+        />
+        <Route path="/perfil" exact component={Profile} isPrivate />
 
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Home} />
