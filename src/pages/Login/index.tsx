@@ -10,7 +10,7 @@ import { ReactComponent as Usuario } from '../../images/email.svg';
 import { ReactComponent as Senha } from '../../images/senha.svg';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
-import { ReactComponent as Google } from '../../images/logo_google.svg';
+// import { ReactComponent as Google } from '../../images/logo_google.svg';
 
 const Login: React.FC = () => {
   const formElement = createRef<HTMLFormElement>();

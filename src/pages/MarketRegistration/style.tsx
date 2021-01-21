@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const H1 = styled.label`
   font-family: Montserrat;
@@ -38,8 +38,18 @@ export const FORM = styled.form`
 `;
 
 export const DIV = styled.div`
-  .next {
-    display: none;
-  }
   margin-bottom: 60px;
+`;
+
+interface DIVFORMProps {
+  isVisible?: boolean;
+}
+
+export const DIVFORM = styled.div<DIVFORMProps>`
+  display: none;
+  ${props =>
+    props.isVisible &&
+    css`
+      display: block;
+    `};
 `;
