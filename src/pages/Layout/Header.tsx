@@ -17,6 +17,36 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
   const history = useHistory();
   const location = useLocation();
 
+  const chooseHeaderOption = () => {
+    const token = localStorage.getItem('@ceresWeb:token');
+
+    if (token !== null) {
+      // usuário deslogado
+      switch (location.pathname) {
+        case '/login':
+          return <></>;
+        default:
+          return (
+            <Link to="/lista">
+              <ListaLink>
+                lista
+                {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
+              </ListaLink>
+            </Link>
+          );
+      }
+    } else {
+      switch (location.pathname) {
+        default:
+          return (
+            <Link to="/perfil">
+              <ListaLink>perfil</ListaLink>
+            </Link>
+          );
+      }
+    }
+  };
+
   return (
     <HeaderUI>
       {history.length >= 2 && location.pathname !== '/' ? (
@@ -29,16 +59,7 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
           <Logo>ceres</Logo>
         </Link>
       )}
-      {location.pathname === '/login' ? (
-        <></>
-      ) : (
-        <Link to="/lista">
-          <ListaLink>
-            lista
-            {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
-          </ListaLink>
-        </Link>
-      )}
+      {chooseHeaderOption()}
     </HeaderUI>
   );
 };

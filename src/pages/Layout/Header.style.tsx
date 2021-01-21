@@ -17,6 +17,12 @@ export const Logo = styled.h1`
 
 export const ListaLink = styled.span`
   color: #fff;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: lowercase;
 `;
 
 export const ListaCount = styled.span`

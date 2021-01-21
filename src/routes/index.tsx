@@ -7,6 +7,7 @@ import {
   Product,
   Login,
   MarketRegistration,
+  Profile,
 } from 'pages';
 import Layout from 'pages/Layout';
 import { connect } from 'react-redux';
@@ -21,12 +22,9 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
   return (
     <Layout>
       <Switch>
-        <Route
-          path="/registro/feira"
-          exact
-          component={MarketRegistration}
-          isPrivate
-        />
+        <Route path="/registro/feira" exact component={MarketRegistration} />
+        <Route path="/perfil" exact component={Profile} />
+
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Home} />
         <Route path="/lista" component={List} />
