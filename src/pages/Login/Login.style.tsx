@@ -18,7 +18,8 @@ export const BuildMain = styled.main`
       margin-left: 0.5em;
 
       svg {
-        width: 6.5em;
+        width: 86px;
+        height: 84px;
 
         path {
           fill: #0d4137;
