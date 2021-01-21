@@ -45,6 +45,7 @@ interface LABELHEADERProps {
 
 export const LABELHEADER = styled.div<LABELHEADERProps>`
   padding-top: 7px;
+  padding-bottom: 7px;
   display: flex;
 
   p {

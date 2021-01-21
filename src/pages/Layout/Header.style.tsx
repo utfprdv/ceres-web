@@ -19,7 +19,7 @@ export const ListaLink = styled.span`
   color: #fff;
   font-family: Montserrat;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 16px;
   line-height: 20px;
   text-transform: lowercase;
