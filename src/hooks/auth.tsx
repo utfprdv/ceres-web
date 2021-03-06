@@ -1,62 +1,65 @@
-/* eslint-disable camelcase */
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/ban-types */
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
-import api from '../services/api';
-
-interface AuthState {
-  token: string;
-  produtor_id: string;
-}
-
-interface SignInCredentials {
-  body: FormData;
-}
-
-interface AuthContextData {
-  produtor_id: string;
-  signIn(credentials: SignInCredentials): Promise<void>;
-  signOut(): void;
-}
+import firebase, { auth } from '../utils/firebase';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@ceresWeb:token');
-    const produtor_id = localStorage.getItem('@ceresWeb:produtor_id');
+interface AuthContextData {
+  token?: string;
+  uid?: string;
+  signIn: (UserCredential: firebase.auth.UserCredential) => Promise<void>;
+  signOut: () => void;
+}
+interface Props {
+  children: React.ReactNode;
+}
 
-    if (token && produtor_id) {
-      return { token, produtor_id };
+const AuthProvider: React.FC<Props> = ({ children }: Props) => {
+  const [data, setData] = useState(() => {
+    const token = localStorage.getItem('@CeresWeb:token');
+    const uid = localStorage.getItem('@CeresWeb:uid');
+
+    if (token && uid) {
+      return { token, uid };
     }
 
-    return {} as AuthState;
+    return {};
   });
 
-  const signIn = useCallback(async ({ body }) => {
-    const response = await api.ṕost('/login', body);
+  const signIn = useCallback(
+    async (UserCredential: firebase.auth.UserCredential) => {
+      const { user } = UserCredential;
+      if (user) {
+        user.getIdToken().then(token => {
+          const { uid } = user;
 
-    if (response.data?.token) {
-      const { token, produtor_id } = response.data;
+          localStorage.setItem('@CeresWeb:token', token);
+          localStorage.setItem('@CeresWeb:uid', uid);
 
-      localStorage.setItem('@ceresWeb:token', token);
-      localStorage.setItem('@ceresWeb:produtor_id', produtor_id);
-
-      setData({ token, produtor_id });
-    }
-  }, []);
+          setData({ token, uid });
+        });
+      }
+    },
+    [],
+  );
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@ceresWeb:token');
-    localStorage.removeItem('@ceresWeb:produtor_id');
+    localStorage.removeItem('@CeresWeb:token');
+    localStorage.removeItem('@CeresWeb:uid');
 
-    setData({} as AuthState);
+    auth.signOut();
+
+    setData({});
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ produtor_id: data.produtor_id, signIn, signOut }}
+      value={{
+        token: data.token,
+        uid: data.uid,
+        signIn,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>

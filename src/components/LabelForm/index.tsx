@@ -1,3 +1,4 @@
+import { useForm } from 'components/Form';
 import React, { createRef, useState } from 'react';
 
 import { LABEL, LABELHEADER } from './style';
@@ -25,6 +26,8 @@ const LABELFORM: React.FC<Props> = ({
   const [isInputFilled, setIsInputFilled] = useState(false);
   const inputRef = createRef<HTMLInputElement>();
 
+  const { setInput } = useForm();
+
   return (
     <LABEL
       isVisible={isVisible}
@@ -45,6 +48,9 @@ const LABELFORM: React.FC<Props> = ({
           required={required}
           ref={inputRef}
           onChange={() => {
+            if (inputRef.current) {
+              setInput(name, inputRef.current.value);
+            }
             if (
               inputRef?.current?.value !== undefined &&
               inputRef?.current?.value !== ''

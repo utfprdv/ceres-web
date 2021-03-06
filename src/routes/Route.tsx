@@ -19,19 +19,19 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { produtor_id } = useAuth();
+  const { token } = useAuth();
 
   return (
     <ReactDOMRoute
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!produtor_id ? (
+        return isPrivate === !!token ? (
           <Component />
         ) : (
           <Redirect
             to={{
-              pathname: isPrivate ? '/' : '/dashboard',
+              pathname: isPrivate ? '/' : '/perfil',
               state: { from: location },
             }}
           />

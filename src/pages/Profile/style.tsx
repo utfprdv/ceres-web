@@ -181,3 +181,24 @@ export const MainContent = styled.div`
     }
   }
 `;
+
+export const SignOutButton = styled.button`
+  position: fixed;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  border: none;
+  background-color: #f69651;
+  width: 100%;
+  height: 50px;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: lowercase;
+
+  color: #ffffff;
+`;

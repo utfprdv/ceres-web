@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useAuth } from 'hooks/auth';
 import {
   Header,
   NameAndStatusBar,
@@ -9,6 +10,7 @@ import {
   MainContent,
   Notification,
   ItemDiv,
+  SignOutButton,
 } from './style';
 import NonProfilePicture from '../../images/non_profile_picture.svg';
 import { ReactComponent as Wallet } from '../../images/wallet.svg';
@@ -53,6 +55,8 @@ ItemBox.defaultProps = {
 };
 
 const Profile: React.FC = () => {
+  const { signOut } = useAuth();
+
   return (
     <>
       <Header>
@@ -94,6 +98,14 @@ const Profile: React.FC = () => {
             </ItemBox>
           </div>
         </MainContent>
+        <SignOutButton
+          type="button"
+          onClick={() => {
+            signOut();
+          }}
+        >
+          Encerrar sessão
+        </SignOutButton>
       </Body>
     </>
   );

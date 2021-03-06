@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { ReactComponent as IconBack } from 'images/back.svg';
+import { useAuth } from 'hooks/auth';
 import {
   HeaderUI,
   Logo,
@@ -16,14 +17,21 @@ type Props = {
 const Header: React.FC<Props> = ({ listCount }: Props) => {
   const history = useHistory();
   const location = useLocation();
+  const { token } = useAuth();
 
   const chooseHeaderOption = () => {
-    const token = localStorage.getItem('@ceresWeb:token');
-
     if (token !== null) {
       // usuário deslogado
       switch (location.pathname) {
         case '/login':
+          return <></>;
+        case '/lista':
+          return (
+            <Link to="/login">
+              <ListaLink>Login</ListaLink>
+            </Link>
+          );
+        case '/perfil':
           return <></>;
         default:
           return (

@@ -1,4 +1,6 @@
-import React, { useCallback, createRef } from 'react';
+import React, { useCallback } from 'react';
+
+import firebase, { auth } from 'utils/firebase';
 
 import LABELFORM from '../../components/LabelForm';
 
@@ -6,27 +8,39 @@ import { useAuth } from '../../hooks/auth';
 
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
 
+import { FormProvider as Form } from '../../components/Form';
+
 import { ReactComponent as Usuario } from '../../images/email.svg';
 import { ReactComponent as Senha } from '../../images/senha.svg';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
-// import { ReactComponent as Google } from '../../images/logo_google.svg';
+import { ReactComponent as Google } from '../../images/logo_google.svg';
 
 const Login: React.FC = () => {
-  const formElement = createRef<HTMLFormElement>();
-
   const { signIn } = useAuth();
 
-  const handleOnSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const HandleAuthError = useCallback((error: firebase.auth.AuthError) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  }, []);
 
-      if (formElement.current) {
-        const body = new FormData(formElement.current);
-        signIn({ body });
-      }
+  const HandleOnClickLoginGoogle = useCallback(() => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    auth.signInWithPopup(provider).then(signIn).catch(HandleAuthError);
+  }, [HandleAuthError, signIn]);
+
+  const handleOnSubmit = useCallback(
+    (data: { email: string; password: string }) => {
+      const { email, password } = data;
+
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then(signIn)
+        .catch(HandleAuthError);
     },
-    [formElement, signIn],
+    [HandleAuthError, signIn],
   );
 
   return (
@@ -41,11 +55,10 @@ const Login: React.FC = () => {
             <Ceres />
           </div>
         </header>
-
-        <form onSubmit={handleOnSubmit} ref={formElement}>
+        <Form onSubmit={handleOnSubmit}>
           <Credenciais>
             <section>
-              <LABELFORM Icon={Usuario} Title="Email" required name="user" />
+              <LABELFORM Icon={Usuario} Title="Email" required name="email" />
             </section>
 
             <section>
@@ -66,19 +79,23 @@ const Login: React.FC = () => {
                   login
                 </button>
               </div>
-              {/* <div>
-                <button type="button" className="second">
+              <div>
+                <button
+                  type="button"
+                  className="second"
+                  onClick={HandleOnClickLoginGoogle}
+                >
                   <Google />
                   <div>or sign-in with Google</div>
                 </button>
-              </div> */}
+              </div>
             </section>
 
             {/* <div className="signUp">
               <a href="/cadastrar">cadastre-se</a>
             </div> */}
           </Requisicao>
-        </form>
+        </Form>
       </BuildMain>
     </>
   );
