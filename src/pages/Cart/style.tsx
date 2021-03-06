@@ -8,7 +8,7 @@ export const Header = styled.div`
   padding: 14px;
 
   > svg {
-    min-width: 36px;
+    min-width: 13.5vw;
     height: 100%;
   }
 `;
@@ -22,14 +22,16 @@ export const Body = styled.div`
 
 export const DeliveryInfo = styled.div`
   margin-right: auto;
-  margin-left: 20px;
+  margin-left: 9px;
+  margin-top: 5px;
+  margin-bottom: 11px;
 
   h2 {
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 16px;
+    line-height: 8px;
     text-transform: lowercase;
 
     color: #0d4137;
