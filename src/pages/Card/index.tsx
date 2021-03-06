@@ -8,7 +8,7 @@ import { useAuth } from '../../hooks/auth';
 import { BuildMain, Credenciais, Requisicao } from './style';
 
 import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg';
-import { ReactComponent as Usuario } from '../../images/email.svg';
+import { ReactComponent as Usuario } from '../../images/name.svg';
 
 const Card: React.FC = () => {
   const formElement = createRef<HTMLFormElement>();
