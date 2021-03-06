@@ -1,13 +1,18 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import firebase, { auth } from '../utils/firebase';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
+interface IState {
+  userDataPresent: boolean;
+  user: firebase.User | null;
+  listener: firebase.Unsubscribe | null;
+}
 interface AuthContextData {
-  token?: string;
-  uid?: string;
-  signIn: (UserCredential: firebase.auth.UserCredential) => Promise<void>;
+  user?: firebase.User | null;
+  userDataPresent: boolean;
   signOut: () => void;
 }
 interface Props {
@@ -15,49 +20,49 @@ interface Props {
 }
 
 const AuthProvider: React.FC<Props> = ({ children }: Props) => {
-  const [data, setData] = useState(() => {
-    const token = localStorage.getItem('@CeresWeb:token');
-    const uid = localStorage.getItem('@CeresWeb:uid');
-
-    if (token && uid) {
-      return { token, uid };
-    }
-
-    return {};
+  const [state, changeState] = useState<IState>({
+    userDataPresent: false,
+    user: null,
+    listener: null,
   });
+  const history = useHistory();
 
-  const signIn = useCallback(
-    async (UserCredential: firebase.auth.UserCredential) => {
-      const { user } = UserCredential;
-      if (user) {
-        user.getIdToken().then(token => {
-          const { uid } = user;
+  useEffect(() => {
+    if (state.listener == null) {
+      changeState({
+        ...state,
+        listener: auth.onAuthStateChanged(user => {
+          if (user) {
+            changeState(oldState => ({
+              ...oldState,
+              userDataPresent: true,
+              user,
+            }));
+          } else {
+            changeState(oldState => ({
+              ...oldState,
+              userDataPresent: true,
+              user: null,
+            }));
+          }
+        }),
+      });
+    }
+    return () => {
+      if (state.listener) state.listener();
+    };
+  }, [state]);
 
-          localStorage.setItem('@CeresWeb:token', token);
-          localStorage.setItem('@CeresWeb:uid', uid);
-
-          setData({ token, uid });
-        });
-      }
-    },
-    [],
-  );
-
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@CeresWeb:token');
-    localStorage.removeItem('@CeresWeb:uid');
-
+  const signOut = () => {
     auth.signOut();
-
-    setData({});
-  }, []);
+    history.go(0);
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        token: data.token,
-        uid: data.uid,
-        signIn,
+        user: state.user,
+        userDataPresent: state.userDataPresent,
         signOut,
       }}
     >

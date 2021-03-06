@@ -17,42 +17,47 @@ type Props = {
 const Header: React.FC<Props> = ({ listCount }: Props) => {
   const history = useHistory();
   const location = useLocation();
-  const { token } = useAuth();
+  const { user, userDataPresent } = useAuth();
 
   const chooseHeaderOption = () => {
-    if (token !== null) {
-      // usuário deslogado
-      switch (location.pathname) {
-        case '/login':
-          return <></>;
-        case '/lista':
-          return (
-            <Link to="/login">
-              <ListaLink>Login</ListaLink>
-            </Link>
-          );
-        case '/perfil':
-          return <></>;
-        default:
-          return (
-            <Link to="/lista">
-              <ListaLink>
-                lista
-                {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
-              </ListaLink>
-            </Link>
-          );
-      }
-    } else {
-      switch (location.pathname) {
-        default:
-          return (
-            <Link to="/perfil">
-              <ListaLink>perfil</ListaLink>
-            </Link>
-          );
+    if (userDataPresent) {
+      if (user !== null) {
+        // usuário deslogado
+        switch (location.pathname) {
+          case '/login':
+            return <></>;
+          case '/lista':
+            return (
+              <Link to="/login">
+                <ListaLink>Login</ListaLink>
+              </Link>
+            );
+          case '/confirmacao-telefone':
+            return <></>;
+          case '/perfil':
+            return <></>;
+          default:
+            return (
+              <Link to="/lista">
+                <ListaLink>
+                  lista
+                  {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
+                </ListaLink>
+              </Link>
+            );
+        }
+      } else {
+        switch (location.pathname) {
+          default:
+            return (
+              <Link to="/login">
+                <ListaLink>login</ListaLink>
+              </Link>
+            );
+        }
       }
     }
+    return <></>;
   };
 
   return (

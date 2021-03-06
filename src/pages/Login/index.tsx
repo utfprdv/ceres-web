@@ -2,9 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import firebase, { auth } from 'utils/firebase';
 
+import { useHistory } from 'react-router-dom';
 import LABELFORM from '../../components/LabelForm';
-
-import { useAuth } from '../../hooks/auth';
 
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
 
@@ -19,8 +18,8 @@ import { ReactComponent as Facebook } from '../../images/logo_facebook.svg';
 import { ReactComponent as Apple } from '../../images/logo_apple.svg';
 
 const Login: React.FC = () => {
-  const { signIn } = useAuth();
   const [loginError, setLoginError] = useState(<span />);
+  const history = useHistory();
 
   const HandleAuthError = useCallback((error: firebase.auth.AuthError) => {
     switch (error.code) {
@@ -49,12 +48,16 @@ const Login: React.FC = () => {
         break;
     }
   }, []);
+  const redirect = useCallback(() => {
+    history.go(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
 
   const HandleOnClickLoginWithProvider = useCallback(
     provider => {
-      auth.signInWithPopup(provider).then(signIn).catch(HandleAuthError);
+      auth.signInWithPopup(provider).then(redirect).catch(HandleAuthError);
     },
-    [HandleAuthError, signIn],
+    [HandleAuthError, redirect],
   );
 
   const handleOnSubmit = useCallback(
@@ -63,10 +66,10 @@ const Login: React.FC = () => {
 
       auth
         .signInWithEmailAndPassword(email, password)
-        .then(signIn)
+        .then(redirect)
         .catch(HandleAuthError);
     },
-    [HandleAuthError, signIn],
+    [HandleAuthError, redirect],
   );
 
   return (

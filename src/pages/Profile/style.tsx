@@ -14,6 +14,12 @@ export const H1 = styled.label`
 export const Header = styled.div`
   display: flex;
 
+  > div {
+    > img {
+      border-radius: 50px;
+    }
+  }
+
   div + div {
     margin-left: 17px;
   }
@@ -21,12 +27,16 @@ export const Header = styled.div`
 
 export const NameAndStatusBar = styled.div`
   display: block;
+  min-width: 100px;
   h1 {
     font-family: Montserrat;
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     color: #c4c4c4;
   }
