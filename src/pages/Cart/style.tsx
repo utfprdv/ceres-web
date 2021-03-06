@@ -17,6 +17,7 @@ export const Body = styled.div`
   background: #ffffff;
   border-radius: 5px;
   margin-top: 8px;
+  padding-bottom: 15px;
 `;
 
 export const DeliveryInfo = styled.div`
@@ -55,12 +56,19 @@ export const Change = styled.p`
 export const MiscInfo = styled.div`
   display: flex;
   padding-top: 18px;
+  margin-bottom: 3px;
+  padding-left: 15px;
+  font-family: Montserrat;
 
   p {
     flex: 1;
+    font-size: 13px;
+    padding-top: 4.5px;
   }
 
   div {
+    width: 18vw;
+    height: 3.3vh;
     background: #f69651;
     border-radius: 5px;
 
@@ -68,9 +76,9 @@ export const MiscInfo = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
-    line-height: 12px;
+    line-height: 19px;
     text-transform: lowercase;
-
+    text-align: center;
     color: #ffffff;
 
     /* Inside Auto Layout */
@@ -78,25 +86,175 @@ export const MiscInfo = styled.div`
     flex: none;
     order: 0;
     flex-grow: 0;
-    margin: 0px 10px;
+    margin: 0px 15px;
   }
 `;
 
-export const ProductImage = styled.img``;
+export const Section = styled.section`
+  padding-left: 15px;
+  padding-top: 10px;
+  margin-right: 14px;
+  display: flex;
 
-export const ProductDetais = styled.div``;
+  svg {
+    margin: 0 12px 0 0;
+  }
+`;
 
-export const QuantityAndValues = styled.div``;
+export const QuantityAndValues = styled.div`
+  text-align: end;
+  height: 0;
+  width: 40vw;
+  font-family: Montserrat;
 
-export const Total = styled.div``;
+  position: relative;
+  top: -48.5px;
+  left: 162px;
+
+  .values {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 6px;
+  }
+
+  .usually {
+    font-size: 18px;
+    text-decoration: line-through;
+  }
+
+  .promotional {
+    font-size: 18px;
+    margin-left: 8px;
+    color: #f69651;
+  }
+`;
+
+export const ProductDetais = styled.div`
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+`;
+
+export const Total = styled.div`
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  justify-content: space-between;
+
+  .total_info {
+    p {
+      font-size: 15px;
+    }
+
+    h1 {
+      font-weight: bold;
+    }
+  }
+
+  .total_values {
+    text-align: end;
+
+    p {
+      font-size: 15px;
+    }
+
+    h1 {
+      font-weight: bold;
+      color: #f69651;
+    }
+
+    .arrow {
+      outline: none;
+      border: none !important;
+      background-color: white;
+
+      svg {
+        margin-top: 25px;
+        margin-bottom: 13px;
+      }
+    }
+  }
+`;
 
 export const Paragraph = styled.p`
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 12px;
   text-transform: lowercase;
 
   color: rgba(0, 0, 0, 0.5);
+`;
+
+export const Paymment = styled.div`
+  background: #ffffff;
+  border-radius: 5px;
+  margin-top: 8px;
+  padding-left: 15px;
+  height: 11.5vh;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  section {
+    margin-left: 15px;
+    width: 60vw;
+    height: 7vh;
+  }
+
+  .master {
+    background-color: #eaeaea;
+    border-radius: 5px;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    svg {
+      width: 11vw;
+    }
+  }
+
+  .arrow {
+    outline: none;
+    border: none !important;
+    background-color: white;
+    svg {
+      margin-left: 10px;
+    }
+  }
+`;
+
+export const Checkout = styled.div`
+  .checkout-button {
+    background-color: #f69651;
+    outline: none;
+    border: none !important;
+    border-radius: 5px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-family: Montserrat;
+
+    margin-top: 20px;
+    width: 100%;
+    height: 11.5vh;
+
+    :hover {
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
+
+    :active {
+      background-color: #083f35;
+    }
+  }
 `;
