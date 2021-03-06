@@ -143,6 +143,7 @@ export const ProductDetais = styled.div`
 `;
 
 export const Total = styled.div`
+  padding-top: 5px;
   padding-left: 15px;
   padding-right: 15px;
   display: flex;
@@ -150,7 +151,8 @@ export const Total = styled.div`
 
   .total_info {
     p {
-      font-size: 15px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     h1 {
@@ -162,7 +164,8 @@ export const Total = styled.div`
     text-align: end;
 
     p {
-      font-size: 15px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     h1 {
