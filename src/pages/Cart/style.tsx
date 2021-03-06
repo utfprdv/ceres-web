@@ -225,6 +225,7 @@ export const Paymment = styled.div`
     outline: none;
     border: none !important;
     background-color: white;
+    margin-right: 15px;
     svg {
       margin-left: 10px;
     }
