@@ -8,7 +8,7 @@ export const BuildMain = styled.main`
   align-items: center;
 
   header {
-    height: 25vh;
+    height: 22vh;
     width: 60vw;
     display: flex;
     justify-content: center;
@@ -34,7 +34,6 @@ export const BuildMain = styled.main`
 `;
 
 export const Credenciais = styled.section`
-  height: 36vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,15 +47,22 @@ export const Credenciais = styled.section`
       width: 1.3em;
     }
   }
+
+  > span {
+    margin-top: 1.3em;
+    min-height: 15px;
+    font-size: 15px;
+    color: #f02849;
+    text-align: justify;
+    text-justify: inter-word !important;
+  }
 `;
 
 export const Requisicao = styled.section`
-  height: 12vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1.3em;
 
   .button {
     width: 100%;
@@ -71,7 +77,6 @@ export const Requisicao = styled.section`
       border-radius: 0.5em;
       height: 3.5em;
       width: 91.5vw;
-      margin-top: 1em;
       outline: none;
       text-transform: capitalize;
 
@@ -95,6 +100,8 @@ export const Requisicao = styled.section`
     }
 
     .second {
+      margin-top: 5px;
+      margin-bottom: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -104,6 +111,7 @@ export const Requisicao = styled.section`
 
       div {
         margin-left: 1em;
+        min-width: 70px;
       }
     }
   }

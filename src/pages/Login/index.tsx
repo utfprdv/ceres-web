@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import firebase, { auth } from 'utils/firebase';
 
@@ -15,21 +15,47 @@ import { ReactComponent as Senha } from '../../images/senha.svg';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
 import { ReactComponent as Google } from '../../images/logo_google.svg';
+import { ReactComponent as Facebook } from '../../images/logo_facebook.svg';
+import { ReactComponent as Apple } from '../../images/logo_apple.svg';
 
 const Login: React.FC = () => {
   const { signIn } = useAuth();
+  const [loginError, setLoginError] = useState(<span />);
 
   const HandleAuthError = useCallback((error: firebase.auth.AuthError) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
+    switch (error.code) {
+      case 'auth/user-disabled':
+        setLoginError(<span>Usuário desativado!</span>);
+        break;
+      case 'auth/invalid-email':
+        setLoginError(<span>Email inválido!</span>);
+        break;
+      case 'auth/wrong-password':
+        setLoginError(<span>Senha incorreta!</span>);
+        break;
+      case 'auth/too-many-requests':
+        setLoginError(
+          <span>
+            O login para esta conta foi desativado temporariamente pois foi
+            feito tentativas repetitivas em pouco tempo!
+          </span>,
+        );
+        break;
+      case 'auth/user-not-found':
+        setLoginError(<span>Usuário não encontrado!</span>);
+        break;
+      default:
+        setLoginError(<span>{error.message}</span>);
+        break;
+    }
   }, []);
 
-  const HandleOnClickLoginGoogle = useCallback(() => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    auth.signInWithPopup(provider).then(signIn).catch(HandleAuthError);
-  }, [HandleAuthError, signIn]);
+  const HandleOnClickLoginWithProvider = useCallback(
+    provider => {
+      auth.signInWithPopup(provider).then(signIn).catch(HandleAuthError);
+    },
+    [HandleAuthError, signIn],
+  );
 
   const handleOnSubmit = useCallback(
     (data: { email: string; password: string }) => {
@@ -70,6 +96,7 @@ const Login: React.FC = () => {
                 type="password"
               />
             </section>
+            {loginError}
           </Credenciais>
 
           <Requisicao>
@@ -79,14 +106,48 @@ const Login: React.FC = () => {
                   login
                 </button>
               </div>
+              <hr />
+              <p>ou faça login com</p>
               <div>
                 <button
                   type="button"
                   className="second"
-                  onClick={HandleOnClickLoginGoogle}
+                  onClick={() => {
+                    HandleOnClickLoginWithProvider(
+                      new firebase.auth.GoogleAuthProvider(),
+                    );
+                  }}
                 >
                   <Google />
-                  <div>or sign-in with Google</div>
+                  <div>Google</div>
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="second"
+                  onClick={() => {
+                    HandleOnClickLoginWithProvider(
+                      new firebase.auth.FacebookAuthProvider(),
+                    );
+                  }}
+                >
+                  <Facebook />
+                  <div>Facebook</div>
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="second"
+                  onClick={() => {
+                    HandleOnClickLoginWithProvider(
+                      new firebase.auth.OAuthProvider('apple.com'),
+                    );
+                  }}
+                >
+                  <Apple />
+                  <div>Apple</div>
                 </button>
               </div>
             </section>
