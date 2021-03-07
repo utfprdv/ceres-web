@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { FormProvider as Form } from 'components/Form';
 import firebase, { auth } from 'utils/firebase';
+import { useHistory } from 'react-router-dom';
 import LABELFORM from '../../components/LabelForm';
 
 import { H1, DIV, DIVFORM } from './style';
@@ -13,6 +14,7 @@ const PhoneConfirmation: React.FC = () => {
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const [phoneError, setPhoneError] = useState(<span />);
   const [isPhoneOk, setIsPhoneOk] = useState(false);
+  const history = useHistory();
 
   const handleOnSubmit = useCallback(
     ({ phone, code }: { phone: string; code: string }) => {
@@ -84,9 +86,29 @@ const PhoneConfirmation: React.FC = () => {
       if (code)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        window.confirmationResult.confirm(code);
+        window.confirmationResult
+          .confirm(code)
+          .then(() => {
+            history.go(0);
+          })
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .catch((error: any) => {
+            switch (error.code) {
+              case 'auth/invalid-verification-code':
+                setPhoneError(<span>Código inválido</span>);
+                break;
+              case 'auth/missing-verification-code':
+                setPhoneError(
+                  <span>Código de verificação não encontrado</span>,
+                );
+                break;
+              default:
+                setPhoneError(<span>{error.message}</span>);
+                break;
+            }
+          });
     },
-    [],
+    [history],
   );
 
   return (
