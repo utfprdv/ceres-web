@@ -22,63 +22,69 @@ const PhoneConfirmation: React.FC = () => {
           size: 'invisible',
         },
       );
-
-      auth.currentUser
-        ?.linkWithPhoneNumber(phone, appVerifier)
-        .then(confirmationResult => {
-          appVerifier.clear();
-          setIsPhoneOk(true);
-          code && confirmationResult.confirm(code);
-        })
-        .catch(error => {
-          switch (error.code) {
-            case 'auth/provider-already-linked':
-              setPhoneError(
-                <span>Um telefone já está associado a esta conta</span>,
-              );
-              break;
-            case 'auth/captcha-check-failed':
-              setPhoneError(<span>Captcha inválido, tente novamente</span>);
-              break;
-            case 'auth/invalid-phone-number':
-              setPhoneError(<span>Número de telefone inválido</span>);
-              break;
-            case 'auth/missing-phone-number':
-              setPhoneError(<span>Não foi informado um telefone</span>);
-              break;
-            case 'auth/quota-exceeded':
-              setPhoneError(
-                <span>
-                  O limite de sms da deste projeto foi atingido, contate os
-                  responsáveis
-                </span>,
-              );
-              break;
-            case 'auth/user-disabled':
-              setPhoneError(<span>Usuário desabilitado</span>);
-              break;
-            case 'auth/credential-already-in-use':
-              setPhoneError(
-                <span>Este telefone já está sendo usado, escolha outro</span>,
-              );
-              break;
-            case 'auth/operation-not-allowed':
-              setPhoneError(<span>Operação não permitida</span>);
-              break;
-            case 'auth/too-many-requests':
-              setPhoneError(
-                <span>
-                  Nós bloqueamos este dispositivo devido a atividade anormal.
-                  Provavelmente muitas tentativas foram feitas, tente novamente
-                  mais tarde.
-                </span>,
-              );
-              break;
-            default:
-              setPhoneError(<span>{error.message}</span>);
-              break;
-          }
-        });
+      if (!code)
+        auth.currentUser
+          ?.linkWithPhoneNumber(phone, appVerifier)
+          .then(confirmationResult => {
+            appVerifier.clear();
+            setIsPhoneOk(true);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            window.confirmationResult = confirmationResult;
+          })
+          .catch(error => {
+            switch (error.code) {
+              case 'auth/provider-already-linked':
+                setPhoneError(
+                  <span>Um telefone já está associado a esta conta</span>,
+                );
+                break;
+              case 'auth/captcha-check-failed':
+                setPhoneError(<span>Captcha inválido, tente novamente</span>);
+                break;
+              case 'auth/invalid-phone-number':
+                setPhoneError(<span>Número de telefone inválido</span>);
+                break;
+              case 'auth/missing-phone-number':
+                setPhoneError(<span>Não foi informado um telefone</span>);
+                break;
+              case 'auth/quota-exceeded':
+                setPhoneError(
+                  <span>
+                    O limite de sms da deste projeto foi atingido, contate os
+                    responsáveis
+                  </span>,
+                );
+                break;
+              case 'auth/user-disabled':
+                setPhoneError(<span>Usuário desabilitado</span>);
+                break;
+              case 'auth/credential-already-in-use':
+                setPhoneError(
+                  <span>Este telefone já está sendo usado, escolha outro</span>,
+                );
+                break;
+              case 'auth/operation-not-allowed':
+                setPhoneError(<span>Operação não permitida</span>);
+                break;
+              case 'auth/too-many-requests':
+                setPhoneError(
+                  <span>
+                    Nós bloqueamos este dispositivo devido a atividade anormal.
+                    Provavelmente muitas tentativas foram feitas, tente
+                    novamente mais tarde.
+                  </span>,
+                );
+                break;
+              default:
+                setPhoneError(<span>{error.message}</span>);
+                break;
+            }
+          });
+      if (code)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.confirmationResult.confirm(code);
     },
     [],
   );
@@ -89,6 +95,7 @@ const PhoneConfirmation: React.FC = () => {
       <Form onSubmit={handleOnSubmit}>
         <DIVFORM isVisible={!isPhoneOk}>
           <LABELFORM Icon={Phone} Title="Telefone" name="phone" />
+          {phoneError}
           <button type="submit">Enviar código sms</button>
         </DIVFORM>
         <DIVFORM isVisible={isPhoneOk}>

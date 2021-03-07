@@ -38,10 +38,16 @@ const Route: React.FC<RouteProps> = ({
         {...rest}
         render={({ location }) => {
           if (isPrivate === true && !!user) {
-            if (user?.phoneNumber) {
+            if (
+              user?.phoneNumber &&
+              location.pathname !== '/confirmacao-telefone'
+            ) {
               return <Component />;
             }
-            if (location.pathname === '/confirmacao-telefone') {
+            if (
+              location.pathname === '/confirmacao-telefone' &&
+              !user?.phoneNumber
+            ) {
               return <Component />;
             }
             return (
@@ -53,7 +59,10 @@ const Route: React.FC<RouteProps> = ({
               />
             );
           }
-          if (isPrivate === false && !user) {
+          if (
+            (isPrivate === false && !user) ||
+            (isPrivate === false && !!user && location.pathname !== '/login')
+          ) {
             return <Component />;
           }
 
