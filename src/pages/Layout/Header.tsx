@@ -10,6 +10,7 @@ import {
   ListaCount,
   BackButton,
 } from './Header.style';
+import { ReactComponent as ImgLogo } from 'images/Frame_29.svg';
 
 type Props = {
   listCount: number;
@@ -69,7 +70,9 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
         </BackButton>
       ) : (
         <Link to="/">
-          <Logo>ceres</Logo>
+            <Logo>
+              <ImgLogo />
+            </Logo>
         </Link>
       )}
       {chooseHeaderOption()}
