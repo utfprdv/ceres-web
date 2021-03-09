@@ -4,6 +4,7 @@ import { InputSearch, MarketSummary, ProductGrid, LoadingGrid } from 'components
 import { H2, OnNotFound } from './Home.styles'
 import { SELECT_MARKET } from 'store/contants'
 import Utils from '../../services/utils';
+import NotSearch from '../../images/search.png';
 
 interface RootState {
   app: any,
@@ -55,10 +56,10 @@ const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarke
       />
       <MarketSummary info={info} onChange={changeMarket} />
       {!products.length && <LoadingGrid products={Array(4).fill([1, 2, 3, 4]).map((i, index) => ({ id: index, slug: `prod-${index}` }))} />}
-      {filteredProducts.length > 0 
+      {filteredProducts.length > 0
         ? <ProductGrid products={filteredProducts}/>
         : <OnNotFound>
-            <p>Nenhum resultado encontrado.</p>
+          <img src={NotSearch} alt="" width="250" height="300"/>
           </OnNotFound>
       }
     </>

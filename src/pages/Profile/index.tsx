@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useAuth } from 'hooks/auth';
+import { auth } from 'utils/firebase';
 import {
   Header,
   NameAndStatusBar,
@@ -9,6 +11,7 @@ import {
   MainContent,
   Notification,
   ItemDiv,
+  SignOutButton,
 } from './style';
 import NonProfilePicture from '../../images/non_profile_picture.svg';
 import { ReactComponent as Wallet } from '../../images/wallet.svg';
@@ -53,14 +56,19 @@ ItemBox.defaultProps = {
 };
 
 const Profile: React.FC = () => {
+  const { signOut } = useAuth();
+
   return (
     <>
       <Header>
         <div>
-          <img src={NonProfilePicture} alt="foto de perfil" />
+          <img
+            src={auth.currentUser?.photoURL || NonProfilePicture}
+            alt="foto de perfil"
+          />
         </div>
         <NameAndStatusBar>
-          <h1>Jonh Doe(Admin)</h1>
+          <h1>{auth.currentUser?.displayName}</h1>
           <StatusBar progress={20} max={100}>
             <div>
               <div />
@@ -94,6 +102,9 @@ const Profile: React.FC = () => {
             </ItemBox>
           </div>
         </MainContent>
+        <SignOutButton type="button" onClick={signOut}>
+          Encerrar sessão
+        </SignOutButton>
       </Body>
     </>
   );

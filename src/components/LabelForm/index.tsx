@@ -1,8 +1,12 @@
+/* eslint-disable react/require-default-props */
+import { useForm } from 'components/Form';
 import React, { createRef, useState } from 'react';
 
+import MaskedInput, { maskArray } from 'react-text-mask';
 import { LABEL, LABELHEADER } from './style';
 
 interface Props {
+  mask?: maskArray;
   Icon: React.FunctionComponent<
     React.SVGProps<SVGSVGElement> & {
       title?: string | undefined;
@@ -15,6 +19,7 @@ interface Props {
 }
 
 const LABELFORM: React.FC<Props> = ({
+  mask,
   Icon,
   Title,
   required,
@@ -23,14 +28,16 @@ const LABELFORM: React.FC<Props> = ({
 }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInputFilled, setIsInputFilled] = useState(false);
-  const inputRef = createRef<HTMLInputElement>();
+  const inputRef: React.RefObject<MaskedInput> = createRef();
+
+  const { setInput } = useForm();
 
   return (
     <LABEL
       isVisible={isVisible}
       onClick={() => {
         // eslint-disable-next-line no-unused-expressions
-        inputRef.current?.click();
+        inputRef.current?.inputElement?.click();
       }}
     >
       <div>
@@ -39,15 +46,23 @@ const LABELFORM: React.FC<Props> = ({
           <p>{Title}</p>
           {required ? <p>Obrigatório</p> : <></>}
         </LABELHEADER>
-        <input
+        <MaskedInput
+          mask={mask || false}
           name={name}
           type={type}
           required={required}
           ref={inputRef}
           onChange={() => {
+            if (inputRef.current) {
+              setInput(
+                name,
+                (inputRef.current.inputElement as HTMLInputElement).value,
+              );
+            }
             if (
-              inputRef?.current?.value !== undefined &&
-              inputRef?.current?.value !== ''
+              (inputRef?.current?.inputElement as HTMLInputElement).value !==
+                undefined &&
+              (inputRef?.current?.inputElement as HTMLInputElement).value !== ''
             ) {
               setIsInputFilled(true);
             } else {

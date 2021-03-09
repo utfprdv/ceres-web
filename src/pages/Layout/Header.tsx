@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { ReactComponent as IconBack } from 'images/back.svg';
+import { useAuth } from 'hooks/auth';
 import {
   HeaderUI,
   Logo,
@@ -9,6 +10,7 @@ import {
   ListaCount,
   BackButton,
 } from './Header.style';
+import { ReactComponent as ImgLogo } from 'images/Frame_29.svg';
 
 type Props = {
   listCount: number;
@@ -16,35 +18,47 @@ type Props = {
 const Header: React.FC<Props> = ({ listCount }: Props) => {
   const history = useHistory();
   const location = useLocation();
+  const { user, userDataPresent } = useAuth();
 
   const chooseHeaderOption = () => {
-    const token = localStorage.getItem('@ceresWeb:token');
-
-    if (token !== null) {
-      // usuário deslogado
-      switch (location.pathname) {
-        case '/login':
-          return <></>;
-        default:
-          return (
-            <Link to="/lista">
-              <ListaLink>
-                lista
-                {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
-              </ListaLink>
-            </Link>
-          );
-      }
-    } else {
-      switch (location.pathname) {
-        default:
-          return (
-            <Link to="/perfil">
-              <ListaLink>perfil</ListaLink>
-            </Link>
-          );
+    if (userDataPresent) {
+      if (user !== null) {
+        // usuário deslogado
+        switch (location.pathname) {
+          case '/login':
+            return <></>;
+          case '/lista':
+            return (
+              <Link to="/login">
+                <ListaLink>Login</ListaLink>
+              </Link>
+            );
+          case '/confirmacao-telefone':
+            return <></>;
+          case '/perfil':
+            return <></>;
+          default:
+            return (
+              <Link to="/lista">
+                <ListaLink>
+                  lista
+                  {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
+                </ListaLink>
+              </Link>
+            );
+        }
+      } else {
+        switch (location.pathname) {
+          default:
+            return (
+              <Link to="/login">
+                <ListaLink>login</ListaLink>
+              </Link>
+            );
+        }
       }
     }
+    return <></>;
   };
 
   return (
@@ -56,7 +70,9 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
         </BackButton>
       ) : (
         <Link to="/">
-          <Logo>ceres</Logo>
+            <Logo>
+              <ImgLogo />
+            </Logo>
         </Link>
       )}
       {chooseHeaderOption()}

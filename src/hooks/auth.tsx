@@ -1,62 +1,70 @@
-/* eslint-disable camelcase */
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/ban-types */
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import api from '../services/api';
-
-interface AuthState {
-  token: string;
-  produtor_id: string;
-}
-
-interface SignInCredentials {
-  body: FormData;
-}
-
-interface AuthContextData {
-  produtor_id: string;
-  signIn(credentials: SignInCredentials): Promise<void>;
-  signOut(): void;
-}
+import firebase, { auth } from '../utils/firebase';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@ceresWeb:token');
-    const produtor_id = localStorage.getItem('@ceresWeb:produtor_id');
+interface IState {
+  userDataPresent: boolean;
+  user: firebase.User | null;
+  listener: firebase.Unsubscribe | null;
+}
+interface AuthContextData {
+  user?: firebase.User | null;
+  userDataPresent: boolean;
+  signOut: () => void;
+}
+interface Props {
+  children: React.ReactNode;
+}
 
-    if (token && produtor_id) {
-      return { token, produtor_id };
-    }
-
-    return {} as AuthState;
+const AuthProvider: React.FC<Props> = ({ children }: Props) => {
+  const [state, changeState] = useState<IState>({
+    userDataPresent: false,
+    user: null,
+    listener: null,
   });
+  const history = useHistory();
 
-  const signIn = useCallback(async ({ body }) => {
-    const response = await api.ṕost('/login', body);
-
-    if (response.data?.token) {
-      const { token, produtor_id } = response.data;
-
-      localStorage.setItem('@ceresWeb:token', token);
-      localStorage.setItem('@ceresWeb:produtor_id', produtor_id);
-
-      setData({ token, produtor_id });
+  useEffect(() => {
+    if (state.listener == null) {
+      changeState({
+        ...state,
+        listener: auth.onAuthStateChanged(user => {
+          if (user) {
+            changeState(oldState => ({
+              ...oldState,
+              userDataPresent: true,
+              user,
+            }));
+          } else {
+            changeState(oldState => ({
+              ...oldState,
+              userDataPresent: true,
+              user: null,
+            }));
+          }
+        }),
+      });
     }
-  }, []);
+    return () => {
+      if (state.listener) state.listener();
+    };
+  }, [state]);
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@ceresWeb:token');
-    localStorage.removeItem('@ceresWeb:produtor_id');
-
-    setData({} as AuthState);
-  }, []);
+  const signOut = () => {
+    auth.signOut();
+    history.go(0);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ produtor_id: data.produtor_id, signIn, signOut }}
+      value={{
+        user: state.user,
+        userDataPresent: state.userDataPresent,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>

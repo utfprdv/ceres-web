@@ -1,8 +1,10 @@
 import React from 'react'
 import ListGrid from 'components/ListGrid'
-import { H3 } from './List.style'
+import { H3, OnNotFound } from './List.style'
 import { connect } from 'react-redux'
 import { ADD_PRODUCT } from 'store/contants'
+import NotList from 'images/list.png';
+
 
 type Props = {
   selectedProducts: number[]
@@ -19,7 +21,12 @@ const List: React.FC<Props> = ({ selectedProducts, producers, toggleProduct }: P
   return (
     <>
       <H3>Lista</H3>
-      <ListGrid products={products} onRemove={toggleProduct} />
+      {products.length > 0
+        ?<ListGrid products={products} onRemove={toggleProduct} />
+       :<OnNotFound>
+      <img src={NotList} alt="" width="250" height="300"/>
+      </OnNotFound>
+  }
     </>
   )
 }
