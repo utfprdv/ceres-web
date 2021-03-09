@@ -1,11 +1,13 @@
 import React, { useCallback, createRef } from 'react';
 
+import { FormProvider as Form } from 'components/Form';
 import LABELFORM from '../../components/LabelForm';
 
 import { BuildMain, Credenciais, Requisicao } from './style';
 
 import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg';
 import { ReactComponent as Usuario } from '../../images/name.svg';
+import { ReactComponent as Phone } from '../../images/phone.svg';
 
 const Card: React.FC = () => {
   const formElement = createRef<HTMLFormElement>();
@@ -25,10 +27,31 @@ const Card: React.FC = () => {
   return (
     <>
       <BuildMain>
-        <form onSubmit={handleOnSubmit} ref={formElement}>
+        <Form onSubmit={handleOnSubmit}>
           <Credenciais>
             <section className="cartao">
               <LABELFORM
+                mask={[
+                  /[1-9]/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ' ',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ' ',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ' ',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ]}
                 Icon={MasterFlag}
                 Title="cartão"
                 name="cartao"
@@ -39,6 +62,8 @@ const Card: React.FC = () => {
             <section className="data-cvv">
               <div className="validade">
                 <LABELFORM
+                  mask={[/[1-9]/, /\d/, '/', /\d/, /\d/]}
+                  placeholder="MM/AA"
                   Title="Validade"
                   name="data"
                   isBorderHideable={false}
@@ -47,6 +72,8 @@ const Card: React.FC = () => {
 
               <div className="cvv">
                 <LABELFORM
+                  mask={[/[1-9]/, /\d/, /\d/]}
+                  placeholder="CVV"
                   Title="Cód de Segurança"
                   name="cvv"
                   isBorderHideable={false}
@@ -64,12 +91,52 @@ const Card: React.FC = () => {
             </section>
 
             <section className="cpf">
-              <LABELFORM Title="cpf" name="cpf" isBorderHideable={false} />
+              <LABELFORM
+                mask={[
+                  /[1-9]/,
+                  /\d/,
+                  /\d/,
+                  '.',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '.',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/,
+                ]}
+                placeholder="___.___.___-__"
+                Title="cpf"
+                name="cpf"
+                isBorderHideable={false}
+              />
             </section>
 
             <section className="telefone-nasc">
               <div className="cellphone">
                 <LABELFORM
+                  mask={[
+                    '(',
+                    /[1-9]/,
+                    /\d/,
+                    ')',
+                    ' ',
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    '-',
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                  ]}
+                  placeholder="(__)____-____"
+                  Icon={Phone}
                   Title="Telefone"
                   name="telefone"
                   isBorderHideable={false}
@@ -78,6 +145,19 @@ const Card: React.FC = () => {
 
               <div className="birthday">
                 <LABELFORM
+                  mask={[
+                    /[1-9]/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                  ]}
+                  placeholder="DD/MM/AA"
                   Title="Data de Nascimento"
                   name="nascimento"
                   isBorderHideable={false}
@@ -95,7 +175,7 @@ const Card: React.FC = () => {
               </div>
             </section>
           </Requisicao>
-        </form>
+        </Form>
       </BuildMain>
     </>
   );

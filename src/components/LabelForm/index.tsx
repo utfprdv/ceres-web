@@ -17,6 +17,7 @@ interface Props {
   type?: string;
   name: string;
   isBorderHideable?: boolean;
+  placeholder?: string;
 }
 
 const LABELFORM: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const LABELFORM: React.FC<Props> = ({
   type,
   name,
   isBorderHideable = true,
+  placeholder,
 }: Props) => {
   const [isVisible, setIsVisible] = useState(!isBorderHideable || false);
   const [isInputFilled, setIsInputFilled] = useState(false);
@@ -54,6 +56,7 @@ const LABELFORM: React.FC<Props> = ({
           type={type}
           required={required}
           ref={inputRef}
+          placeholder={placeholder}
           onChange={() => {
             if (inputRef.current) {
               setInput(
