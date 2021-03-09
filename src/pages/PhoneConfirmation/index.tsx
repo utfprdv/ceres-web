@@ -144,7 +144,23 @@ const PhoneConfirmation: React.FC = () => {
       <Form onSubmit={handleOnSubmit}>
         <DIVFORM isVisible={!isPhoneOk}>
           <LABELFORM
-            mask="(99)99999-9999"
+            mask={[
+              '(',
+              /[1-9]/,
+              /\d/,
+              ')',
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              '-',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+            ]}
             Icon={Phone}
             Title="Telefone"
             name="phone"

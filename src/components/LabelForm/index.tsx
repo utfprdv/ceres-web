@@ -2,11 +2,11 @@
 import { useForm } from 'components/Form';
 import React, { createRef, useState } from 'react';
 
-import MaskedInput from 'react-text-mask';
+import MaskedInput, { maskArray } from 'react-text-mask';
 import { LABEL, LABELHEADER } from './style';
 
 interface Props {
-  mask?: string;
+  mask?: maskArray;
   Icon: React.FunctionComponent<
     React.SVGProps<SVGSVGElement> & {
       title?: string | undefined;
@@ -47,23 +47,7 @@ const LABELFORM: React.FC<Props> = ({
           {required ? <p>Obrigatório</p> : <></>}
         </LABELHEADER>
         <MaskedInput
-          mask={[
-            '(',
-            /[1-9]/,
-            /\d/,
-            ')',
-            ' ',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-          ]}
+          mask={mask || false}
           name={name}
           type={type}
           required={required}
