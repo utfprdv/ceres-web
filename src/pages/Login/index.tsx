@@ -3,6 +3,10 @@ import React, { useCallback, useState } from 'react';
 import firebase, { auth } from 'utils/firebase';
 
 import { useHistory } from 'react-router-dom';
+
+import { setLocale, string, object, SchemaOf } from 'yup';
+import { pt } from 'yup-locale-pt';
+
 import LABELFORM from '../../components/LabelForm';
 
 import { BuildMain, Requisicao, Credenciais } from './Login.style';
@@ -16,6 +20,13 @@ import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
 import { ReactComponent as Google } from '../../images/logo_google.svg';
 import { ReactComponent as Facebook } from '../../images/logo_facebook.svg';
 import { ReactComponent as Apple } from '../../images/logo_apple.svg';
+
+setLocale(pt);
+
+interface ISignIn {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
   const [loginError, setLoginError] = useState(<span />);
@@ -43,6 +54,8 @@ const Login: React.FC = () => {
       case 'auth/user-not-found':
         setLoginError(<span>Usuário não encontrado!</span>);
         break;
+      case 'auth/popup-closed-by-user':
+        break;
       default:
         setLoginError(<span>{error.message}</span>);
         break;
@@ -61,13 +74,28 @@ const Login: React.FC = () => {
   );
 
   const handleOnSubmit = useCallback(
-    (data: { email: string; password: string }) => {
+    (data: ISignIn) => {
       const { email, password } = data;
 
-      auth
-        .signInWithEmailAndPassword(email, password)
-        .then(redirect)
-        .catch(HandleAuthError);
+      const schema: SchemaOf<ISignIn> = object({
+        email: string().required().email(),
+        password: string().required(),
+      }).defined();
+
+      schema
+        .validate({
+          email,
+          password,
+        })
+        .then(() => {
+          auth
+            .signInWithEmailAndPassword(email, password)
+            .then(redirect)
+            .catch(HandleAuthError);
+        })
+        .catch(error => {
+          setLoginError(<span>{error.errors[0]}</span>);
+        });
     },
     [HandleAuthError, redirect],
   );
