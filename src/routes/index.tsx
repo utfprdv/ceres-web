@@ -9,7 +9,9 @@ import {
   MarketRegistration,
   Profile,
   Cart,
+  Card,
   PhoneConfirmation,
+  Delivery,
 } from 'pages';
 import Layout from 'pages/Layout';
 import { connect } from 'react-redux';
@@ -38,7 +40,9 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
           isPrivate
         />
 
+        <Route path="/entrega" exact component={Delivery} />
         <Route path="/carrinho" exact component={Cart} />
+        <Route path="/cartao" exact component={Card} />
         <Route path="/login" exact component={Login} />
         <Route path="/" exact component={Home} />
         <Route path="/lista" component={List} />

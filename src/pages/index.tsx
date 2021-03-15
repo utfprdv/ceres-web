@@ -6,4 +6,6 @@ export { default as List } from './List';
 export { default as Producer } from './Producer';
 export { default as Product } from './Product';
 export { default as Cart } from './Cart';
+export { default as Card } from './Card';
 export { default as PhoneConfirmation } from './PhoneConfirmation';
+export { default as Delivery } from './Delivery';

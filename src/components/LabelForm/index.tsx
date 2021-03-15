@@ -7,7 +7,7 @@ import { LABEL, LABELHEADER } from './style';
 
 interface Props {
   mask?: maskArray;
-  Icon: React.FunctionComponent<
+  Icon?: React.FunctionComponent<
     React.SVGProps<SVGSVGElement> & {
       title?: string | undefined;
     }
@@ -16,6 +16,8 @@ interface Props {
   required?: boolean;
   type?: string;
   name: string;
+  isBorderHideable?: boolean;
+  placeholder?: string;
 }
 
 const LABELFORM: React.FC<Props> = ({
@@ -25,8 +27,10 @@ const LABELFORM: React.FC<Props> = ({
   required,
   type,
   name,
+  isBorderHideable = true,
+  placeholder,
 }: Props) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(!isBorderHideable || false);
   const [isInputFilled, setIsInputFilled] = useState(false);
   const inputRef: React.RefObject<MaskedInput> = createRef();
 
@@ -42,7 +46,7 @@ const LABELFORM: React.FC<Props> = ({
     >
       <div>
         <LABELHEADER isInputFilled={isInputFilled}>
-          <Icon />
+          {Icon && <Icon />}
           <p>{Title}</p>
           {required ? <p>Obrigatório</p> : <></>}
         </LABELHEADER>
@@ -52,6 +56,7 @@ const LABELFORM: React.FC<Props> = ({
           type={type}
           required={required}
           ref={inputRef}
+          placeholder={placeholder}
           onChange={() => {
             if (inputRef.current) {
               setInput(
@@ -70,10 +75,14 @@ const LABELFORM: React.FC<Props> = ({
             }
           }}
           onFocus={() => {
-            setIsVisible(true);
+            if (isBorderHideable) {
+              setIsVisible(true);
+            }
           }}
           onBlur={() => {
-            setIsVisible(false);
+            if (isBorderHideable) {
+              setIsVisible(false);
+            }
           }}
         />
       </div>
