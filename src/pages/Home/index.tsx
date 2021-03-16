@@ -27,7 +27,10 @@ const Home: React.FC<Props> = ({ producers, markets, selectedMarket, changeMarke
   }
 
   const products = React.useMemo(() => producers.reduce((acc, curr) => {
-    return acc.concat(...curr.lista_produtos)
+    if (curr.lista_produtos) {
+      return acc.concat(...curr.lista_produtos)
+    }
+    return acc
   }, []), [producers])
 
   const info = React.useMemo(() => {
