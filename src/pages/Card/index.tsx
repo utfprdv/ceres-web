@@ -1,28 +1,28 @@
-import React, { useCallback, createRef } from 'react';
+import React, { useCallback, createRef } from 'react'
 
-import { FormProvider as Form } from 'components/Form';
-import LABELFORM from '../../components/LabelForm';
+import { FormProvider as Form } from 'components/Form'
+import LABELFORM from '../../components/LabelForm'
 
-import { BuildMain, Credenciais, Requisicao } from './style';
+import { BuildMain, Credenciais, Requisicao } from './style'
 
-import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg';
-import { ReactComponent as Usuario } from '../../images/name.svg';
-import { ReactComponent as Phone } from '../../images/phone.svg';
+import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg'
+import { ReactComponent as Usuario } from '../../images/name.svg'
+import { ReactComponent as Phone } from '../../images/phone.svg'
 
 const Card: React.FC = () => {
-  const formElement = createRef<HTMLFormElement>();
+  const formElement = createRef<HTMLFormElement>()
 
   const handleOnSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+      e.preventDefault()
 
       if (formElement.current) {
-        // const body = new FormData(formElement.current);
-        // saveData({ body });
+        // const body = new FormData(formElement.current)
+        // saveData({ body })
       }
     },
     [formElement],
-  );
+  )
 
   return (
     <>
@@ -178,7 +178,7 @@ const Card: React.FC = () => {
         </Form>
       </BuildMain>
     </>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

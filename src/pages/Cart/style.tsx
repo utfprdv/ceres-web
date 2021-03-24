@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Header = styled.div`
   display: flex;
@@ -11,14 +11,14 @@ export const Header = styled.div`
     min-width: 13.5vw;
     height: 100%;
   }
-`;
+`
 
 export const Body = styled.div`
   background: #ffffff;
   border-radius: 5px;
   margin-top: 8px;
   padding-bottom: 15px;
-`;
+`
 
 export const DeliveryInfo = styled.div`
   margin-right: auto;
@@ -33,10 +33,9 @@ export const DeliveryInfo = styled.div`
     font-size: 16px;
     line-height: 8px;
     text-transform: lowercase;
-
     color: #0d4137;
   }
-`;
+`
 
 export const Change = styled.p`
   font-family: Montserrat;
@@ -47,13 +46,13 @@ export const Change = styled.p`
   text-align: right;
   text-transform: lowercase;
 
-  color: #0d4137;
+  color: #0d4137
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   margin: 0px;
-`;
+`
 
 export const MiscInfo = styled.div`
   display: flex;
@@ -73,7 +72,6 @@ export const MiscInfo = styled.div`
     height: 3.3vh;
     background: #f69651;
     border-radius: 5px;
-
     font-family: Montserrat;
     font-style: normal;
     font-weight: 500;
@@ -90,7 +88,7 @@ export const MiscInfo = styled.div`
     flex-grow: 0;
     margin: 0px 15px;
   }
-`;
+`
 
 export const Section = styled.section`
   padding-left: 15px;
@@ -101,14 +99,13 @@ export const Section = styled.section`
   svg {
     margin: 0 12px 0 0;
   }
-`;
+`
 
 export const QuantityAndValues = styled.div`
   text-align: end;
   height: 0;
   width: 40vw;
   font-family: Montserrat;
-
   position: relative;
   top: -48.5px;
   left: 162px;
@@ -133,14 +130,14 @@ export const QuantityAndValues = styled.div`
     margin-left: 8px;
     color: #f69651;
   }
-`;
+`
 
 export const ProductDetais = styled.div`
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
-`;
+`
 
 export const Total = styled.div`
   padding-top: 5px;
@@ -184,7 +181,7 @@ export const Total = styled.div`
       }
     }
   }
-`;
+`
 
 export const Paragraph = styled.p`
   font-family: Montserrat;
@@ -193,9 +190,8 @@ export const Paragraph = styled.p`
   font-size: 13px;
   line-height: 12px;
   text-transform: lowercase;
-
   color: rgba(0, 0, 0, 0.5);
-`;
+`
 
 export const Paymment = styled.div`
   background: #ffffff;
@@ -235,7 +231,7 @@ export const Paymment = styled.div`
       margin-left: 10px;
     }
   }
-`;
+`
 
 export const Checkout = styled.div`
   .checkout-button {
@@ -243,13 +239,11 @@ export const Checkout = styled.div`
     outline: none;
     border: none !important;
     border-radius: 5px;
-
     color: white;
     font-size: 16px;
     font-weight: bold;
     font-style: normal;
     font-family: Montserrat;
-
     margin-top: 20px;
     width: 100%;
     height: 11.5vh;
@@ -263,4 +257,4 @@ export const Checkout = styled.div`
       background-color: #083f35;
     }
   }
-`;
+`

@@ -1,26 +1,26 @@
 /* eslint-disable no-unused-expressions */
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react'
 
-import { FormProvider as Form } from 'components/Form';
-import firebase, { auth } from 'utils/firebase';
-import { useHistory } from 'react-router-dom';
+import { FormProvider as Form } from 'components/Form'
+import firebase, { auth } from 'utils/firebase'
+import { useHistory } from 'react-router-dom'
 
-import { setLocale, string, object, SchemaOf } from 'yup';
-import 'yup-phone';
-import { pt } from 'yup-locale-pt';
-import LABELFORM from '../../components/LabelForm';
+import { setLocale, string, object, SchemaOf } from 'yup'
+import 'yup-phone'
+import { pt } from 'yup-locale-pt'
+import LABELFORM from '../../components/LabelForm'
 
-import { H1, DIV, DIVFORM } from './style';
-import { ReactComponent as Phone } from '../../images/phone.svg';
-import { ReactComponent as Confirmation } from '../../images/confirmation.svg';
+import { H1, DIV, DIVFORM } from './style'
+import { ReactComponent as Phone } from '../../images/phone.svg'
+import { ReactComponent as Confirmation } from '../../images/confirmation.svg'
 
-setLocale(pt);
+setLocale(pt)
 
 const PhoneConfirmation: React.FC = () => {
-  const recaptchaRef = useRef<HTMLDivElement>(null);
-  const [phoneError, setPhoneError] = useState(<span />);
-  const [isPhoneOk, setIsPhoneOk] = useState(false);
-  const history = useHistory();
+  const recaptchaRef = useRef<HTMLDivElement>(null)
+  const [phoneError, setPhoneError] = useState(<span />)
+  const [isPhoneOk, setIsPhoneOk] = useState(false)
+  const history = useHistory()
 
   const handleOnSubmit = useCallback(
     ({ phone, code }: { phone: string; code: string }) => {
@@ -29,11 +29,11 @@ const PhoneConfirmation: React.FC = () => {
         {
           size: 'invisible',
         },
-      );
+      )
 
       const schema: SchemaOf<{ phone: string }> = object({
         phone: string().phone().required(),
-      }).defined();
+      }).defined()
 
       schema
         .validate({
@@ -44,51 +44,51 @@ const PhoneConfirmation: React.FC = () => {
             auth.currentUser
               ?.linkWithPhoneNumber(`+55${phone}`, appVerifier)
               .then(confirmationResult => {
-                appVerifier.clear();
-                setIsPhoneOk(true);
+                appVerifier.clear()
+                setIsPhoneOk(true)
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                window.confirmationResult = confirmationResult;
+                window.confirmationResult = confirmationResult
               })
               .catch(error => {
                 switch (error.code) {
                   case 'auth/provider-already-linked':
                     setPhoneError(
                       <span>Um telefone já está associado a esta conta</span>,
-                    );
-                    break;
+                    )
+                    break
                   case 'auth/captcha-check-failed':
                     setPhoneError(
                       <span>Captcha inválido, tente novamente</span>,
-                    );
-                    break;
+                    )
+                    break
                   case 'auth/invalid-phone-number':
-                    setPhoneError(<span>Número de telefone inválido</span>);
-                    break;
+                    setPhoneError(<span>Número de telefone inválido</span>)
+                    break
                   case 'auth/missing-phone-number':
-                    setPhoneError(<span>Não foi informado um telefone</span>);
-                    break;
+                    setPhoneError(<span>Não foi informado um telefone</span>)
+                    break
                   case 'auth/quota-exceeded':
                     setPhoneError(
                       <span>
                         O limite de sms da deste projeto foi atingido, contate
                         os responsáveis
                       </span>,
-                    );
-                    break;
+                    )
+                    break
                   case 'auth/user-disabled':
-                    setPhoneError(<span>Usuário desabilitado</span>);
-                    break;
+                    setPhoneError(<span>Usuário desabilitado</span>)
+                    break
                   case 'auth/credential-already-in-use':
                     setPhoneError(
                       <span>
                         Este telefone já está sendo usado, escolha outro
                       </span>,
-                    );
-                    break;
+                    )
+                    break
                   case 'auth/operation-not-allowed':
-                    setPhoneError(<span>Operação não permitida</span>);
-                    break;
+                    setPhoneError(<span>Operação não permitida</span>)
+                    break
                   case 'auth/too-many-requests':
                     setPhoneError(
                       <span>
@@ -96,19 +96,19 @@ const PhoneConfirmation: React.FC = () => {
                         anormal. Provavelmente muitas tentativas foram feitas,
                         tente novamente mais tarde.
                       </span>,
-                    );
-                    break;
+                    )
+                    break
                   default:
-                    setPhoneError(<span>{error.message}</span>);
-                    break;
+                    setPhoneError(<span>{error.message}</span>)
+                    break
                 }
-              });
+              })
         })
         .catch(() => {
           setPhoneError(
             <span>telefone deve ser um número de telefone válido</span>,
-          );
-        });
+          )
+        })
 
       if (code)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -116,27 +116,25 @@ const PhoneConfirmation: React.FC = () => {
         window.confirmationResult
           .confirm(code)
           .then(() => {
-            history.go(0);
+            history.go(0)
           })
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .catch((error: any) => {
             switch (error.code) {
               case 'auth/invalid-verification-code':
-                setPhoneError(<span>Código inválido</span>);
-                break;
+                setPhoneError(<span>Código inválido</span>)
+                break
               case 'auth/missing-verification-code':
-                setPhoneError(
-                  <span>Código de verificação não encontrado</span>,
-                );
-                break;
+                setPhoneError(<span>Código de verificação não encontrado</span>)
+                break
               default:
-                setPhoneError(<span>{error.message}</span>);
-                break;
+                setPhoneError(<span>{error.message}</span>)
+                break
             }
-          });
+          })
     },
     [history],
-  );
+  )
 
   return (
     <DIV>
@@ -180,7 +178,7 @@ const PhoneConfirmation: React.FC = () => {
         <div id="recaptcha-container" ref={recaptchaRef} />
       </Form>
     </DIV>
-  );
-};
+  )
+}
 
-export default PhoneConfirmation;
+export default PhoneConfirmation

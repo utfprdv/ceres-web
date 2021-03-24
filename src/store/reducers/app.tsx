@@ -4,7 +4,7 @@ const initState = {
   markets: [],
   producers: [],
   selectedMarket: 1,
-};
+}
 
 export default function app(state = initState, action: any) {
   switch (action.type) {

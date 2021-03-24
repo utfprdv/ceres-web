@@ -1,41 +1,41 @@
-import React, { useCallback, createRef, useState } from 'react';
+import React, { useCallback, createRef, useState } from 'react'
 
-import LABELFORM from '../../components/LabelForm';
+import LABELFORM from '../../components/LabelForm'
 
-import Api from '../../services/api';
-import { H1, FORM, DIV, DIVFORM } from './style';
-import { ReactComponent as Name } from '../../images/name.svg';
-import { ReactComponent as Cep } from '../../images/cep.svg';
-import { ReactComponent as City } from '../../images/city.svg';
-import { ReactComponent as Neighborhood } from '../../images/neighborhood.svg';
-import { ReactComponent as Adress } from '../../images/adress.svg';
-import { ReactComponent as Complement } from '../../images/complement.svg';
-import { ReactComponent as Email } from '../../images/email.svg';
-import { ReactComponent as StartDate } from '../../images/start_date.svg';
-import { ReactComponent as EndDate } from '../../images/end_date.svg';
+import Api from '../../services/api'
+import { H1, FORM, DIV, DIVFORM } from './style'
+import { ReactComponent as Name } from '../../images/name.svg'
+import { ReactComponent as Cep } from '../../images/cep.svg'
+import { ReactComponent as City } from '../../images/city.svg'
+import { ReactComponent as Neighborhood } from '../../images/neighborhood.svg'
+import { ReactComponent as Adress } from '../../images/adress.svg'
+import { ReactComponent as Complement } from '../../images/complement.svg'
+import { ReactComponent as Email } from '../../images/email.svg'
+import { ReactComponent as StartDate } from '../../images/start_date.svg'
+import { ReactComponent as EndDate } from '../../images/end_date.svg'
 
 const Login: React.FC = () => {
-  const formElement = createRef<HTMLFormElement>();
-  const [firstDivIsHidden, setFirstDivIsHidden] = useState(true);
-  const [secondDivIsHidden, setSecondDivIsHidden] = useState(false);
+  const formElement = createRef<HTMLFormElement>()
+  const [firstDivIsHidden, setFirstDivIsHidden] = useState(true)
+  const [secondDivIsHidden, setSecondDivIsHidden] = useState(false)
 
   const handleOnClick = useCallback(() => {
-    setFirstDivIsHidden(false);
-    setSecondDivIsHidden(true);
-  }, []);
+    setFirstDivIsHidden(false)
+    setSecondDivIsHidden(true)
+  }, [])
 
   const handleOnSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+      e.preventDefault()
 
       if (formElement.current) {
-        const formData = new FormData(formElement.current);
+        const formData = new FormData(formElement.current)
 
-        Api.ṕost('/feira/', formData).then(res => console.log(res));
+        Api.ṕost('/feira/', formData).then(res => console.log(res))
       }
     },
     [formElement],
-  );
+  )
 
   return (
     <DIV>
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
         </DIVFORM>
       </FORM>
     </DIV>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

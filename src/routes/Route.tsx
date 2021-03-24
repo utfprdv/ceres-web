@@ -1,17 +1,17 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React from 'react'
 import {
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouteProps,
   Redirect,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import { useAuth } from '../hooks/auth';
+import { useAuth } from '../hooks/auth'
 
 interface RouteProps extends ReactDOMRouteProps {
-  isPrivate?: boolean;
-  component: React.ComponentType;
+  isPrivate?: boolean
+  component: React.ComponentType
 }
 
 const Route: React.FC<RouteProps> = ({
@@ -19,18 +19,18 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { user, userDataPresent } = useAuth();
+  const { user, userDataPresent } = useAuth()
 
   if (userDataPresent) {
     const decidePathName = () => {
       if (!!user && !user?.phoneNumber) {
-        return '/confirmacao-telefone';
+        return '/confirmacao-telefone'
       }
       if (isPrivate) {
-        return '/';
+        return '/'
       }
-      return '/perfil';
-    };
+      return '/perfil'
+    }
 
     return (
       <ReactDOMRoute
@@ -42,13 +42,13 @@ const Route: React.FC<RouteProps> = ({
               user?.phoneNumber &&
               location.pathname !== '/confirmacao-telefone'
             ) {
-              return <Component />;
+              return <Component />
             }
             if (
               location.pathname === '/confirmacao-telefone' &&
               !user?.phoneNumber
             ) {
-              return <Component />;
+              return <Component />
             }
             return (
               <Redirect
@@ -57,13 +57,13 @@ const Route: React.FC<RouteProps> = ({
                   state: { from: location },
                 }}
               />
-            );
+            )
           }
           if (
             (isPrivate === false && !user) ||
             (isPrivate === false && !!user && location.pathname !== '/login')
           ) {
-            return <Component />;
+            return <Component />
           }
 
           return (
@@ -73,13 +73,13 @@ const Route: React.FC<RouteProps> = ({
                 state: { from: location },
               }}
             />
-          );
+          )
         }}
       />
-    );
+    )
   }
 
-  return null;
-};
+  return null
+}
 
-export default Route;
+export default Route

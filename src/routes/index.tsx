@@ -1,26 +1,26 @@
-import React, { Suspense } from 'react';
-import { Switch } from 'react-router-dom';
-import Layout from 'pages/Layout';
-import { connect } from 'react-redux';
-import { LOAD_MARKET } from 'store/contants';
-import Route from './Route';
+import React, { Suspense } from 'react'
+import { Switch } from 'react-router-dom'
+import Layout from 'pages/Layout'
+import { connect } from 'react-redux'
+import { LOAD_MARKET } from 'store/contants'
+import Route from './Route'
 
-const Home = React.lazy(() => import('pages/Home'));
-const List = React.lazy(() => import('pages/List'));
-const Producer = React.lazy(() => import('pages/Producer'));
-const Product = React.lazy(() => import('pages/Product'));
-const Login = React.lazy(() => import('pages/Login'));
-const MarketRegistration = React.lazy(() => import('pages/MarketRegistration'));
-const Profile = React.lazy(() => import('pages/Profile'));
-const Cart = React.lazy(() => import('pages/Cart'));
-const Card = React.lazy(() => import('pages/Card'));
-const PhoneConfirmation = React.lazy(() => import('pages/PhoneConfirmation'));
-const Delivery = React.lazy(() => import('pages/Delivery'));
+const Home = React.lazy(() => import('pages/Home'))
+const List = React.lazy(() => import('pages/List'))
+const Producer = React.lazy(() => import('pages/Producer'))
+const Product = React.lazy(() => import('pages/Product'))
+const Login = React.lazy(() => import('pages/Login'))
+const MarketRegistration = React.lazy(() => import('pages/MarketRegistration'))
+const Profile = React.lazy(() => import('pages/Profile'))
+const Cart = React.lazy(() => import('pages/Cart'))
+const Card = React.lazy(() => import('pages/Card'))
+const PhoneConfirmation = React.lazy(() => import('pages/PhoneConfirmation'))
+const Delivery = React.lazy(() => import('pages/Delivery'))
 
 const Routes: React.FC = ({ loadMakerts }: any) => {
   React.useEffect(() => {
-    loadMakerts();
-  }, [loadMakerts]);
+    loadMakerts()
+  }, [loadMakerts])
 
   return (
     <Layout>
@@ -51,9 +51,9 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
         </Switch>
       </Suspense>
     </Layout>
-  );
-};
+  )
+}
 
 export default connect(null, dispatch => ({
   loadMakerts: () => dispatch({ type: LOAD_MARKET, payload: 1 }),
-}))(Routes);
+}))(Routes)

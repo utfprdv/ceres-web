@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Grid = styled.section`
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const Producer = styled.article`
   background-color: #ffffff;
@@ -26,26 +26,23 @@ export const Producer = styled.article`
     width: 80px;
     height: 80px;
   }
-`;
+`
 
 export const ProducerPhone = styled.span`
   margin-top: 8px;
   opacity: 0.6;
   display: inline-block;
-`;
+`
 
 export const ProducerDetails = styled.div`
   margin: 10px;
-`;
+`
 
 export const ProducerIcon = styled.div`
-display: block;
-background-color: #f69651;
-border-radius: 5px;
-padding: 20px 0 0 12px;
-width: 40px;
-height: 60px;
-
-
-
-`;
+  display: block;
+  background-color: #f69651;
+  border-radius: 5px;
+  padding: 20px 0 0 12px;
+  width: 40px;
+  height: 60px;
+`

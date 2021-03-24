@@ -1,24 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ReactComponent as IconPoint } from 'images/point.svg';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { ReactComponent as IconPoint } from 'images/point.svg'
 import {
   Grid,
   Producer,
   ProducerPhone,
   ProducerDetails,
-} from './Producer.style';
+} from './Producer.style'
 
 type Props = {
   data: {
-    id: number;
-    username: string;
-    slug: string;
-    whatsapp: string;
-  }[];
-};
+    id: number
+    username: string
+    slug: string
+    whatsapp: string
+  }[]
+}
 
 const Producers: React.FC<Props> = (props: Props) => {
-  const { data } = props;
+  const { data } = props
 
   return (
     <Grid>
@@ -39,10 +39,10 @@ const Producers: React.FC<Props> = (props: Props) => {
               </ProducerDetails>
             </Producer>
           </Link>
-        );
+        )
       })}
     </Grid>
-  );
-};
+  )
+}
 
-export default Producers;
+export default Producers

@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 interface LABELProps {
-  isVisible: boolean;
+  isVisible: boolean
 }
 
 export const LABEL = styled.label<LABELProps>`
@@ -19,7 +19,7 @@ export const LABEL = styled.label<LABELProps>`
       props.isVisible &&
       css`
         border: 2px solid #808080;
-      `};
+      `}
 
     input {
       font-family: Montserrat;
@@ -37,10 +37,10 @@ export const LABEL = styled.label<LABELProps>`
       margin: 0px auto;
     }
   }
-`;
+`
 
 interface LABELHEADERProps {
-  isInputFilled: boolean;
+  isInputFilled: boolean
 }
 
 export const LABELHEADER = styled.div<LABELHEADERProps>`
@@ -74,7 +74,7 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
             height: auto;
             width: 24px;
           }
-        `};
+        `}
 
   svg + p {
     padding-left: 10px;
@@ -90,7 +90,7 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
             font-size: 14px;
             line-height: 17px;
             color: #000000;
-          `};
+          `}
   }
 
   p + p {
@@ -101,4 +101,4 @@ export const LABELHEADER = styled.div<LABELHEADERProps>`
     margin-left: auto;
     margin-right: 0;
   }
-`;
+`

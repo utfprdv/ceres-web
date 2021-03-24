@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const BuildMain = styled.main`
   height: 100%;
@@ -30,7 +30,7 @@ export const BuildMain = styled.main`
   * {
     font-family: 'Montserrat', sans-serif;
   }
-`;
+`
 
 export const Credenciais = styled.section`
   display: flex;
@@ -78,7 +78,7 @@ export const Credenciais = styled.section`
       width: 50%;
     }
   }
-`;
+`
 
 export const Requisicao = styled.section`
   height: 12vh;
@@ -124,4 +124,4 @@ export const Requisicao = styled.section`
       }
     }
   }
-`;
+`

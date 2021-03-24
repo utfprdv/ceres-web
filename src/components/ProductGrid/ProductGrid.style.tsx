@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Grid = styled.section`
   margin-top: 15px;
   column-count: 2;
   column-gap: 8px;
-`;
+`
 
 export const Product = styled.article`
   background-color: #ffffff;
@@ -16,7 +16,7 @@ export const Product = styled.article`
     border-radius: 5px 5px 0 0;
     width: 100%;
   }
-`;
+`
 
 export const ProductCount = styled.span`
   display: inline-block;
@@ -26,8 +26,8 @@ export const ProductCount = styled.span`
   padding: 4px 12px 4px 12px;
   color: #ffffff;
   margin-top: 16px;
-`;
+`
 
 export const ProductDetails = styled.div`
   margin: 16px;
-`;
+`

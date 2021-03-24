@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { useAuth } from 'hooks/auth';
-import { auth } from 'utils/firebase';
+import { useAuth } from 'hooks/auth'
+import { auth } from 'utils/firebase'
 import {
   Header,
   NameAndStatusBar,
@@ -12,22 +12,22 @@ import {
   Notification,
   ItemDiv,
   SignOutButton,
-} from './style';
-import NonProfilePicture from '../../images/non_profile_picture.svg';
-import { ReactComponent as Wallet } from '../../images/wallet.svg';
-import { ReactComponent as Box } from '../../images/box.svg';
-import { ReactComponent as DeliveryMan } from '../../images/delivery-man.svg';
-import { ReactComponent as Review } from '../../images/review.svg';
+} from './style'
+import NonProfilePicture from '../../images/non_profile_picture.svg'
+import { ReactComponent as Wallet } from '../../images/wallet.svg'
+import { ReactComponent as Box } from '../../images/box.svg'
+import { ReactComponent as DeliveryMan } from '../../images/delivery-man.svg'
+import { ReactComponent as Review } from '../../images/review.svg'
 
 interface ItemBoxProps {
   Icon: React.FunctionComponent<
     React.SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
+      title?: string | undefined
     }
-  >;
-  notificationNumber?: number;
-  children: React.ReactNode;
-  href: string;
+  >
+  notificationNumber?: number
+  children: React.ReactNode
+  href: string
 }
 
 const ItemBox: React.FC<ItemBoxProps> = ({
@@ -48,15 +48,15 @@ const ItemBox: React.FC<ItemBoxProps> = ({
         <p>{children}</p>
       </ItemDiv>
     </a>
-  );
-};
+  )
+}
 
 ItemBox.defaultProps = {
   notificationNumber: 0,
-};
+}
 
 const Profile: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut } = useAuth()
 
   return (
     <>
@@ -107,7 +107,7 @@ const Profile: React.FC = () => {
         </SignOutButton>
       </Body>
     </>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

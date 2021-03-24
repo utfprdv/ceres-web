@@ -1,15 +1,15 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const InputWrapper = styled.div`
   position: relative;
-`;
+`
 
 export const InputIcon = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 12px;
-`;
+`
 
 export const Input = styled.input`
   background: #fff;
@@ -19,4 +19,4 @@ export const Input = styled.input`
   width: 100%;
   border: 0px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-`;
+`
