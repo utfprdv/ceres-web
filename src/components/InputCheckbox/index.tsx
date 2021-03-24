@@ -3,7 +3,7 @@ import {
   CheckboxContainer,
   HiddenCheckbox,
   StyledCheckbox,
-  Icon
+  Icon,
 } from './InputCheckbox.style'
 
 type Props = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
   Header,
@@ -13,11 +13,11 @@ import {
   Paragraph,
   Paymment,
   Checkout,
-} from './style';
-import { ReactComponent as DeliveryMan } from '../../images/delivery-man.svg';
-import { ReactComponent as ProductImage } from '../../images/produto.svg';
-import { ReactComponent as Arrow } from '../../images/seta.svg';
-import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg';
+} from './style'
+import { ReactComponent as DeliveryMan } from '../../images/delivery-man.svg'
+import { ReactComponent as ProductImage } from '../../images/produto.svg'
+import { ReactComponent as Arrow } from '../../images/seta.svg'
+import { ReactComponent as MasterFlag } from '../../images/mc_symbol.svg'
 
 const Cart: React.FC = () => {
   return (
@@ -37,7 +37,7 @@ const Cart: React.FC = () => {
         </MiscInfo>
         <div>
           <Section>
-            <ProductImage />
+            {/* <ProductImage /> */}
             <ProductDetais>
               <h1>Pão caseiro</h1>
               <Paragraph>nome do produtor</Paragraph>
@@ -89,7 +89,7 @@ const Cart: React.FC = () => {
         </button>
       </Checkout>
     </>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

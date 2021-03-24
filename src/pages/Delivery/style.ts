@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const Container = styled.section``;
+export const Container = styled.section``
 
 interface HeaderProps {
-  isDelivery: boolean;
+  isDelivery: boolean
 }
 
 export const Header = styled.header<HeaderProps>`
@@ -74,10 +74,10 @@ export const Header = styled.header<HeaderProps>`
       }
     }
   }
-`;
+`
 
 interface SectionProps {
-  isDelivery: boolean;
+  isDelivery: boolean
 }
 
 export const Section = styled.section<SectionProps>`
@@ -91,7 +91,7 @@ export const Section = styled.section<SectionProps>`
   > ${props => (props.isDelivery ? ':not(.delivery)' : '.delivery')} {
     display: none;
   }
-`;
+`
 
 export const TakeAwaySection = styled.section`
   padding-left: 20px;
@@ -118,7 +118,7 @@ export const TakeAwaySection = styled.section`
       color: rgba(0, 0, 0, 0.5);
     }
   }
-`;
+`
 
 export const DeliverySection = styled.section`
   > header {
@@ -188,4 +188,4 @@ export const DeliverySection = styled.section`
       margin-right: auto;
     }
   }
-`;
+`
