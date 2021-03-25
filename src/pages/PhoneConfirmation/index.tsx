@@ -30,7 +30,7 @@ const PhoneConfirmation = (): React.ReactElement => {
         },
       )
 
-      const schema: yup.Schema<{ phone: string }> = yup
+      const schema = yup
         .object({
           phone: yup.string().phone().required(),
         })
