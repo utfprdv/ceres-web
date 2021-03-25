@@ -42,7 +42,7 @@ const Routes = ({ loadMarkets }: Props) => {
             path="/confirmacao-telefone"
             exact
             component={PhoneConfirmation}
-            isPrivate
+            // isPrivate
           />
 
           <Route path="/entrega" exact component={Delivery} />

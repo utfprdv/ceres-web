@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { setLocale, string, object, Schema } from 'yup'
+import * as yup from 'yup'
 import { pt } from 'yup-locale-pt'
 import 'yup-phone'
 
@@ -13,9 +13,9 @@ import { H1, DIV, DIVFORM } from './style'
 import { ReactComponent as Phone } from '../../images/phone.svg'
 import { ReactComponent as Confirmation } from '../../images/confirmation.svg'
 
-setLocale(pt)
+yup.setLocale(pt)
 
-const PhoneConfirmation: React.FC = () => {
+const PhoneConfirmation = (): React.ReactElement => {
   const recaptchaRef = useRef<HTMLDivElement>(null)
   const [phoneError, setPhoneError] = useState(<span />)
   const [isPhoneOk, setIsPhoneOk] = useState(false)
@@ -30,9 +30,11 @@ const PhoneConfirmation: React.FC = () => {
         },
       )
 
-      const schema: Schema<{ phone: string }> = object({
-        phone: string().phone().required(),
-      }).defined()
+      const schema: yup.Schema<{ phone: string }> = yup
+        .object({
+          phone: yup.string().phone().required(),
+        })
+        .defined()
 
       schema
         .validate({
