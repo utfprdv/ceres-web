@@ -1,6 +1,6 @@
 import React, { useCallback, createRef } from 'react'
 
-import { FormProvider as Form } from 'components/Form'
+import { FormProvider as Form } from '../../components/Form'
 import LABELFORM from '../../components/LabelForm'
 
 import { BuildMain, Credenciais, Requisicao } from './style'

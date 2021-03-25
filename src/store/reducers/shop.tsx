@@ -1,15 +1,12 @@
-import { CartState } from '../types'
+import { AnyAction } from 'redux'
 import { ADD_PRODUCT } from '../contants'
+import { Shop } from '../../types'
 
-const initialState: CartState = {
+const initialState = {
   products: [],
 }
 
-export default function shop(
-  state: CartState = initialState,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  action: { type: any; payload: any },
-): CartState {
+const shop = (state = initialState, action: AnyAction): Shop => {
   let hasProd: number | undefined = 0
   switch (action.type) {
     case ADD_PRODUCT:
@@ -26,3 +23,5 @@ export default function shop(
       return state
   }
 }
+
+export default shop

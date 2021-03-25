@@ -11,26 +11,18 @@ import { H2, OnNotFound } from './Home.styles'
 import { SELECT_MARKET } from '../../store/contants'
 import Utils from '../../services/utils'
 import NotSearch from '../../images/search.png'
+import { Store, App, Producer, Product } from '../../types'
 
-interface RootState {
-  app: any
-  markets: any
-  selectedMarket: number
-}
-
-type Props = {
-  producers: any[]
-  markets: any[]
-  selectedMarket: number
+type Props = App & {
   changeMarket: (payload: number) => void
 }
 
-const Home: React.FC<Props> = ({
+const Home = ({
   producers,
   markets,
   selectedMarket,
   changeMarket,
-}: Props) => {
+}: Props): React.ReactElement => {
   const [filterValue, setFilterValue] = useState('')
 
   const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +31,11 @@ const Home: React.FC<Props> = ({
 
   const products = React.useMemo(
     () =>
-      producers.reduce((acc, curr) => {
-        if (curr.lista_produtos) {
-          return acc.concat(...curr.lista_produtos)
+      producers.reduce((productsArr: Array<Product>, producer: Producer) => {
+        if (producer.lista_produtos) {
+          return productsArr.concat(...producer.lista_produtos)
         }
-        return acc
+        return productsArr
       }, []),
     [producers],
   )
@@ -59,7 +51,7 @@ const Home: React.FC<Props> = ({
     }
   }, [products.length, markets, selectedMarket])
 
-  const filteredProducts = products.filter((p: any) =>
+  const filteredProducts = products.filter((p: Product) =>
     Utils.filter(p.nome, filterValue),
   )
 
@@ -94,7 +86,7 @@ const Home: React.FC<Props> = ({
 }
 
 export default connect(
-  (state: RootState) => ({
+  (state: Store) => ({
     producers: state.app.producers,
     markets: state.app.markets,
     selectedMarket: state.app.selectedMarket,

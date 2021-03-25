@@ -1,34 +1,44 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
+
 import { Producers } from '../../components'
 import { ProductFigure, ProductTitle } from './Product.style'
+import { Producer, Product as ProductType, App } from '../../types'
 
 type Props = {
-  producers: any[]
+  producers: Array<Producer>
 }
 
-const Product: React.FC<Props> = ({ producers }: Props) => {
-  const { productID } = useParams<any>()
-  const products = React.useMemo(
+type ReducedProducts = {
+  [key: string]: ProductType
+}
+
+const Product = ({ producers }: Props) => {
+  const { productID } = useParams<{ productID: string }>()
+
+  const products: ReducedProducts = React.useMemo(
     () =>
-      producers.reduce((acc, curr) => {
-        return {
+      producers.reduce(
+        (acc, curr) => ({
           ...acc,
-          ...curr.lista_produtos.reduce((acc2: any, curr2: any) => {
-            return {
-              ...acc2,
-              [curr2.id]: {
-                ...curr2,
+          ...curr.lista_produtos.reduce(
+            (reducedProducts: ReducedProducts, product: ProductType) => ({
+              ...reducedProducts,
+              [product.id]: {
+                ...product,
               },
-            }
-          }, {}),
-        }
-      }, {}),
+            }),
+            {},
+          ),
+        }),
+        {},
+      ),
     [producers],
   )
 
   const product = products[productID]
+
   if (!product) return null
 
   return (
@@ -39,18 +49,20 @@ const Product: React.FC<Props> = ({ producers }: Props) => {
           alt={product.nome}
         />
       </ProductFigure>
-      <ProductTitle>{product.title}</ProductTitle>
+      <ProductTitle>{product.nome}</ProductTitle>
       <Producers
-        data={producers.filter(p => {
-          return p.lista_produtos.find((pr: any) => pr.id === +productID)
-        })}
+        data={producers.filter(p =>
+          p.lista_produtos.find(
+            (productItem: ProductType) => productItem.id === +productID,
+          ),
+        )}
       />
     </>
   )
 }
 
 type RootState = {
-  app: any
+  app: App
 }
 
 export default connect((state: RootState) => ({

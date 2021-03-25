@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-expressions */
 import React, { useCallback, useRef, useState } from 'react'
-
-import { FormProvider as Form } from 'components/Form'
-import firebase, { auth } from 'utils/firebase'
 import { useHistory } from 'react-router-dom'
-
-import { setLocale, string, object, SchemaOf } from 'yup'
-import 'yup-phone'
+import { setLocale, string, object, Schema } from 'yup'
 import { pt } from 'yup-locale-pt'
+import 'yup-phone'
+
+import { FormProvider as Form } from '../../components/Form'
+import firebase, { auth } from '../../utils/firebase'
+
 import LABELFORM from '../../components/LabelForm'
 
 import { H1, DIV, DIVFORM } from './style'
@@ -31,7 +30,7 @@ const PhoneConfirmation: React.FC = () => {
         },
       )
 
-      const schema: SchemaOf<{ phone: string }> = object({
+      const schema: Schema<{ phone: string }> = object({
         phone: string().phone().required(),
       }).defined()
 

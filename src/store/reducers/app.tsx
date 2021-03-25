@@ -1,4 +1,6 @@
-import { MARKETS, PRODUCERS, SELECT_MARKET } from 'store/contants'
+import { AnyAction } from 'redux'
+import { MARKETS, PRODUCERS, SELECT_MARKET } from '../contants'
+import { App } from '../../types'
 
 const initState = {
   markets: [],
@@ -6,7 +8,7 @@ const initState = {
   selectedMarket: 1,
 }
 
-export default function app(state = initState, action: any) {
+const app = (state = initState, action: AnyAction): App => {
   switch (action.type) {
     case MARKETS:
       return {
@@ -27,3 +29,5 @@ export default function app(state = initState, action: any) {
       return state
   }
 }
+
+export default app
