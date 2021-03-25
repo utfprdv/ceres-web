@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { all, call, takeLatest, put } from 'redux-saga/effects'
 import { LOAD_MARKET, MARKETS, PRODUCERS, SELECT_MARKET } from '../contants'
 import Api from '../../services/api'

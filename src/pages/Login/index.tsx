@@ -1,12 +1,9 @@
 import React, { useCallback, useState } from 'react'
-
-import firebase, { auth } from 'utils/firebase'
-
 import { useHistory } from 'react-router-dom'
-
-import { setLocale, string, object, SchemaOf } from 'yup'
+import { setLocale, string, object, Schema } from 'yup'
 import { pt } from 'yup-locale-pt'
 
+import firebase, { auth } from '../../utils/firebase'
 import LABELFORM from '../../components/LabelForm'
 
 import { BuildMain, Requisicao, Credenciais } from './Login.style'
@@ -77,7 +74,7 @@ const Login: React.FC = () => {
     (data: ISignIn) => {
       const { email, password } = data
 
-      const schema: SchemaOf<ISignIn> = object({
+      const schema: Schema<ISignIn> = object({
         email: string().required().email(),
         password: string().required(),
       }).defined()

@@ -4,29 +4,28 @@ import ListGrid from '../../components/ListGrid'
 import { H3, OnNotFound } from './List.style'
 import { ADD_PRODUCT } from '../../store/contants'
 import NotList from '../../images/list.png'
+import { Producer, Product, Store } from '../../types'
 
 type Props = {
   selectedProducts: number[]
-  producers: any[]
+  producers: Array<Producer>
   toggleProduct: (prod: number) => void
 }
 
-const List: React.FC<Props> = ({
-  selectedProducts,
-  producers,
-  toggleProduct,
-}: Props) => {
+const List = ({ selectedProducts, producers, toggleProduct }: Props) => {
   const productsRaw = React.useMemo(
     () =>
-      producers.reduce((acc, curr) => {
-        return acc.concat(...curr.lista_produtos)
-      }, []),
+      producers.reduce(
+        (products: Array<Product>, producer: Producer) =>
+          products.concat(...producer.lista_produtos),
+        [],
+      ),
     [producers],
   )
 
   const products = productsRaw.filter(
     // eslint-disable-next-line no-bitwise
-    (p: any) => ~selectedProducts.indexOf(p.id),
+    (p: Product) => ~selectedProducts.indexOf(p.id),
   )
   return (
     <>
@@ -43,7 +42,7 @@ const List: React.FC<Props> = ({
 }
 
 export default connect(
-  (state: { shop: any; app: any }) => ({
+  (state: Store) => ({
     selectedProducts: state.shop.products,
     producers: state.app.producers,
   }),

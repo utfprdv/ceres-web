@@ -11,6 +11,7 @@ import {
   BackButton,
 } from './Header.style'
 import { ReactComponent as ImgLogo } from '../../images/Frame_29.svg'
+import { Shop } from '../../types'
 
 type Props = {
   listCount: number
@@ -82,7 +83,7 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
 }
 
 type RootState = {
-  shop: any
+  shop: Shop
 }
 
 export default connect((state: RootState) => ({

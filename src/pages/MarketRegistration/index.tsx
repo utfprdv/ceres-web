@@ -14,7 +14,7 @@ import { ReactComponent as Email } from '../../images/email.svg'
 import { ReactComponent as StartDate } from '../../images/start_date.svg'
 import { ReactComponent as EndDate } from '../../images/end_date.svg'
 
-const Login: React.FC = () => {
+const Login = (): React.ReactElement => {
   const formElement = createRef<HTMLFormElement>()
   const [firstDivIsHidden, setFirstDivIsHidden] = useState(true)
   const [secondDivIsHidden, setSecondDivIsHidden] = useState(false)
@@ -31,6 +31,7 @@ const Login: React.FC = () => {
       if (formElement.current) {
         const formData = new FormData(formElement.current)
 
+        // eslint-disable-next-line no-console
         Api.ṕost('/feira/', formData).then(res => console.log(res))
       }
     },
