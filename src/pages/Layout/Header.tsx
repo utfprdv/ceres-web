@@ -1,24 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { ReactComponent as IconBack } from 'images/back.svg';
-import { useAuth } from 'hooks/auth';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link, useHistory, useLocation } from 'react-router-dom'
+import { ReactComponent as IconBack } from '../../images/back.svg'
+import { useAuth } from '../../hooks/auth'
 import {
   HeaderUI,
   Logo,
   ListaLink,
   ListaCount,
   BackButton,
-} from './Header.style';
-import { ReactComponent as ImgLogo } from 'images/Frame_29.svg';
+} from './Header.style'
+import { ReactComponent as ImgLogo } from '../../images/Frame_29.svg'
+import { Shop } from '../../types'
 
 type Props = {
-  listCount: number;
-};
+  listCount: number
+}
+
 const Header: React.FC<Props> = ({ listCount }: Props) => {
-  const history = useHistory();
-  const location = useLocation();
-  const { user, userDataPresent } = useAuth();
+  const history = useHistory()
+  const location = useLocation()
+  const { user, userDataPresent } = useAuth()
 
   const chooseHeaderOption = () => {
     if (userDataPresent) {
@@ -26,17 +28,17 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
         // usuário deslogado
         switch (location.pathname) {
           case '/login':
-            return <></>;
+            return <></>
           case '/lista':
             return (
               <Link to="/login">
                 <ListaLink>Login</ListaLink>
               </Link>
-            );
+            )
           case '/confirmacao-telefone':
-            return <></>;
+            return <></>
           case '/perfil':
-            return <></>;
+            return <></>
           default:
             return (
               <Link to="/lista">
@@ -45,7 +47,7 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
                   {listCount > 0 && <ListaCount>{listCount}</ListaCount>}
                 </ListaLink>
               </Link>
-            );
+            )
         }
       } else {
         switch (location.pathname) {
@@ -54,12 +56,12 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
               <Link to="/login">
                 <ListaLink>login</ListaLink>
               </Link>
-            );
+            )
         }
       }
     }
-    return <></>;
-  };
+    return <></>
+  }
 
   return (
     <HeaderUI>
@@ -70,20 +72,20 @@ const Header: React.FC<Props> = ({ listCount }: Props) => {
         </BackButton>
       ) : (
         <Link to="/">
-            <Logo>
-              <ImgLogo />
-            </Logo>
+          <Logo>
+            <ImgLogo />
+          </Logo>
         </Link>
       )}
       {chooseHeaderOption()}
     </HeaderUI>
-  );
-};
+  )
+}
 
 type RootState = {
-  shop: any;
-};
+  shop: Shop
+}
 
 export default connect((state: RootState) => ({
   listCount: state.shop.products.length,
-}))(Header);
+}))(Header)

@@ -1,15 +1,16 @@
 import React from 'react'
-import { ProductGrid } from 'components'
-import { H2 } from './Producer.style'
-import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { ProductGrid } from '../../components'
+import { H2 } from './Producer.style'
+import { Producer as ProducerType, App } from '../../types'
 
 type Props = {
-  producers: any[],
+  producers: Array<ProducerType>
 }
 
-const Producer: React.FC<Props> = ({ producers }: Props) => {
-  const { producerID } = useParams<any>()
+const Producer = ({ producers }: Props) => {
+  const { producerID } = useParams<{ producerID: string }>()
   const producer = producers.find(p => p.id === +producerID)
 
   if (!producer) return null
@@ -24,13 +25,13 @@ const Producer: React.FC<Props> = ({ producers }: Props) => {
         <strong> Dois Vizinhos</strong>
       </p>
       <br />
-      <ProductGrid products={producer.lista_produtos} picker={true} />
+      <ProductGrid products={producer.lista_produtos} picker />
     </>
   )
 }
 
 type RootState = {
-  app: any,
+  app: App
 }
 
 export default connect((state: RootState) => ({

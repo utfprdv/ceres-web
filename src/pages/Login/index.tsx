@@ -1,86 +1,83 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { setLocale, string, object, Schema } from 'yup'
+import { pt } from 'yup-locale-pt'
 
-import firebase, { auth } from 'utils/firebase';
+import firebase, { auth } from '../../utils/firebase'
+import LABELFORM from '../../components/LabelForm'
 
-import { useHistory } from 'react-router-dom';
+import { BuildMain, Requisicao, Credenciais } from './Login.style'
 
-import { setLocale, string, object, SchemaOf } from 'yup';
-import { pt } from 'yup-locale-pt';
+import { FormProvider as Form } from '../../components/Form'
 
-import LABELFORM from '../../components/LabelForm';
+import { ReactComponent as Usuario } from '../../images/email.svg'
+import { ReactComponent as Senha } from '../../images/senha.svg'
+import { ReactComponent as Logo } from '../../images/logo.svg'
+import { ReactComponent as Ceres } from '../../images/ceres_logo.svg'
+import { ReactComponent as Google } from '../../images/logo_google.svg'
+import { ReactComponent as Facebook } from '../../images/logo_facebook.svg'
+import { ReactComponent as Apple } from '../../images/logo_apple.svg'
 
-import { BuildMain, Requisicao, Credenciais } from './Login.style';
-
-import { FormProvider as Form } from '../../components/Form';
-
-import { ReactComponent as Usuario } from '../../images/email.svg';
-import { ReactComponent as Senha } from '../../images/senha.svg';
-import { ReactComponent as Logo } from '../../images/logo.svg';
-import { ReactComponent as Ceres } from '../../images/ceres_logo.svg';
-import { ReactComponent as Google } from '../../images/logo_google.svg';
-import { ReactComponent as Facebook } from '../../images/logo_facebook.svg';
-import { ReactComponent as Apple } from '../../images/logo_apple.svg';
-
-setLocale(pt);
+setLocale(pt)
 
 interface ISignIn {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const Login: React.FC = () => {
-  const [loginError, setLoginError] = useState(<span />);
-  const history = useHistory();
+  const [loginError, setLoginError] = useState(<span />)
+  const history = useHistory()
 
   const HandleAuthError = useCallback((error: firebase.auth.AuthError) => {
     switch (error.code) {
       case 'auth/user-disabled':
-        setLoginError(<span>Usuário desativado!</span>);
-        break;
+        setLoginError(<span>Usuário desativado!</span>)
+        break
       case 'auth/invalid-email':
-        setLoginError(<span>Email inválido!</span>);
-        break;
+        setLoginError(<span>Email inválido!</span>)
+        break
       case 'auth/wrong-password':
-        setLoginError(<span>Senha incorreta!</span>);
-        break;
+        setLoginError(<span>Senha incorreta!</span>)
+        break
       case 'auth/too-many-requests':
         setLoginError(
           <span>
             O login para esta conta foi desativado temporariamente pois foi
             feito tentativas repetitivas em pouco tempo!
           </span>,
-        );
-        break;
+        )
+        break
       case 'auth/user-not-found':
-        setLoginError(<span>Usuário não encontrado!</span>);
-        break;
+        setLoginError(<span>Usuário não encontrado!</span>)
+        break
       case 'auth/popup-closed-by-user':
-        break;
+        break
       default:
-        setLoginError(<span>{error.message}</span>);
-        break;
+        setLoginError(<span>{error.message}</span>)
+        break
     }
-  }, []);
+  }, [])
   const redirect = useCallback(() => {
-    history.go(0);
+    history.go(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history]);
+  }, [history])
 
   const HandleOnClickLoginWithProvider = useCallback(
     provider => {
-      auth.signInWithPopup(provider).then(redirect).catch(HandleAuthError);
+      auth.signInWithPopup(provider).then(redirect).catch(HandleAuthError)
     },
     [HandleAuthError, redirect],
-  );
+  )
 
   const handleOnSubmit = useCallback(
     (data: ISignIn) => {
-      const { email, password } = data;
+      const { email, password } = data
 
-      const schema: SchemaOf<ISignIn> = object({
+      const schema: Schema<ISignIn> = object({
         email: string().required().email(),
         password: string().required(),
-      }).defined();
+      }).defined()
 
       schema
         .validate({
@@ -91,14 +88,14 @@ const Login: React.FC = () => {
           auth
             .signInWithEmailAndPassword(email, password)
             .then(redirect)
-            .catch(HandleAuthError);
+            .catch(HandleAuthError)
         })
         .catch(error => {
-          setLoginError(<span>{error.errors[0]}</span>);
-        });
+          setLoginError(<span>{error.errors[0]}</span>)
+        })
     },
     [HandleAuthError, redirect],
-  );
+  )
 
   return (
     <>
@@ -146,7 +143,7 @@ const Login: React.FC = () => {
                   onClick={() => {
                     HandleOnClickLoginWithProvider(
                       new firebase.auth.GoogleAuthProvider(),
-                    );
+                    )
                   }}
                 >
                   <Google />
@@ -160,7 +157,7 @@ const Login: React.FC = () => {
                   onClick={() => {
                     HandleOnClickLoginWithProvider(
                       new firebase.auth.FacebookAuthProvider(),
-                    );
+                    )
                   }}
                 >
                   <Facebook />
@@ -174,7 +171,7 @@ const Login: React.FC = () => {
                   onClick={() => {
                     HandleOnClickLoginWithProvider(
                       new firebase.auth.OAuthProvider('apple.com'),
-                    );
+                    )
                   }}
                 >
                   <Apple />
@@ -190,7 +187,7 @@ const Login: React.FC = () => {
         </Form>
       </BuildMain>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

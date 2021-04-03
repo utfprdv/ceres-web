@@ -1,11 +1,11 @@
-import React from 'react';
-import { ReactComponent as IconSearch } from 'images/search.svg';
-import { Input, InputWrapper, InputIcon } from './InputSearch.style';
+import React from 'react'
+import { ReactComponent as IconSearch } from 'images/search.svg'
+import { Input, InputWrapper, InputIcon } from './InputSearch.style'
 
 type Props = {
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+  placeholder: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
 
 const InputSearch: React.FC<Props> = ({ placeholder, onChange }: Props) => {
   return (
@@ -15,7 +15,7 @@ const InputSearch: React.FC<Props> = ({ placeholder, onChange }: Props) => {
       </InputIcon>
       <Input placeholder={placeholder} onChange={onChange} />
     </InputWrapper>
-  );
-};
+  )
+}
 
-export default InputSearch;
+export default InputSearch

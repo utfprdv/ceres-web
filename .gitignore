@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 
-service-account-file.json
 .firebase
 ui-debug.log
+bundle-size.html

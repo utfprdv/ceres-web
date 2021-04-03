@@ -1,3 +1,3 @@
 export interface CartState {
-  products: number[],
+  products: number[]
 }

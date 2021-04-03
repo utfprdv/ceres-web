@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Container,
   Header,
   Section,
   TakeAwaySection,
   DeliverySection,
-} from './style';
-import { ReactComponent as TakeAway } from '../../images/take-away.svg';
-import { ReactComponent as DeliveryMan } from '../../images/delivery-man-2.svg';
-import { ReactComponent as Plus } from '../../images/plus.svg';
+} from './style'
+import { ReactComponent as TakeAway } from '../../images/take-away.svg'
+import { ReactComponent as DeliveryMan } from '../../images/delivery-man-2.svg'
+import { ReactComponent as Plus } from '../../images/plus.svg'
 
 const Delivery: React.FC = () => {
-  const [isDelivery, setIsDelivery] = useState(false);
+  const [isDelivery, setIsDelivery] = useState(false)
 
   return (
     <Container>
@@ -19,7 +19,7 @@ const Delivery: React.FC = () => {
         <section
           aria-hidden
           onClick={() => {
-            setIsDelivery(false);
+            setIsDelivery(false)
           }}
         >
           <section>
@@ -32,7 +32,7 @@ const Delivery: React.FC = () => {
         <section
           aria-hidden
           onClick={() => {
-            setIsDelivery(true);
+            setIsDelivery(true)
           }}
           className="delivery"
         >
@@ -78,7 +78,7 @@ const Delivery: React.FC = () => {
         </DeliverySection>
       </Section>
     </Container>
-  );
-};
+  )
+}
 
-export default Delivery;
+export default Delivery

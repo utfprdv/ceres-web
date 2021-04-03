@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react';
 import { Switch } from 'react-router-dom';
-import Layout from 'pages/Layout';
 import { connect } from 'react-redux';
-import { LOAD_MARKET } from 'store/contants';
+
+import Layout from '../pages/Layout';
+import { LOAD_MARKET } from '../store/contants';
 import Route from './Route';
 
 const Home = React.lazy(() => import('pages/Home'));
@@ -17,10 +18,14 @@ const Card = React.lazy(() => import('pages/Card'));
 const PhoneConfirmation = React.lazy(() => import('pages/PhoneConfirmation'));
 const Delivery = React.lazy(() => import('pages/Delivery'));
 
-const Routes: React.FC = ({ loadMakerts }: any) => {
+type Props = {
+  loadMarkets: () => void;
+};
+
+const Routes = ({ loadMarkets }: Props) => {
   React.useEffect(() => {
-    loadMakerts();
-  }, [loadMakerts]);
+    loadMarkets();
+  }, [loadMarkets]);
 
   return (
     <Layout>
@@ -37,7 +42,7 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
             path="/confirmacao-telefone"
             exact
             component={PhoneConfirmation}
-            isPrivate
+            // isPrivate
           />
 
           <Route path="/entrega" exact component={Delivery} />
@@ -55,5 +60,7 @@ const Routes: React.FC = ({ loadMakerts }: any) => {
 };
 
 export default connect(null, dispatch => ({
-  loadMakerts: () => dispatch({ type: LOAD_MARKET, payload: 1 }),
+  loadMarkets: () => {
+    dispatch({ type: LOAD_MARKET, payload: 1 });
+  },
 }))(Routes);

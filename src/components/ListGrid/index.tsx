@@ -1,11 +1,12 @@
-import React from 'react';
-import { ReactComponent as IconBin } from 'images/bin.svg';
-import { Grid, Product, RemoveListItem } from './ListGrid.style';
+import React from 'react'
+import { ReactComponent as IconBin } from '../../images/bin.svg'
+import { Grid, Product, RemoveListItem } from './ListGrid.style'
 
 type Props = {
-  products: { id: number, nome: string; imagem_principal: string; }[];
+  // eslint-disable-next-line camelcase
+  products: { id: number; nome: string; imagem_principal: string }[]
   onRemove: (prodID: number) => void
-};
+}
 
 const ListGrid: React.FC<Props> = ({ products, onRemove }: Props) => {
   return (
@@ -14,9 +15,12 @@ const ListGrid: React.FC<Props> = ({ products, onRemove }: Props) => {
         return (
           <Product key={product.nome}>
             <picture>
-              <img src={`https://ceres.app.br/media/${product.imagem_principal}`} alt={product.nome} />
+              <img
+                src={`https://ceres.app.br/media/${product.imagem_principal}`}
+                alt={product.nome}
+              />
             </picture>
-            <div className='nameProduct'>
+            <div className="nameProduct">
               <h3>{product.nome}</h3>
             </div>
             <div>
@@ -25,10 +29,10 @@ const ListGrid: React.FC<Props> = ({ products, onRemove }: Props) => {
               </RemoveListItem>
             </div>
           </Product>
-        );
+        )
       })}
     </Grid>
-  );
-};
+  )
+}
 
-export default ListGrid;
+export default ListGrid

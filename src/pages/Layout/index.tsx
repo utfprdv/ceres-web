@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from './Header';
-import { Main } from './Main.style';
+import React from 'react'
+import Header from './Header'
+import { Main } from './Main.style'
 
 type Props = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
   return (
@@ -12,7 +12,7 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
       <Header />
       <Main>{children}</Main>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

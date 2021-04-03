@@ -1,47 +1,45 @@
-/* eslint-disable react/require-default-props */
-import { useForm } from 'components/Form';
-import React, { createRef, useState } from 'react';
+import React, { useState } from 'react'
+// import { useForm } from '../Form'
+import { LABEL, LABELHEADER } from './style'
 
-import MaskedInput, { maskArray } from 'react-text-mask';
-import { LABEL, LABELHEADER } from './style';
-
-interface Props {
-  mask?: maskArray;
+type Props = {
+  mask?: Array<RegExp | string>
   Icon?: React.FunctionComponent<
     React.SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
+      title?: string | undefined
     }
-  >;
-  Title: string;
-  required?: boolean;
-  type?: string;
-  name: string;
-  isBorderHideable?: boolean;
-  placeholder?: string;
+  >
+  Title: string
+  required?: boolean
+  type?: string
+  name: string
+  isBorderHideable?: boolean
+  placeholder?: string
 }
 
-const LABELFORM: React.FC<Props> = ({
+const LABELFORM = ({
   mask,
+  name,
+  type,
+  placeholder,
   Icon,
   Title,
   required,
-  type,
-  name,
   isBorderHideable = true,
-  placeholder,
-}: Props) => {
-  const [isVisible, setIsVisible] = useState(!isBorderHideable || false);
-  const [isInputFilled, setIsInputFilled] = useState(false);
-  const inputRef: React.RefObject<MaskedInput> = createRef();
-
-  const { setInput } = useForm();
+}: Props): React.ReactElement => {
+  const [isVisible] = useState(!isBorderHideable || false)
+  const [isInputFilled] = useState(false)
+  // const inputRef: React.RefObject<MaskedInput> = createRef()
+  // eslint-disable-next-line no-console
+  console.log(mask, name, placeholder, type)
+  // const { setInput } = useForm()
 
   return (
     <LABEL
       isVisible={isVisible}
       onClick={() => {
         // eslint-disable-next-line no-unused-expressions
-        inputRef.current?.inputElement?.click();
+        // inputRef.current?.inputElement?.click()
       }}
     >
       <div>
@@ -50,7 +48,7 @@ const LABELFORM: React.FC<Props> = ({
           <p>{Title}</p>
           {required ? <p>Obrigatório</p> : <></>}
         </LABELHEADER>
-        <MaskedInput
+        {/* <MaskedInput
           mask={mask || false}
           name={name}
           type={type}
@@ -62,37 +60,42 @@ const LABELFORM: React.FC<Props> = ({
               setInput(
                 name,
                 (inputRef.current.inputElement as HTMLInputElement).value,
-              );
+              )
             }
             if (
               (inputRef?.current?.inputElement as HTMLInputElement).value !==
                 undefined &&
               (inputRef?.current?.inputElement as HTMLInputElement).value !== ''
             ) {
-              setIsInputFilled(true);
+              setIsInputFilled(true)
             } else {
-              setIsInputFilled(false);
+              setIsInputFilled(false)
             }
           }}
           onFocus={() => {
             if (isBorderHideable) {
-              setIsVisible(true);
+              setIsVisible(true)
             }
           }}
           onBlur={() => {
             if (isBorderHideable) {
-              setIsVisible(false);
+              setIsVisible(false)
             }
           }}
-        />
+        /> */}
       </div>
     </LABEL>
-  );
-};
+  )
+}
 
 LABELFORM.defaultProps = {
+  mask: [],
+  Icon: null,
+  // type: 'text',
   required: false,
-  type: 'text',
-};
+  type: '',
+  isBorderHideable: false,
+  placeholder: '',
+}
 
-export default LABELFORM;
+export default LABELFORM

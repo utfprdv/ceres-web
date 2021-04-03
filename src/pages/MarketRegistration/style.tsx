@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const H1 = styled.label`
   font-family: Montserrat;
@@ -7,9 +7,8 @@ export const H1 = styled.label`
   font-size: 16px;
   line-height: 20px;
   text-transform: lowercase;
-
   color: #0d4137;
-`;
+`
 
 export const FORM = styled.form`
   display: block;
@@ -35,14 +34,14 @@ export const FORM = styled.form`
 
     color: #ffffff;
   }
-`;
+`
 
 export const DIV = styled.div`
   margin-bottom: 60px;
-`;
+`
 
 interface DIVFORMProps {
-  isVisible?: boolean;
+  isVisible?: boolean
 }
 
 export const DIVFORM = styled.div<DIVFORMProps>`
@@ -52,4 +51,4 @@ export const DIVFORM = styled.div<DIVFORMProps>`
     css`
       display: block;
     `};
-`;
+`

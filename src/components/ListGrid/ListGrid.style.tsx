@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Grid = styled.section`
   margin-top: 15px;
-`;
+`
 
 export const RemoveListItem = styled.button`
   color: red;
@@ -10,7 +10,7 @@ export const RemoveListItem = styled.button`
   border: 0;
   background: 0;
   margin: 8px;
-`;
+`
 
 export const Product = styled.article`
   background-color: #ffffff;
@@ -37,4 +37,4 @@ export const Product = styled.article`
   h3 {
     margin-left: 10px;
   }
-`;
+`

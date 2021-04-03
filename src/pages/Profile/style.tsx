@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const H1 = styled.label`
   font-family: Montserrat;
@@ -7,14 +7,11 @@ export const H1 = styled.label`
   font-size: 16px;
   line-height: 20px;
   text-transform: lowercase;
-
   color: #0d4137;
-`;
+`
 
 export const Header = styled.div`
-  display: flex;
-
-  > div {
+  display: flex > div {
     > img {
       border-radius: 50px;
     }
@@ -23,7 +20,7 @@ export const Header = styled.div`
   div + div {
     margin-left: 17px;
   }
-`;
+`
 
 export const NameAndStatusBar = styled.div`
   display: block;
@@ -37,14 +34,13 @@ export const NameAndStatusBar = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
     color: #c4c4c4;
   }
-`;
+`
 
 interface StatusBarProps {
-  progress: number;
-  max: number;
+  progress: number
+  max: number
 }
 
 export const StatusBar = styled.div<StatusBarProps>`
@@ -58,7 +54,6 @@ export const StatusBar = styled.div<StatusBarProps>`
     width: 100%;
     max-width: 100px;
     height: 5px;
-
     background: #ffffff;
     border-radius: 7px;
 
@@ -67,7 +62,7 @@ export const StatusBar = styled.div<StatusBarProps>`
         props.progress &&
         css`
           width: ${props.progress}%;
-        `};
+        `}
       max-width: 100px;
       height: 5px;
 
@@ -94,28 +89,28 @@ export const StatusBar = styled.div<StatusBarProps>`
       ${props =>
         props.progress &&
         css`
-            content: '${props.progress}';
-          `};
+          content: '${props.progress}';
+        `}
     }
     .max:after {
       ${props =>
         props.max &&
         css`
-            content: '${props.max}';
-          `};
+          content: '${props.max}';
+        `}
     }
   }
 
   div + p {
     margin-left: 17px;
   }
-`;
+`
 
 export const Body = styled.div`
   margin-top: 30px;
   margin-left: 20px;
   margin-right: 20px;
-`;
+`
 
 export const HeaderBody = styled.div`
   h2 {
@@ -139,7 +134,7 @@ export const HeaderBody = styled.div`
 
     color: rgba(0, 0, 0, 0.5);
   }
-`;
+`
 
 export const ItemDiv = styled.div`
   p {
@@ -152,7 +147,7 @@ export const ItemDiv = styled.div`
 
     color: rgba(0, 0, 0, 0.5);
   }
-`;
+`
 
 export const Notification = styled.div`
   position: absolute;
@@ -175,7 +170,7 @@ export const Notification = styled.div`
 
     color: #ffffff;
   }
-`;
+`
 
 export const MainContent = styled.div`
   width: 100%;
@@ -190,10 +185,9 @@ export const MainContent = styled.div`
       margin: auto;
     }
   }
-`;
+`
 
 export const SignOutButton = styled.button`
-  position: fixed;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -211,4 +205,4 @@ export const SignOutButton = styled.button`
   text-transform: lowercase;
 
   color: #ffffff;
-`;
+`
