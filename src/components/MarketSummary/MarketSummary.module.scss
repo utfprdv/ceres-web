@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.time {
+  font-weight: bold;
+}
+
+.label {
+  font-size: 14px;
+  margin: 0;
+}

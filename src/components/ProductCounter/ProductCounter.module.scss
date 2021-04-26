@@ -1,0 +1,58 @@
+.root {
+  background: white;
+  padding: 16px;
+  border-radius:8px;
+
+  & + .root {
+    margin-top: 16px;
+  }
+}
+
+.title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+.product {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.price {
+  margin-top: 8px;
+  & > * {
+    vertical-align: top;
+    position: relative;
+  }
+}
+
+.integer {
+  font-size: 32px;
+  margin-left: 8px;
+  top: -8px;
+}
+
+.remove {
+  margin-left: 16px;
+  text-align: right;
+  flex: 1;
+}
+
+.removeBtn {
+  background: transparent;
+  border: 0;
+  color: red;
+  padding: 8px 0 8px 8px;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: row-reverse;
+}

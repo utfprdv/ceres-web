@@ -1,0 +1,147 @@
+.root {
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: 0;
+}
+
+.modal {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+  max-height: 40vh;
+}
+
+.close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  border: 0;
+  color: inherit;
+  font-size: 16px;
+  padding: 8px 0 8px 8px;
+  z-index: 2;
+
+  & > svg {
+    margin-left: 8px;
+  }
+}
+.modalTop {
+  position: relative;
+  text-shadow: 0 01px 0 #ccc;
+  color: white;
+  flex: 0 2 auto;
+}
+
+.meta {
+  padding: 24px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  & > h2 {
+    font-size: 32px;
+    font-weight: bold;
+    max-width: 40%;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 150px;
+    background:linear-gradient(0deg, rgba(0,0,0,0.6), transparent);
+    left: 0;
+    z-index: -1;
+  }
+}
+.content {
+  padding: 24px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.price {
+  margin: 0;
+}
+.sign {
+  font-size: 16px;
+  vertical-align: super;
+  position: relative;
+  top: -8px;
+}
+.cents {
+  vertical-align: super;
+  position: relative;
+  top: -8px;
+  font-weight: bold;
+}
+.integer {
+  font-size: 40px;
+  font-weight: bold;
+}
+.title {
+  margin: 0;
+}
+.obs {
+  border: 0;
+  padding: 16px;
+  background: #f2f2f2;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 24px;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+.quantity {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+.addCart {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 32px;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border: 0;
+  background: var(--cta-color);
+  color: white;
+  border-radius: 50px;
+  & > span {
+    text-align: center;
+    flex: 1;
+    font-size: 16px;
+  }
+}
+
+.removeCart {
+  background: var(--cta-color-remove);
+}

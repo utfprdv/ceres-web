@@ -4,16 +4,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 
-import reducers from './store/reducers'
-import sagas from './store/sagas'
+import reducers from 'store/reducers'
+import sagas from 'store/sagas'
 import Routes from './routes'
-import AppProvider from './hooks'
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
-  }
-}
 const sagaMiddleware = createSagaMiddleware()
 
 const middlewares = [sagaMiddleware]
@@ -36,11 +30,9 @@ sagaMiddleware.run(sagas)
 
 const App = (): React.ReactElement => (
   <BrowserRouter>
-    <AppProvider>
-      <Provider store={store}>
-        <Routes />
-      </Provider>
-    </AppProvider>
+    <Provider store={store}>
+      <Routes />
+    </Provider>
   </BrowserRouter>
 )
 

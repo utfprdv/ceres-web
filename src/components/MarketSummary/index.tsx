@@ -1,57 +1,27 @@
+/* eslint-disable no-console */
 import React from 'react'
-import {
-  MarketDetails,
-  MarketTitle,
-  MarketSubtitle,
-} from './MarketSummary.style'
 
-import { Market } from '../../types'
+import { deliveryDate } from 'utils'
 
-type Props = {
-  info: {
-    date: string | undefined
-    amount: number
-    address: string
-    id: number | undefined
-    markets: Array<Market>
-  }
-  onChange: (market: number) => void
-}
+import PlaceButton from '../PlaceButton'
+import style from './MarketSummary.module.scss'
 
-const MarketSummary = ({ info, onChange }: Props): React.ReactElement => (
-  <MarketDetails>
-    <div>
+const MarketSummary = (): React.ReactElement => {
+  return (
+    <aside
+      className={style.root}
+      data-label="Informações sobre cidade e data de entrega"
+    >
       <div>
-        <div>
-          <select
-            className="select"
-            onChange={e => onChange(Number(e.target.value))}
-          >
-            {info.markets.map(market => (
-              <option className="options" value={market.id} key={market.id}>
-                {market.cidade}
-              </option>
-            ))}
-          </select>
-        </div>
-        <MarketSubtitle>{info.address}</MarketSubtitle>
+        <p className={style.label}>próxima entrega</p>
+        <time className={style.time} dateTime="2001-05-15 19:00">
+          {deliveryDate()}
+        </time>
       </div>
-    </div>
-    <div>
-      <MarketTitle>
-        {info.amount}
-        produtos
-      </MarketTitle>
-      <MarketSubtitle>
-        {info.date &&
-          new Intl.DateTimeFormat('pt-br', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          }).format(new Date(info.date))}
-      </MarketSubtitle>
-    </div>
-  </MarketDetails>
-)
+
+      <PlaceButton label="Dois Vizinhos" />
+    </aside>
+  )
+}
 
 export default MarketSummary

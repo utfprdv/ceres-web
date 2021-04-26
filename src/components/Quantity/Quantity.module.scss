@@ -1,0 +1,39 @@
+.root {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+
+  & > * {
+    margin: 0;
+  }
+
+  & > button {
+    border: 0;
+    background: #eee;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    flex: 0 1 auto;
+  }
+
+  & > input {
+    background: white;
+    color: #555;
+    font-size: 16px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: 0;
+    height: 40px;
+    text-align: right;
+    width: 80px;
+  }
+  .unit {
+    padding: 8px 16px;
+  }
+}
+
+.minus {
+  padding: 2px 8px 8px !important;
+}

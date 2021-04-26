@@ -1,192 +1,142 @@
-import React, { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { setLocale, string, object, Schema } from 'yup'
-import { pt } from 'yup-locale-pt'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useHistory, Route, useLocation } from 'react-router-dom'
+import { Logo, FacebookLogo, GoogleLogo } from 'images'
+import * as C from 'store/contants'
+import { post } from 'services/api'
+import { Store } from 'types'
+import { safeParse, isUserLoggedin } from 'utils'
+import classy from 'utils/classy'
 
-import firebase, { auth } from '../../utils/firebase'
-import LABELFORM from '../../components/LabelForm'
+import style from './Login.module.scss'
 
-import { BuildMain, Requisicao, Credenciais } from './Login.style'
-
-import { FormProvider as Form } from '../../components/Form'
-
-import { ReactComponent as Usuario } from '../../images/email.svg'
-import { ReactComponent as Senha } from '../../images/senha.svg'
-import { ReactComponent as Logo } from '../../images/logo.svg'
-import { ReactComponent as Ceres } from '../../images/ceres_logo.svg'
-import { ReactComponent as Google } from '../../images/logo_google.svg'
-import { ReactComponent as Facebook } from '../../images/logo_facebook.svg'
-import { ReactComponent as Apple } from '../../images/logo_apple.svg'
-
-setLocale(pt)
-
-interface ISignIn {
-  email: string
-  password: string
-}
-
-const Login: React.FC = () => {
-  const [loginError, setLoginError] = useState(<span />)
+const Login = (): React.ReactElement => {
+  const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
 
-  const HandleAuthError = useCallback((error: firebase.auth.AuthError) => {
-    switch (error.code) {
-      case 'auth/user-disabled':
-        setLoginError(<span>Usuário desativado!</span>)
-        break
-      case 'auth/invalid-email':
-        setLoginError(<span>Email inválido!</span>)
-        break
-      case 'auth/wrong-password':
-        setLoginError(<span>Senha incorreta!</span>)
-        break
-      case 'auth/too-many-requests':
-        setLoginError(
-          <span>
-            O login para esta conta foi desativado temporariamente pois foi
-            feito tentativas repetitivas em pouco tempo!
-          </span>,
-        )
-        break
-      case 'auth/user-not-found':
-        setLoginError(<span>Usuário não encontrado!</span>)
-        break
-      case 'auth/popup-closed-by-user':
-        break
-      default:
-        setLoginError(<span>{error.message}</span>)
-        break
+  // Echo the cart to facebook/google so we dont lose it on
+  // the back and forth of authentication
+  const storedCart = useSelector((state: Store) => state.cart)
+  const user = useSelector((state: Store) => state.user)
+
+  const state = {
+    cart: storedCart,
+    redirect: location.state,
+  }
+
+  const [loading, setLoading] = useState('')
+  const [hydrated, setHydrated] = useState(false)
+
+  // Facebook and Google will return our cart back
+  useEffect(() => {
+    const { cart, error } = safeParse('state')
+    if (cart && !error && !hydrated) {
+      setHydrated(true)
+      dispatch({ type: C.HYDRATE_CART, payload: cart })
     }
-  }, [])
-  const redirect = useCallback(() => {
-    history.go(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history])
+  }, [dispatch, hydrated])
 
-  const HandleOnClickLoginWithProvider = useCallback(
-    provider => {
-      auth.signInWithPopup(provider).then(redirect).catch(HandleAuthError)
-    },
-    [HandleAuthError, redirect],
-  )
+  useEffect(() => {
+    const code = safeParse('code', false)
+    const { error, provider, redirect = '/' } = safeParse('state')
 
-  const handleOnSubmit = useCallback(
-    (data: ISignIn) => {
-      const { email, password } = data
+    if (code && !error) {
+      history.replace('/login/entrando')
+      post('authenticate/code', {
+        body: JSON.stringify({ code, provider }),
+      }).then(res => {
+        dispatch({ type: C.USER, payload: res })
+        setTimeout(() => {
+          history.replace(redirect)
+        }, 1000)
+      })
+    }
+  }, [dispatch, history])
 
-      const schema: Schema<ISignIn> = object({
-        email: string().required().email(),
-        password: string().required(),
-      }).defined()
-
-      schema
-        .validate({
-          email,
-          password,
-        })
-        .then(() => {
-          auth
-            .signInWithEmailAndPassword(email, password)
-            .then(redirect)
-            .catch(HandleAuthError)
-        })
-        .catch(error => {
-          setLoginError(<span>{error.errors[0]}</span>)
-        })
-    },
-    [HandleAuthError, redirect],
-  )
+  useEffect(() => {
+    if (isUserLoggedin(user)) {
+      history.replace('/')
+    }
+  }, [history, user])
 
   return (
-    <>
-      <BuildMain>
-        <header>
+    <div className={style.root}>
+      <header className={style.header}>
+        <section className={classy(style.section, style.heading)}>
           <div>
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
+            <h1 className={style.title}>Entrar</h1>
+            <p>
+              Encontre produtos frescos
+              <br />
+              de produtores da sua cidade
+            </p>
           </div>
+        </section>
+      </header>
+      <section className={style.section}>
+        <div className={style.buttons}>
+          <Route path="/login/entrando" exact>
+            <div className={classy('getting-ready')}>
+              <div>Preparando nossas gôndolas.. Aguarde um instante...</div>
+            </div>
+          </Route>
 
-          <div>
-            <Ceres />
-          </div>
-        </header>
-        <Form onSubmit={handleOnSubmit}>
-          <Credenciais>
-            <section>
-              <LABELFORM Icon={Usuario} Title="Email" required name="email" />
-            </section>
-
-            <section>
-              <LABELFORM
-                Icon={Senha}
-                Title="Senha"
-                required
-                name="password"
-                type="password"
-              />
-            </section>
-            {loginError}
-          </Credenciais>
-
-          <Requisicao>
-            <section className="button">
-              <div>
-                <button type="submit" className="first">
-                  login
-                </button>
-              </div>
-              <hr />
-              <p>ou faça login com</p>
-              <div>
-                <button
-                  type="button"
-                  className="second"
-                  onClick={() => {
-                    HandleOnClickLoginWithProvider(
-                      new firebase.auth.GoogleAuthProvider(),
-                    )
-                  }}
-                >
-                  <Google />
-                  <div>Google</div>
-                </button>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="second"
-                  onClick={() => {
-                    HandleOnClickLoginWithProvider(
-                      new firebase.auth.FacebookAuthProvider(),
-                    )
-                  }}
-                >
-                  <Facebook />
-                  <div>Facebook</div>
-                </button>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="second"
-                  onClick={() => {
-                    HandleOnClickLoginWithProvider(
-                      new firebase.auth.OAuthProvider('apple.com'),
-                    )
-                  }}
-                >
-                  <Apple />
-                  <div>Apple</div>
-                </button>
-              </div>
-            </section>
-
-            {/* <div className="signUp">
-              <a href="/cadastrar">cadastre-se</a>
-            </div> */}
-          </Requisicao>
-        </Form>
-      </BuildMain>
-    </>
+          <Route path="/login" exact>
+            <button
+              className={classy(style.socialButton, style.facebook)}
+              disabled={!!loading}
+              type="button"
+              onClick={() => {
+                setLoading('facebook')
+                window.location.assign(
+                  `https://www.facebook.com/v10.0/dialog/oauth?client_id=${
+                    process.env.REACT_APP_FACEBOOK_CLIENT
+                  }&redirect_uri=${
+                    window.location.origin
+                  }/login&state=${JSON.stringify({
+                    provider: 'facebook',
+                    ...state,
+                  })}&scope=public_profile,email`,
+                )
+              }}
+            >
+              <FacebookLogo />{' '}
+              {loading === 'facebook' ? (
+                <span>Entrando...</span>
+              ) : (
+                <span>Entrar com Facebook</span>
+              )}
+            </button>
+            <button
+              className={classy(style.socialButton, style.google)}
+              disabled={!!loading}
+              type="button"
+              onClick={() => {
+                setLoading('google')
+                window.location.assign(
+                  `https://accounts.google.com/o/oauth2/v2/auth?scope=openid email profile https%3A//www.googleapis.com/auth/userinfo.profile&include_granted_scopes=true&response_type=code&state=${JSON.stringify(
+                    { provider: 'google', ...state },
+                  )}&redirect_uri=${window.location.origin}/login&client_id=${
+                    process.env.REACT_APP_GOOGLE_CLIENT_ID
+                  }`,
+                )
+              }}
+            >
+              <GoogleLogo />
+              {loading === 'google' ? (
+                <span>Entrando...</span>
+              ) : (
+                <span>Entrar com Google</span>
+              )}
+            </button>
+          </Route>
+        </div>
+      </section>
+    </div>
   )
 }
 

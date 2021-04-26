@@ -1,0 +1,61 @@
+.hamburger {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0;
+  width: 100%;
+}
+
+.dropdown {
+  position: absolute;
+  left: 0;
+  top: 3em;
+  background: white;
+  border-radius: 0.5em;
+  width: 20em;
+  max-width: 90vw;
+  padding: 1em;
+  z-index: 6;
+  box-shadow: 0 1px 4px 0px rgba(0,0,0,0.2);
+  color: var(--brand-color)
+}
+.dropdownOption {
+  display: flex;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  &:hover {
+    background: #fef8f0;
+  }
+}
+.icon {
+  background: #fce4c9;
+  color: var(--cta-color);
+  width: 56px;
+  height: 56px;
+  border-radius: 0.6em;
+  margin-right: 1em;
+  flex: 0 0 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logout {
+  border: 0;
+  background: #e6ebea;
+  font-weight: bold;
+  margin: 8px 0 8px 8px;
+  padding: 0.6em 1.5em;
+  border-radius: 4px;
+}
+.title {
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+.subTitle {
+  font-size: 0.8em;
+  margin: 0;
+}

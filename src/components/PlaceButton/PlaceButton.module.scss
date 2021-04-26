@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: white;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 0;
+  padding-right: 16px;
+}
+.modal {
+  max-width: 300px;
+}
+.icon {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 8px;
+  background: #fcdfcf;
+  border-radius: 4px 0 0 4px;
+  min-width: 35px;
+}
+.innerModal {
+  margin: 24px;
+}
+.button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border: 0;
+  border-radius: 4px;
+  & + .button {
+    margin-top: 16px;
+  }
+}

@@ -1,5 +1,21 @@
 /* eslint-disable camelcase */
+import { compose } from 'redux'
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+  }
+}
+
+export type Cidade = {
+  id: number
+  nome: string
+  uuid: string
+}
+
 export type Address = {
+  cidade_id: number
+  id: number
   endereco_bairro: string
   endereco_cep: string
   endereco_complemento: string
@@ -20,6 +36,9 @@ export type Market = Address &
     nome: string
     telefone: string
     cidade: string
+    products?: {
+      [k: string]: Product
+    }
   }
 
 export type Product = {
@@ -27,28 +46,134 @@ export type Product = {
   nome: string
   descricao: string
   imagem_principal: string
+  quantidade: string // Estoque
+  thumbnail: string
+  preco: string
+  unidade_medida: number // Integer map para kilo/g/litro/unidade
+  unidade: number // Unidade de venda para fazer calculo do preco unidade/preço, 10 unidade/10 reais
 }
 
-export type Shop = {
-  products: Array<number>
+type LoadedData<T> = {
+  [k: string]: T
 }
 
-export type Producer = Address &
-  Contact & {
-    cidade: number
-    id: number
-    lista_produtos: Array<Product>
-    nome: string
-    username: string
-  }
-
-export type App = {
-  markets: Array<Market>
-  producers: Array<Producer>
-  selectedMarket: number
+export type User = {
+  token: string
+  name: string
+  id: string
+  provider: 'facebook' | 'google'
+  addresses: Array<Address>
+  client: number
 }
+
+export type CartItem = Pick<Product, 'id'> & { quantity: number }
+type Cart = { [k: number]: CartItem } // cart hold the IDs of selected products
 
 export type Store = {
-  app: App
-  shop: Shop
+  delivery: null | Address
+  user: User
+  app: {
+    filter: string
+    cities: LoadedData<Cidade>
+    markets: LoadedData<Market>
+    producers: LoadedData<Producer>
+    products: { [k: number]: Product }
+    selectedMarket: number
+    selectedProduct: number
+  }
+  cart: Cart
+}
+
+export type Action<T, U = string> = {
+  type: keyof T
+  payload: U
+}
+
+export type ProductList = Array<Product> &
+  Array<{
+    quantidade: number
+    preco: number
+    produto: 1
+    produtor: number
+    feira: number
+  }>
+
+export type Producer = Contact &
+  Address & {
+    id: number
+    username: string
+    nome: string
+    cidade: number
+    telefone: string
+    lista_produtos: ProductList
+  }
+
+export type CieloResponse = {
+  merchantId: string
+  orderNumber: string
+  softDescriptor: string
+  cart: {
+    discount: {
+      type: string
+      value: 0
+    }
+    items: [
+      {
+        name: string
+        description: string
+        unitPrice: number
+        quantity: number
+        type: 'Asset' | 'Service'
+        sku: string
+        weight: number
+      },
+    ]
+  }
+  shipping: {
+    sourceZipCode: number
+    targetZipCode: number
+    type: string
+    services: [
+      {
+        name: string
+        price: number
+        deadline: number
+      },
+      {
+        name: string
+        price: number
+        deadline: number
+      },
+    ]
+    address: {
+      street: string
+      number: string
+      complement: string
+      district: string
+      city: string
+      state: string
+    }
+  }
+  payment: {
+    boletoDiscount: number
+    debitDiscount: number
+    numberOfPayments: number
+    createdDate: string
+  }
+  customer: {
+    identity: number
+    fullName: string
+    email: string
+    phone: number
+  }
+  options: {
+    antifraudEnabled: boolean
+    returnUrl: string
+  }
+  settings: {
+    checkoutUrl: 'https://cieloecommerce.cielo.com.br/TransactionalVNext/Checkout/Index/afc71f2f-7477-4904-96fa-9fb3df5ac71b'
+    profile: 'CheckoutCielo'
+    integrationType: string
+    version: string
+  }
 }

@@ -1,16 +1,23 @@
 import React from 'react'
+import { useRouteMatch } from 'react-router-dom'
+import classy from 'utils/classy'
 import Header from './Header'
-import { Main } from './Main.style'
+
+import style from './Main.module.scss'
 
 type Props = {
   children: React.ReactNode
 }
 
-const Layout: React.FC<Props> = ({ children }: Props) => {
+const Layout = ({ children }: Props): React.ReactElement => {
+  const isHome = useRouteMatch({ path: '/', exact: true })
+
   return (
     <>
       <Header />
-      <Main>{children}</Main>
+      <main className={classy(style.root, { [style.noSearch]: !isHome })}>
+        {children}
+      </main>
     </>
   )
 }

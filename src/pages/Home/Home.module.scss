@@ -1,0 +1,39 @@
+.root {
+  margin-bottom: 80px;
+}
+
+.productGrid {
+  & > div {
+    display: grid;
+    grid-gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    & + .productGrid {
+      margin-top: 24px;
+    }
+  }
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.checkout {
+  position: fixed;
+  justify-content: space-between;
+  background: var(--cta-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 16px 16px 16px 40px;
+  border-radius: 50px;
+  font-weight: bold;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  z-index: 2;
+}

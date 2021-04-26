@@ -1,98 +1,43 @@
-/* eslint-disable camelcase */
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import {
-  InputSearch,
-  MarketSummary,
-  ProductGrid,
-  LoadingGrid,
-} from '../../components'
-import { H2, OnNotFound } from './Home.styles'
-import { SELECT_MARKET } from '../../store/contants'
-import Utils from '../../services/utils'
-import NotSearch from '../../images/search.png'
-import { Store, App, Producer, Product } from '../../types'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
-type Props = App & {
-  changeMarket: (payload: number) => void
-}
+import { PrivateLink } from 'components'
+import { CtaArrow } from 'images'
+import { Store } from 'types'
+import classy from 'utils/classy'
+import animations from 'styles/animations.module.scss'
+import ProductList from './ProductList'
 
-const Home = ({
-  producers,
-  markets,
-  selectedMarket,
-  changeMarket,
-}: Props): React.ReactElement => {
-  const [filterValue, setFilterValue] = useState('')
+import style from './Home.module.scss'
 
-  const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterValue(e.target.value)
-  }
-
-  const products = React.useMemo(
-    () =>
-      producers.reduce((productsArr: Array<Product>, producer: Producer) => {
-        if (producer.lista_produtos) {
-          return productsArr.concat(...producer.lista_produtos)
-        }
-        return productsArr
-      }, []),
-    [producers],
-  )
-
-  const info = React.useMemo(() => {
-    const market = markets.find(m => m.id === selectedMarket)
-    return {
-      amount: products.length,
-      date: market?.data_fim,
-      address: `${market?.endereco_logradouro}`,
-      id: market?.id,
-      markets,
-    }
-  }, [products.length, markets, selectedMarket])
-
-  const filteredProducts = products.filter((p: Product) =>
-    Utils.filter(p.nome, filterValue),
+const Home = (): React.ReactElement => {
+  const cartCount = useSelector(
+    (state: Store) => Object.keys(state.cart).length,
   )
 
   return (
-    <>
-      <H2>feira online</H2>
-      <p>
-        Selecione seus produtos orgânicos e retire nas feiras de quarta e sexta
-      </p>
-      <br />
-      <InputSearch
-        placeholder="Buscar por produtos"
-        onChange={onFilterChange}
-      />
-      <MarketSummary info={info} onChange={changeMarket} />
-      {!products.length && (
-        <LoadingGrid
-          products={Array(4)
-            .fill([1, 2, 3, 4])
-            .map((i, index) => ({ id: index, slug: `prod-${index}` }))}
-        />
-      )}
-      {filteredProducts.length > 0 ? (
-        <ProductGrid products={filteredProducts} />
-      ) : (
-        <OnNotFound>
-          <img src={NotSearch} alt="" width="250" height="300" />
-        </OnNotFound>
-      )}
-    </>
+    <div className={style.root}>
+      {/* <MarketSummary /> */}
+      <section
+        className={classy(style.productGrid, animations.fadeinModal)}
+        data-label="Produtos"
+      >
+        <ProductList />
+      </section>
+      {cartCount ? (
+        <PrivateLink
+          className={classy(style.checkout, animations.fadein)}
+          to="/carrinho"
+        >
+          <span>Fechar pedido</span>
+          <span>
+            {cartCount} {cartCount > 1 ? 'Itens' : 'Item'}
+          </span>
+          <CtaArrow />
+        </PrivateLink>
+      ) : null}
+    </div>
   )
 }
 
-export default connect(
-  (state: Store) => ({
-    producers: state.app.producers,
-    markets: state.app.markets,
-    selectedMarket: state.app.selectedMarket,
-  }),
-  dispatch => ({
-    changeMarket: (payload: number) =>
-      dispatch({ type: SELECT_MARKET, payload }),
-  }),
-)(Home)
+export default Home
