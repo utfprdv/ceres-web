@@ -2,8 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import mel from 'images/straw.jpeg'
 import { Close, AddCart } from 'images'
 import { Product, Store } from 'types'
 import { UNIDADE, CART_ADD, CART_REMOVE, CLEAR_PRODUCT } from 'store/contants'
