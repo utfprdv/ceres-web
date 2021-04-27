@@ -1,8 +1,5 @@
 import React from 'react'
 import { Check, CardCorner, Add } from 'images'
-
-// TODO: REMOVE
-import mel from 'images/straw.jpeg'
 import classy from 'utils/classy'
 
 import style from './ProductCard.module.scss'
@@ -41,6 +38,7 @@ type Props = {
   title: string
   price: string
   unit: string
+  image: string
 }
 
 const ProductCard = ({
@@ -49,13 +47,14 @@ const ProductCard = ({
   title,
   price,
   unit,
+  image,
 }: Props): React.ReactElement => {
   const [int, cents] = price.split('.')
 
   return (
     <button className={style.item} type="button" onClick={onClick}>
       <div className={classy(style.inner, { [style.selected]: selected })}>
-        <img alt={title} loading="lazy" src={mel} />
+        <img alt={title} loading="lazy" src={image} />
         <div className={style.meta}>
           <h3 className={style.title}>{title}</h3>
           <PriceTag cents={cents} int={int} unit={unit} />
