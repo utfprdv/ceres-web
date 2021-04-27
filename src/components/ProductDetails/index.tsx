@@ -87,7 +87,11 @@ const ProductDetails = (): React.ReactElement | null => {
           >
             fechar <Close />
           </button>
-          <img alt="" className={style.image} src={mel} />
+          <img
+            alt=""
+            className={style.image}
+            src={`/media/${product.imagem_principal}`}
+          />
           <div className={style.meta}>
             <h2>{(products[productId] as Product).nome}</h2>
             <div className={style.price}>
