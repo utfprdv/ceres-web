@@ -17,7 +17,7 @@ const ProductList = (): React.ReactElement => {
         .map((product: Product) => (
           <ProductCard
             key={product.id}
-            image={product.imagem_principal}
+            image={`/media/${product.imagem_principal}`}
             price={product.preco}
             selected={!!cart[product.id]}
             title={product.nome}
