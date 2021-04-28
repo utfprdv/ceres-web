@@ -63,6 +63,10 @@ const ProductDetails = (): React.ReactElement | null => {
   const [priceInt = 0, priceCents = 0] = product.preco?.split('.')
   const [pricing, cents = 0] = value.toFixed(2).split('.')
   const unidade = product.unidade_medida
+  const imagePath =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8000/media'
+      : '/media'
 
   return (
     <div className={style.root} onClick={closeModal}>
@@ -88,7 +92,7 @@ const ProductDetails = (): React.ReactElement | null => {
           <img
             alt=""
             className={style.image}
-            src={`/media/${product.imagem_principal}`}
+            src={`${imagePath}${product.imagem_principal}`}
           />
           <div className={style.meta}>
             <h2>{(products[productId] as Product).nome}</h2>

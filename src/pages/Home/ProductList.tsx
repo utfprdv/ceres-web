@@ -14,19 +14,25 @@ const ProductList = (): React.ReactElement => {
     () =>
       Object.values(products)
         .filter((p: Product) => p.nome.match(new RegExp(filter, 'i')))
-        .map((product: Product) => (
-          <ProductCard
-            key={product.id}
-            image={`/media/${product.imagem_principal}`}
-            price={product.preco}
-            selected={!!cart[product.id]}
-            title={product.nome}
-            unit={`${product.unidade} ${UNIDADE[product.unidade_medida]}`}
-            onClick={() => {
-              dispatch({ type: 'SELECT_PRODUCT', payload: product.id })
-            }}
-          />
-        )),
+        .map((product: Product) => {
+          const imagePath =
+            process.env.NODE_ENV === 'development'
+              ? 'http://localhost:8000/media'
+              : '/media'
+          return (
+            <ProductCard
+              key={product.id}
+              image={`${imagePath}${product.imagem_principal}`}
+              price={product.preco}
+              selected={!!cart[product.id]}
+              title={product.nome}
+              unit={`${product.unidade} ${UNIDADE[product.unidade_medida]}`}
+              onClick={() => {
+                dispatch({ type: 'SELECT_PRODUCT', payload: product.id })
+              }}
+            />
+          )
+        }),
     [products, cart, dispatch, filter],
   )
 

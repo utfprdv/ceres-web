@@ -133,7 +133,7 @@ function* processPayment() {
 }
 
 function* saveLocalCart() {
-  const memoryStore: Store['cart'] = yield (store: Store) => store.cart
+  const memoryStore: Store['cart'] = yield select((store: Store) => store.cart)
   storage.set(C.STORAGE_CART, memoryStore)
 }
 

@@ -11,6 +11,7 @@ import style from './style.module.scss'
 const Home = React.lazy(() => import('pages/Home'))
 const Login = React.lazy(() => import('pages/Login'))
 const Cart = React.lazy(() => import('pages/Cart'))
+const Privacy = React.lazy(() => import('pages/Privacy'))
 
 const Routes = (): React.ReactElement => {
   const product = useSelector((state: Store) => state.app.selectedProduct)
@@ -19,6 +20,7 @@ const Routes = (): React.ReactElement => {
     <Suspense fallback={<div className={style.empty} />}>
       <Switch>
         <Route component={Login} path="/login" />
+        <Route component={Privacy} path="/privacy" />
         <Layout>
           <RoutePrivate component={Cart} path="/carrinho" />
           <Route component={Home} path="/" exact />
