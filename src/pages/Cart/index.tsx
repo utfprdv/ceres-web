@@ -61,7 +61,7 @@ const Cart = (): React.ReactElement => {
           <div>
             <h3 className={style.bold}>Endereço de entrega</h3>
             {delivery ? (
-              <address>{`${delivery.endereco_logradouro}, ${delivery.endereco_numero}, ${delivery.endereco_bairro}`}</address>
+              <address>{`${delivery.endereco_logradouro}, ${delivery.endereco_numero}, ${delivery.endereco_bairro} - ${user.telefone}`}</address>
             ) : null}
             <button
               className={style.addressChange}
@@ -131,6 +131,11 @@ const Cart = (): React.ReactElement => {
       <div className={modalStyle.root} hidden={!openModal}>
         <div className={modalStyle.modal}>
           <div className={style.inner}>
+            <h3 className={style.greetings}>
+              <span>Olá,</span>
+              <br />
+              {user.name}
+            </h3>
             {user.addresses.length ? (
               <>
                 <h4>Selecione endereço:</h4>
@@ -150,7 +155,8 @@ const Cart = (): React.ReactElement => {
                           <p>
                             {`${addr.endereco_logradouro}, ${addr.endereco_numero}`}
                           </p>
-                          <p>{`${addr.endereco_bairro}`}</p>
+                          <p>{addr.endereco_bairro}</p>
+                          <p>{user.telefone}</p>
                         </button>
                       </li>
                     )
@@ -160,8 +166,7 @@ const Cart = (): React.ReactElement => {
               </>
             ) : (
               <div className={style.noAddress}>
-                Você ainda não possui um endereço para entrega, crie um novo
-                endereço abaixo
+                Você ainda não possui um endereço para entrega
               </div>
             )}
             <h6>Novo Endereço</h6>
@@ -173,7 +178,7 @@ const Cart = (): React.ReactElement => {
                 initialValues={{
                   endereco_logradouro: '',
                   endereco_bairro: '',
-                  telefone: '',
+                  telefone: user.telefone || '',
                   endereco_numero: '',
                 }}
                 validate={values => {
@@ -209,6 +214,15 @@ const Cart = (): React.ReactElement => {
                         res: (data: any) => {
                           resetForm()
                           res(data)
+                          dispatch({ type: C.DELIVERY, payload: data })
+                          dispatch({
+                            type: C.USER_UPDATE,
+                            payload: {
+                              ...user,
+                              telefone: address.telefone,
+                            },
+                          })
+                          setOpen(false)
                         },
                         rej,
                       },

@@ -94,6 +94,8 @@ function* processPayment() {
       endereco_numero,
     }: any = store.delivery
 
+    const { telefone } = store.user
+
     const order = {
       cidade: cidade_id,
       client: cliente_id,
@@ -101,7 +103,7 @@ function* processPayment() {
       endereco_complemento,
       endereco_logradouro,
       endereco_numero,
-      phone: '46996304344',
+      phone: telefone,
       products: Object.values(store.cart).reduce(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (acc: Array<any>, curr: CartItem) => {
@@ -120,12 +122,21 @@ function* processPayment() {
     }
 
     if (data && data.token) {
-      const payment: CieloResponse = yield call(post, 'pedidos/checkout', {
-        body: JSON.stringify(order),
-        Authorization: `Token ${data.token}`,
-      })
-
-      yield put({ type: 'PAYMENT_RESPONSE', payload: payment })
+      try {
+        const payment: CieloResponse = yield call(post, 'pedidos/checkout', {
+          body: JSON.stringify(order),
+          Authorization: `Token ${data.token}`,
+        })
+        if (payment.settings.checkoutUrl) {
+          yield put({ type: C.CART_CLEAR })
+          storage.delete(C.STORAGE_CART)
+          window.location.assign(payment.settings.checkoutUrl)
+        }
+        // yield put({ type: 'PAYMENT_RESPONSE', payload: payment })
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err)
+      }
     }
   } catch (error) {
     yield put(actions.error(error))

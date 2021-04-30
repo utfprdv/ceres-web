@@ -4,9 +4,6 @@ import { useDispatch } from 'react-redux'
 import { CartItem, Product } from 'types'
 import * as C from 'store/contants'
 
-// TODO: REMOVE
-import mel from 'images/straw.jpeg'
-
 import style from './ProductCounter.module.scss'
 import Quantity from '../Quantity'
 
@@ -16,6 +13,11 @@ type Props = {
 }
 
 const ProductCounter = ({ product, cartItem }: Props): React.ReactElement => {
+  const imagePath =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8000/media'
+      : '/media'
+
   const dispatch = useDispatch()
   const onChange = useCallback(
     (qnt: number) => {
@@ -36,7 +38,11 @@ const ProductCounter = ({ product, cartItem }: Props): React.ReactElement => {
   return (
     <div className={style.root}>
       <div className={style.product}>
-        <img alt="" className={style.image} src={mel} />
+        <img
+          alt=""
+          className={style.image}
+          src={`${imagePath}${product.imagem_principal}`}
+        />
         <div>
           <h4 className={style.title}>{product.nome}</h4>
           <div className={style.price}>

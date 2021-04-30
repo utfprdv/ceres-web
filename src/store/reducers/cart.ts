@@ -24,6 +24,7 @@ const actions: { [k: string]: (...args: any[]) => CartType } = {
     }
   },
   [C.HYDRATE_CART]: (_state: CartType, cart: CartType) => cart,
+  [C.CART_CLEAR]: () => initialState.cart,
 }
 
 const cart = (

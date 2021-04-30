@@ -2,6 +2,8 @@ export const CART_ADD = '@CART/ADD'
 export const CART_REMOVE = '@CART/REMOVE'
 export const CART_UPDATE = '@CART/UPDATE'
 export const DELIVERY = '@CART/DELIVERY'
+export const CART_CLEAR = '@CART/CART_CLEAR'
+
 export const ADD_ADDRESS = '@APP/ADD_ADDRESS'
 export const NEW_ADDRESS = '@APP/NEW_ADDRESS'
 

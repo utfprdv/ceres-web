@@ -3,6 +3,7 @@ import { Store } from '../types'
 const initialState: Store = {
   delivery: null,
   user: {
+    telefone: '',
     token: '',
     name: '',
     id: '',

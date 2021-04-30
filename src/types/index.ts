@@ -64,6 +64,7 @@ export type User = {
   provider: 'facebook' | 'google'
   addresses: Array<Address>
   client: number
+  telefone: string
 }
 
 export type CartItem = Pick<Product, 'id'> & { quantity: number }
