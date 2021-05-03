@@ -11,6 +11,8 @@ const actions: ActionsType = {
     return {
       ...state,
       ...address,
+      cidade_id: address.cidade,
+      client: address.cliente,
     }
   },
 }

@@ -87,7 +87,8 @@ function* processPayment() {
 
     const {
       cidade_id,
-      cliente_id,
+      cliente,
+      client,
       endereco_bairro,
       endereco_complemento,
       endereco_logradouro,
@@ -98,7 +99,7 @@ function* processPayment() {
 
     const order = {
       cidade: cidade_id,
-      client: cliente_id,
+      client: client || cliente,
       endereco_bairro,
       endereco_complemento,
       endereco_logradouro,

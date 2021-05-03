@@ -15,6 +15,9 @@ export type Cidade = {
 
 export type Address = {
   cidade_id: number
+  cidade: number
+  client: number
+  cliente: number
   id: number
   endereco_bairro: string
   endereco_cep: string

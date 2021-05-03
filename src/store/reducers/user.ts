@@ -23,6 +23,8 @@ const actions: { [k: string]: (...args: any[]) => UserType } = {
   [C.NEW_ADDRESS]: (state: UserType, payload) => {
     const updatedUser = {
       ...state,
+      cidade_id: payload.cidade,
+      client: payload.cliente,
       addresses: [...state.addresses, payload],
     }
     storage.set(C.STORAGE_USER, updatedUser)
