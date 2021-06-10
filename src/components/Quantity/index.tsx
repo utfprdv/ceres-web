@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Add, Remove } from 'images'
 
+import { MySwal } from 'components/MyAlert'
 import style from './Quantity.module.scss'
 
 type Props = {
@@ -21,17 +22,40 @@ const Quantity = ({
 }: Props): React.ReactElement => {
   const [quantity, setQuantity] = useState(defaultValue)
 
+  const handleRemoveClick = useCallback(() => {
+    if (quantity > 1) {
+      setQuantity(val => (val > 0 ? val - step : val))
+    } else {
+      MySwal.fire({
+        title: (
+          <h3
+            style={{
+              color: '#0d4136',
+              fontFamily: 'Montserrat, sans-serif',
+            }}
+          >
+            Deseja retirar o produto do seu carrinho?
+          </h3>
+        ),
+        confirmButtonText: 'Não',
+        confirmButtonColor: '#0d4136',
+        denyButtonText: 'Sim',
+        showDenyButton: true,
+      }).then(res => {
+        if (res.isDenied) {
+          setQuantity(val => (val > 0 ? val - step : val))
+        }
+      })
+    }
+  }, [quantity, step])
+
   useEffect(() => {
     onChange(quantity)
   }, [quantity, onChange])
 
   return (
     <div className={style.root}>
-      <button
-        className={style.minus}
-        type="button"
-        onClick={() => setQuantity(val => (val > 0 ? val - step : val))}
-      >
+      <button className={style.minus} type="button" onClick={handleRemoveClick}>
         <Remove />
       </button>
       <input
