@@ -21,13 +21,17 @@ const ProductCounter = ({ product, cartItem }: Props): React.ReactElement => {
   const dispatch = useDispatch()
   const onChange = useCallback(
     (qnt: number) => {
-      dispatch({
-        type: C.CART_UPDATE,
-        payload: {
-          id: cartItem.id,
-          quantity: qnt,
-        },
-      })
+      if (qnt > 0) {
+        dispatch({
+          type: C.CART_UPDATE,
+          payload: {
+            id: cartItem.id,
+            quantity: qnt,
+          },
+        })
+      } else {
+        dispatch({ type: C.CART_REMOVE, payload: cartItem.id })
+      }
     },
     [dispatch, cartItem.id],
   )
