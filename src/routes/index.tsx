@@ -12,6 +12,7 @@ const Home = React.lazy(() => import('pages/Home'))
 const Login = React.lazy(() => import('pages/Login'))
 const Cart = React.lazy(() => import('pages/Cart'))
 const Privacy = React.lazy(() => import('pages/Privacy'))
+const History = React.lazy(() => import('pages/History'))
 
 const Routes = (): React.ReactElement => {
   const product = useSelector((state: Store) => state.app.selectedProduct)
@@ -22,6 +23,7 @@ const Routes = (): React.ReactElement => {
         <Route component={Login} path="/login" />
         <Route component={Privacy} path="/privacy" />
         <Layout>
+          <RoutePrivate component={History} path="/historico" />
           <RoutePrivate component={Cart} path="/carrinho" />
           <Route component={Home} path="/" exact />
         </Layout>
