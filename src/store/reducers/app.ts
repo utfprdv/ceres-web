@@ -1,5 +1,13 @@
 import * as C from '../contants'
-import { Store, Action, Cidade, Market, Producer, Product } from '../../types'
+import {
+  Store,
+  Action,
+  Cidade,
+  Market,
+  Producer,
+  Product,
+  History,
+} from '../../types'
 import initialState from '../initiaState'
 
 type AppType = Store['app']
@@ -7,6 +15,15 @@ type AppType = Store['app']
 type ActionsType = { [k: string]: (...args: any[]) => AppType }
 
 const actions: ActionsType = {
+  [C.LOAD_HISTORY]: (state: AppType, history: Array<History>): AppType => {
+    return {
+      ...state,
+      history: history.reduce((acc, curr) => {
+        acc[curr.id] = curr
+        return acc
+      }, {} as AppType['history']),
+    }
+  },
   [C.LOAD_CITIES]: (state: AppType, citites: Array<Cidade>): AppType => {
     return {
       ...state,

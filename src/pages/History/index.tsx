@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 import React from 'react'
+import style from './History.module.scss'
 
 const Cart = (): React.ReactElement => {
   const data = [
@@ -57,11 +58,11 @@ const Cart = (): React.ReactElement => {
 
   return (
     <>
-      <header>Últimas compras</header>
+      <header className={style.header}>Últimas compras</header>
       {data.map(order => (
-        <section>
-          <section>
-            <h3>Número do pedido {order.id}</h3>
+        <section className={style.orderSection}>
+          <section className={style.orderInfo}>
+            <h3>Código do pedido {order.id}#</h3>
             <div>
               <h4>Endereço</h4>
               <h5>Bairro {order.endereco_bairro}</h5>
@@ -85,9 +86,9 @@ const Cart = (): React.ReactElement => {
               <h5>Telefone {order.phone}</h5>
             </div>
           </section>
-          <section>
+          <section className={style.orderInfo}>
             <h3>Itens do pedido</h3>
-            <ul>
+            <ul className={style.itemList}>
               {order.item_list.map(item => (
                 <li>
                   <h4>Item {item.id}</h4>

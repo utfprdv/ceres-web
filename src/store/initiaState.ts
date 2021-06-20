@@ -15,6 +15,7 @@ const initialState: Store = {
     filter: '',
     products: {},
     cities: {},
+    history: {},
     markets: {},
     producers: {},
     selectedMarket: 0,
