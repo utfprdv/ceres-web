@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { HistoryItemList, Store } from 'types'
 import style from './History.module.scss'
 
 const Cart = (): React.ReactElement => {
-  const data = [
-    {
+  const history = {
+    1: {
       id: 1,
       endereco_bairro: 'a',
       endereco_logradouro: 'a',
@@ -38,7 +40,7 @@ const Cart = (): React.ReactElement => {
         },
       ],
     },
-    {
+    2: {
       id: 3,
       endereco_bairro: 'a',
       endereco_logradouro: 'a',
@@ -54,67 +56,73 @@ const Cart = (): React.ReactElement => {
       phone: '45991034202',
       item_list: [],
     },
-  ]
+  }
+  // for testing only
+  // const history = useSelector((state: Store) => state.app.history)
+  const historyKeys = Object.keys(history)
 
   return (
     <>
       <header className={style.header}>Últimas compras</header>
-      {data.map(order => (
-        <section className={style.orderSection}>
-          <section className={style.orderInfo}>
-            <h3>Código do pedido {order.id}#</h3>
-            <div>
-              <h4>Endereço</h4>
-              <h5>Bairro {order.endereco_bairro}</h5>
-              <h5>Logradouro {order.endereco_logradouro}</h5>
-              <h5>Numero {order.endereco_logradouro}</h5>
-              <h5>Complemento {order.endereco_complemento}</h5>
-              <h5>Cep {order.endereco_cep}</h5>
-            </div>
-            <div>
-              <h4>Endereço</h4>
-              <h5>Pedido realizado em {order.created_at}</h5>
-              <h5>Última atualização {order.updated_at}</h5>
-            </div>
-            <div>
-              <h4>Estado do pedido</h4>
-              <h5>Estado da entrega {order.status_delivery}</h5>
-              <h5>Estado do pagamento {order.status_payment}</h5>
-            </div>
-            <div>
-              <h4>Contato</h4>
-              <h5>Telefone {order.phone}</h5>
-            </div>
-          </section>
-          <section className={style.orderInfo}>
-            <h3>Itens do pedido</h3>
-            <ul className={style.itemList}>
-              {order.item_list.map(item => (
-                <li>
-                  <h4>Item {item.id}</h4>
-                  <section>
-                    <h5>Preço unitário {item.preco}</h5>
-                    <h5>Quantidade {item.quantidade}</h5>
-                  </section>
-                  {item.produto.map(product => (
+      {historyKeys.map(order => {
+        const currentOrder = history[Number(order) as 1 | 2]
+        return (
+          <section className={style.orderSection}>
+            <section className={style.orderInfo}>
+              <h3>Código do pedido {currentOrder.id}#</h3>
+              <div>
+                <h4>Endereço</h4>
+                <h5>Bairro {currentOrder.endereco_bairro}</h5>
+                <h5>Logradouro {currentOrder.endereco_logradouro}</h5>
+                <h5>Numero {currentOrder.endereco_logradouro}</h5>
+                <h5>Complemento {currentOrder.endereco_complemento}</h5>
+                <h5>Cep {currentOrder.endereco_cep}</h5>
+              </div>
+              <div>
+                <h4>Endereço</h4>
+                <h5>Pedido realizado em {currentOrder.created_at}</h5>
+                <h5>Última atualização {currentOrder.updated_at}</h5>
+              </div>
+              <div>
+                <h4>Estado do pedido</h4>
+                <h5>Estado da entrega {currentOrder.status_delivery}</h5>
+                <h5>Estado do pagamento {currentOrder.status_payment}</h5>
+              </div>
+              <div>
+                <h4>Contato</h4>
+                <h5>Telefone {currentOrder.phone}</h5>
+              </div>
+            </section>
+            <section className={style.currentOrderInfo}>
+              <h3>Itens do pedido</h3>
+              <ul className={style.itemList}>
+                {currentOrder.item_list.map((item: HistoryItemList) => (
+                  <li>
+                    <h4>Item {item.id}</h4>
                     <section>
-                      <h4>Produto {product.id}</h4>
-                      <div>
-                        <img
-                          alt="imagem principal"
-                          src={product.imagem_principal}
-                        />
-                        <h5>Nome {product.nome}</h5>
-                        <h5>Quantidade {product.descricao}</h5>
-                      </div>
+                      <h5>Preço unitário {item.preco}</h5>
+                      <h5>Quantidade {item.quantidade}</h5>
                     </section>
-                  ))}
-                </li>
-              ))}
-            </ul>
+                    {item.produto.map(product => (
+                      <section>
+                        <h4>Produto {product.id}</h4>
+                        <div>
+                          <img
+                            alt="imagem principal"
+                            src={product.imagem_principal}
+                          />
+                          <h5>Nome {product.nome}</h5>
+                          <h5>Quantidade {product.descricao}</h5>
+                        </div>
+                      </section>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </section>
           </section>
-        </section>
-      ))}
+        )
+      })}
     </>
   )
 }

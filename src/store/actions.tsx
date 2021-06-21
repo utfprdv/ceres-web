@@ -28,8 +28,8 @@ export const loadCities = (
 })
 
 export const loadHistory = (
-  history: Array<Cidade>,
-): ActionReturn<typeof C.LOAD_HISTORY, Array<Cidade>> => ({
+  history: Array<History>,
+): ActionReturn<typeof C.LOAD_HISTORY, Array<History>> => ({
   type: C.LOAD_HISTORY,
   payload: history,
 })
