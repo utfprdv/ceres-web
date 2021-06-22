@@ -12,6 +12,39 @@ export type Cidade = {
   nome: string
   uuid: string
 }
+export interface HistoryItemList {
+  id: number
+  order_id: number
+  produto_id: number
+  quantidade: number
+  preco: number
+  produto: HistoryProduto[]
+}
+
+export interface HistoryProduto {
+  id: number
+  nome: string
+  descricao: string
+  imagem_principal: string
+  unidade: number
+}
+
+export interface History {
+  id: number
+  endereco_bairro: string
+  endereco_logradouro: string
+  endereco_numero: number
+  endereco_complemento: string
+  endereco_cep: string
+  cidade_id: number
+  client_id: number
+  created_at: string
+  updated_at: string
+  status_delivery: number
+  status_payment: number
+  phone: string
+  item_list: HistoryItemList[]
+}
 
 export type Address = {
   cidade_id: number
@@ -79,6 +112,7 @@ export type Store = {
   app: {
     filter: string
     cities: LoadedData<Cidade>
+    history: LoadedData<History>
     markets: LoadedData<Market>
     producers: LoadedData<Producer>
     products: { [k: number]: Product }

@@ -27,6 +27,13 @@ export const loadCities = (
   payload: cities,
 })
 
+export const loadHistory = (
+  history: Array<History>,
+): ActionReturn<typeof C.LOAD_HISTORY, Array<History>> => ({
+  type: C.LOAD_HISTORY,
+  payload: history,
+})
+
 type loadedProducers = Array<Producer>
 
 export const loadProducers = (

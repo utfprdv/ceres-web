@@ -80,6 +80,23 @@ function* loadCities() {
   }
 }
 
+function* loadHistory() {
+  try {
+    const { data } = storage.get(C.STORAGE_USER, JSON.parse)
+    if (data && data.token) {
+      // need review for authorization
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const history: Array<History> = yield call(get, 'history', {
+        Authorization: `Token ${data.token}`,
+      })
+      yield put(actions.loadHistory(history))
+    }
+  } catch (error) {
+    yield put(actions.error(error))
+  }
+}
+
 function* processPayment() {
   try {
     const { data } = storage.get(C.STORAGE_USER, JSON.parse)
@@ -200,5 +217,10 @@ function* bootstrap() {
 }
 
 export default function* rootSaga(): Generator {
-  yield all([fork(bootstrap), fork(loadCities), watchPayment()])
+  yield all([
+    fork(bootstrap),
+    fork(loadCities),
+    fork(loadHistory),
+    watchPayment(),
+  ])
 }
